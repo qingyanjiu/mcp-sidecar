@@ -1,0 +1,74 @@
+version: '3.9'
+services:
+  media-server:
+    image: qingyanjiu/media-server
+    ports:
+      - "1935:1935"
+      - "48080:48080"
+      - "8554:554"
+      - "30000-30500:30000-30500/tcp"
+      - "30000-30500:30000-30500/udp"
+      - "8000:8000/udp"
+      - "18081:18081"
+    environment:
+      - "MEDIA_SERVER_ID=1"
+      - "HOOK_SERVER=ai-wrapper:18080"
+      - "EXTERNAL_IP=10.204.26.145"
+      - "MONITOR_IP=transcode-monitor"
+      - "SELF_IP=media-server"
+      - "REDIS_IP=10.204.26.145"
+      - "REDIS_PORT=6379"
+#    volumes:
+#      - /root/media/www/record:/opt/media/bin/www/record
+    command: ["sh", "-c", "sh start-server.sh"]
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 4G
+    networks:
+      - connector
+    depends_on:
+      - transcode-monitor
+
+  ai-wrapper:
+    image: qingyanjiu/ai-wrapper
+    ports:
+      - "18080:18080"
+      - "5060:5060/tcp"
+      - "5060:5060/udp"
+    environment:
+      - "MONITOR_IP=transcode-monitor"
+      - "SELF_IP=ai-wrapper"
+      - "MEDIA_SERVER_IP=10.204.26.145"
+      - "STREAM_IP=10.204.26.145"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 4G
+    networks:
+      connector:
+        ipv4_address: "172.180.0.4"
+    mac_address: "02:42:AC:12:00:04"
+    volumes:
+      - ./docker-compose-config:/app/config
+    depends_on:
+      - media-server
+      - transcode-monitor
+
+  transcode-monitor:
+    image: alaien/transcode-monitor:2022.6.24
+    ports:
+      - "8000:8000"
+    networks:
+      - connector
+
+networks:
+  connector:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.180.0.0/24"

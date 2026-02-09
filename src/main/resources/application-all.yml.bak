@@ -1,0 +1,142 @@
+spring:
+  application:
+    name: ai-wrapper
+  profiles:
+    active: local
+
+  boot:
+    admin:
+      client:
+        #spa的地址
+        url: http://${monitorIp:127.0.0.1}:8000
+        instance:
+          #自己的地址
+          service-url: http://${selfIp:127.0.0.1}:18070
+          prefer-ip: true
+        username: admin
+        password: hxkj2022
+
+management:
+  server:
+    port: 9970
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log
+
+mybatis:
+  mapper-locations:
+    - classpath:mappers/*.xml
+
+server:
+  compression:
+    min-response-size: 1024
+    enabled: true
+
+ai:
+  # python AI脚本的目录路径（可以把AI所有脚本打包后都放到一个目录下，再通过不同的目录去区分）
+  py-script-base-path: D:\dev\AI-NLP\yolo_ocr
+#  yolov7识别切图后保存路径以及ocr识别的保存路径 前缀
+  img-save-path: d:\tmp\ai
+  yolov7:
+    #    python进程名字，防止conda activte报错，直接将环境路径放入PATH，windows下可以重命名python可执行文件名字，linux下可增加软连接
+    pythonName: python-yolov7
+    #    yaml配置文件路径
+    configFilePath: zeta-object-detect\yolov7\config.yaml
+    #      推流的默认服务器
+    pushUrlBase: rtmp://43.142.85.176:1935/detect/
+    pushFps: 20
+    pushWidth: 1280
+    pushHeight: 720
+    algs:
+      # 交通流量识别
+      trafficFlow:
+        # 脚本文件路径
+        pyPath: zeta-object-detect\yolov7\detect_stream_for_java_call.py
+        # 权重文件路径
+        weights: D:\yolov7.pt
+        # 使用的设备 0 1 2 GPU | cpu CPU
+        device: cpu
+        # 需要检测的类型 2-car 5-bus
+        classes: 2 5 7
+      # 人群密度识别
+      personCrowd:
+        # 脚本文件路径
+        pyPath: zeta-object-detect\yolov7\detect_stream_for_java_call.py
+        # 权重文件路径
+        weights: D:\yolov7.pt
+        # 使用的设备 0 1 2 GPU | cpu CPU
+        device: 0
+        # 需要检测的类型 0-person
+        classes: 0
+      # 口罩识别
+      mask:
+        # 脚本文件路径
+        pyPath: zeta-object-detect\yolov7\detect_stream_for_java_call.py
+        # 权重文件路径
+        weights: D:\yolov7-mask.pt
+        # 使用的设备 0 1 2 GPU | cpu CPU
+        device: 0
+        # 需要检测的类型所有，所以不设置classes
+#        classes: 0
+      # 明火检测
+      fireAndSmoke:
+        # 脚本文件路径
+        pyPath: zeta-object-detect\yolov7\detect_stream_for_java_call.py
+        # 权重文件路径
+        weights: D:\yolov7-fire-smoke.pt
+        # 使用的设备 0 1 2 GPU | cpu CPU
+        device: 0
+        # 需要检测的类型所有，所以不设置classes
+#        classes: 0
+      # 票据切割
+      invoiceCut:
+        # 脚本文件路径
+        pyPath: yolov7\detect_image_for_ticket.py
+        # 权重文件路径
+        weights: D:\yolov7-invoice.pt
+        # 使用的设备 0 1 2 GPU | cpu CPU
+        device: cpu
+        # 需要检测的类型
+        # 0 VAT invoices
+        # 1 Train ticket
+        # 2 Other
+        # 3 Aircraft itinerary
+        classes: 0 1 2 3
+
+  video-quality-detection:
+    #    python进程名字，防止conda activte报错，直接将环境路径放入PATH，windows下可以重命名python可执行文件名字，linux下可增加软连接
+    pythonName: python-vqd
+    # 脚本文件路径
+    pyPath: zeta-video-quality\main.py
+    #    yaml配置文件路径
+    configFilePath: zeta-video-quality\config.yaml
+    #    分类模型（efficientNet）权重json文件路径
+    weightJsonPath: zeta-video-quality\efficientNet\class_indices.json
+    #    分类模型（efficientNet）权重文件路径
+    weightPath: zeta-video-quality\weight\efficientnet.ckpt
+    #    阈值 [0]:亮度,[1]:色偏,[2]:對比度,[3]:清晰度,[4]:凍結l,[5]:丢失
+    threshold:
+      - 1
+      - 2.28
+      - 57
+      - 100
+      - 1.0
+      - 90
+
+  invoice-ocr:
+    #    python进程名字，防止conda activte报错，直接将环境路径放入PATH，windows下可以重命名python可执行文件名字，linux下可增加软连接
+    pythonName: python-ocr
+    # 脚本文件路径
+    pyPath: chineseocr\read_invoice.py
+
+

@@ -1,0 +1,76 @@
+spring:
+    application:
+        name: ai-wrapper
+    profiles:
+        active: local
+
+    boot:
+        admin:
+            client:
+                #spa的地址
+                url: http://${monitorIp:127.0.0.1}:8000
+                instance:
+                    #自己的地址
+                    service-url: http://${selfIp:127.0.0.1}:9970
+                    prefer-ip: true
+                username: admin
+                password: hxkj2022
+
+    kafka:
+        bootstrap-servers: localhost:9092
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+management:
+    server:
+        port: 9970
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        enabled-by-default: true
+        web:
+            base-path: /actuator
+            exposure:
+                include: '*'
+
+logging:
+    file:
+        name: logs/${spring.application.name}/info.log
+
+mybatis-plus:
+    type-handlers-package: com.hx.gd.typehandler
+    configuration:
+        map-underscore-to-camel-case: true
+    mapper-locations:
+        - classpath:mappers/*.xml
+
+server:
+    compression:
+        min-response-size: 1024
+        enabled: true
+
+springdoc:
+    api-docs:
+        enabled: true
+        path: /v3/api-docs    # 默认即可，不建议改动，swagger UI 会自动请求这个地址
+    swagger-ui:
+        enabled: true
+        operations-sorter: alpha   # 接口按字母排序
+        tags-sorter: alpha         # tag排序
+        display-request-duration: true  # 显示请求耗时
+
+
+# 配置监测系统磁盘时，挂载点的列表，按照列表去获取磁盘容量，否则统计的磁盘总量会不准
+# 需要检测的挂载点逗号隔开
+system-monitor:
+    diskMountPaths:
+        - /
+        - /data
+
+monitor:
+    gpu:
+        cmd:
+            rocm: rocm-smi
+
