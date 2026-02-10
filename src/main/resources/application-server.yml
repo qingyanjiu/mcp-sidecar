@@ -78,3 +78,8 @@ server:
 # [可选] 日志配置, 一般不需要改
 logging:
     config: classpath:logback-spring-local.xml
+
+mcp:
+    servers:
+        platform:
+            baseUrl: http://10.204.20.159:9401/platform
