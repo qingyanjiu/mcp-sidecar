@@ -81,4 +81,4 @@ logging:
 mcp:
     servers:
         platform:
-           baseUrl: http://10.204.20.159:9401/platform
+           baseUrl: http://localhost:9300/platform

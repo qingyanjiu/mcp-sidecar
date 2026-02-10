@@ -1,0 +1,33 @@
+package com.hx.mcpsidecar.service;
+
+import com.alibaba.fastjson.JSON;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+/**
+ * 路径规划mcp工具集 - 来自polatform平台
+ */
+@Service
+public class PlatformPathFindMcpService {
+
+    private static final String TOOL_NAME_PREFIX = "path_find_service:";
+    private static final String TOOL_DESC_PREFIX = "路径规划类服务:";
+
+    @Autowired
+    @Qualifier("platformApiCallServiceImpl")
+    private ApiCallService platformApiCallServiceImpl;
+
+    @McpTool(
+        name = TOOL_NAME_PREFIX + "getPathFindGridList",
+        description = TOOL_DESC_PREFIX + """
+            查询路径规划配置列表,返回值是一个二维数据，代表空间内墙体的矩阵；1代表可以通过（是道路），0代表不能通过（是墙）
+            """
+    )
+    public String getPathFindGridList() {
+        String url = platformApiCallServiceImpl.getBaseUrl() + "/visualPathFindGrid/listOnly";
+        Object result = platformApiCallServiceImpl.doGetCall(url);
+        return JSON.toJSONString(result);
+    }
+}

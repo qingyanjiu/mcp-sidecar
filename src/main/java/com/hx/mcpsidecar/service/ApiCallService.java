@@ -1,6 +1,5 @@
 package com.hx.mcpsidecar.service;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -8,7 +7,9 @@ import java.util.Map;
  */
 public interface ApiCallService<T> {
 
-    Object doGetCall(String url, Class<T> clazz);
+    Object doGetCall(String url);
 
-    Object doPostCall(String url, Map<String, Object> data, Class<T> clazz);
+    Object doPostCall(String url, Map<String, Object> data);
+
+    String getBaseUrl();
 }

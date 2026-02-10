@@ -1,7 +1,9 @@
 package com.hx.mcpsidecar.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.mcpsidecar.model.McpServerProperties;
 import com.hx.mcpsidecar.model.PlatformResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class ApiCallServiceImpl extends AbstractApiCallService implements ApiCallService<PlatformResponse> {
+public class PlatformApiCallServiceImpl extends AbstractApiCallService implements ApiCallService<PlatformResponse> {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -25,46 +28,45 @@ public class ApiCallServiceImpl extends AbstractApiCallService implements ApiCal
     @Autowired
     private McpServerProperties mcpApiProperties;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public String getBaseUrl() {
+        String baseUrl = mcpApiProperties.getServers().get(getServerName()).get("baseUrl").toString();
+        return baseUrl;
+    }
+
     @Override
     public void login() {
-        String baseUrl = mcpApiProperties.getServers().get(getServerName()).get("baseUrl").toString();
-        URI uri = URI.create(baseUrl + "/login" + "?username=hexinadmin&password=123456&login_type=1");
+        URI uri = URI.create(getBaseUrl() + "/login" + "?username=hexinadmin&password=123456&login_type=1");
         ResponseEntity<PlatformResponse> responseEntity = restTemplate.postForEntity(uri, null, PlatformResponse.class);
         PlatformResponse resp = responseEntity.getBody();
         Assert.isTrue(resp.getData() != null && resp.getStatus().equals("1"), "登录请求失败");
-        String accessToken = ((Map)resp.getData()).get("accessToken").toString();
+        String accessToken = ((Map)resp.getData()).get("token").toString();
         long timestamp = new Date().getTime();
         tokenMap.put("token", accessToken);
         tokenMap.put("expire", timestamp + getTokenExpiration());
     }
 
     @Override
-    public Object doGetCall(String url, Class<PlatformResponse> clazz) {
+    public Object doGetCall(String url) {
         HttpHeaders headers = initHeaderAuthorization();
         HttpEntity<Void> request = new HttpEntity<>(headers);
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
-        PlatformResponse platformResp = (PlatformResponse) response.getBody();
+        log.info("GET请求[{}]成功获取到数据", url);
+        PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }
 
     @Override
-    public Object doPostCall(String url, Map<String, Object> data, Class<PlatformResponse> clazz) {
+    public Object doPostCall(String url, Map<String, Object> data) {
         HttpHeaders headers = initHeaderAuthorization();
-        // 请求体（可以是 Map / DTO / JSON String）
-        Map<String, Object> body = new HashMap<>();
-        body.put("name", "Tom");
-        body.put("age", 18);
         // 封装请求
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(data, headers);
         // 发送 POST
-        ResponseEntity<PlatformResponse> response =
-            restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                request,
-                clazz
-            );
-        PlatformResponse platformResp = (PlatformResponse) response.getBody();
+        ResponseEntity<Map> response =
+            restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
+        PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }
 }
