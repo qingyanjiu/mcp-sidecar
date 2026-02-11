@@ -15,6 +15,9 @@ public class PlatformPathFindMcpService {
     private static final String TOOL_NAME_PREFIX = "path_find_service:";
     private static final String TOOL_DESC_PREFIX = "路径规划类服务:";
 
+    // 查询路径规划配置列表接口URL
+    public static final String PATH_FIND_GRID_LIST_URL = "/visualPathFindGrid/listOnly";
+
     @Autowired
     @Qualifier("platformApiCallServiceImpl")
     private ApiCallService platformApiCallServiceImpl;
@@ -26,7 +29,7 @@ public class PlatformPathFindMcpService {
             """
     )
     public String getPathFindGridList() {
-        String url = platformApiCallServiceImpl.getBaseUrl() + "/visualPathFindGrid/listOnly";
+        String url = platformApiCallServiceImpl.getBaseUrl() + PATH_FIND_GRID_LIST_URL;
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }
