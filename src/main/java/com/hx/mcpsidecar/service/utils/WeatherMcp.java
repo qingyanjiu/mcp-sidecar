@@ -1,11 +1,11 @@
-package com.hx.mcpsidecar.service;
+package com.hx.mcpsidecar.service.utils;
 
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WeatherMcpService {
+public class WeatherMcp {
 
     private static final String TOOL_NAME_PREFIX = "weather_service:";
     private static final String TOOL_DESC_PREFIX = "天气查询类服务:";

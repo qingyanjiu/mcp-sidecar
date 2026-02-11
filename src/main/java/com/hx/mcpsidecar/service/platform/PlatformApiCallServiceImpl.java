@@ -1,8 +1,10 @@
-package com.hx.mcpsidecar.service;
+package com.hx.mcpsidecar.service.platform;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.mcpsidecar.model.McpServerProperties;
 import com.hx.mcpsidecar.model.PlatformResponse;
+import com.hx.mcpsidecar.service.AbstractApiCallService;
+import com.hx.mcpsidecar.service.IApiCallService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,12 +17,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Service
-public class PlatformApiCallServiceImpl extends AbstractApiCallService implements ApiCallService<PlatformResponse> {
+public class PlatformApiCallServiceImpl extends AbstractApiCallService implements IApiCallService<PlatformResponse> {
 
     @Autowired
     private RestTemplate restTemplate;

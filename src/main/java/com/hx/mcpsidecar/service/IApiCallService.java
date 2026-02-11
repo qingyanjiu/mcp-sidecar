@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * 通过Dify的API实现的部分统计接口
  */
-public interface ApiCallService<T> {
+public interface IApiCallService<T> {
 
     Object doGetCall(String url);
 

@@ -1,16 +1,17 @@
-package com.hx.mcpsidecar.service;
+package com.hx.mcpsidecar.service.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
- * 路径规划mcp工具集 - 来自polatform平台
+ * 路径规划mcp工具集 - 来自platform平台
  */
 @Service
-public class PlatformPathFindMcpService {
+public class PlatformPathFindMcp {
 
     private static final String TOOL_NAME_PREFIX = "path_find_service:";
     private static final String TOOL_DESC_PREFIX = "路径规划类服务:";
@@ -20,7 +21,7 @@ public class PlatformPathFindMcpService {
 
     @Autowired
     @Qualifier("platformApiCallServiceImpl")
-    private ApiCallService platformApiCallServiceImpl;
+    private IApiCallService platformApiCallServiceImpl;
 
     @McpTool(
         name = TOOL_NAME_PREFIX + "getPathFindGridList",
