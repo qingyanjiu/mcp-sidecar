@@ -23,7 +23,7 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public boolean validateToken(String token, String uerId) {
         String requestUrl = String.format(authUrl, token, uerId);
-        Object respCode = platformApiCallServiceImpl.doGetCall(requestUrl);
+        Object respCode = platformApiCallServiceImpl.doGetCallWithTokenInHeader(requestUrl, token);
         if (Integer.toString(HttpStatus.OK.value()).equals(respCode.toString())) {
             return true;
         }

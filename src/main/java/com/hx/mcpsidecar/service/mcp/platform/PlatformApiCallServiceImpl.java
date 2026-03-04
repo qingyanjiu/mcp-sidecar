@@ -7,10 +7,7 @@ import com.hx.mcpsidecar.service.AbstractApiCallService;
 import com.hx.mcpsidecar.service.IApiCallService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -60,8 +57,12 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     }
 
     @Override
-    public Object doGetCallWithoutLogin(String url) {
-        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, null, Map.class);
+    public Object doGetCallWithTokenInHeader(String url, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + token);
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
         log.info("GET无登录请求[{}]成功获取到数据", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();

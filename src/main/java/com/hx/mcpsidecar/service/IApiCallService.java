@@ -9,7 +9,7 @@ public interface IApiCallService<T> {
 
     Object doGetCall(String url);
 
-    Object doGetCallWithoutLogin(String url);
+    Object doGetCallWithTokenInHeader(String url, String token);
 
     Object doPostCall(String url, Map<String, Object> data);
 
