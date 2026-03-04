@@ -7,7 +7,7 @@ import com.hx.mcpsidecar.service.AbstractApiCallService;
 import com.hx.mcpsidecar.service.IApiCallService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +35,11 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     }
 
     @Override
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
+    @Override
     public void login() {
         URI uri = URI.create(getBaseUrl() + "/login" + "?username=hexinadmin&password=123456&login_type=1");
         ResponseEntity<PlatformResponse> responseEntity = restTemplate.postForEntity(uri, null, PlatformResponse.class);
@@ -48,9 +53,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public Object doGetCall(String url) {
-        HttpHeaders headers = initHeaderAuthorization();
-        HttpEntity<Void> request = new HttpEntity<>(headers);
-        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
+        ResponseEntity<Map> response = super.get(url);
         log.info("GET请求[{}]成功获取到数据", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
@@ -58,11 +61,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public Object doGetCallWithTokenInHeader(String url, String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
-        HttpEntity<Void> request = new HttpEntity<>(headers);
-        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
+        ResponseEntity<Map> response = super.getWithTokenInHeader(url, token);
         log.info("GET无登录请求[{}]成功获取到数据", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
@@ -70,12 +69,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public Object doPostCall(String url, Map<String, Object> data) {
-        HttpHeaders headers = initHeaderAuthorization();
-        // 封装请求
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(data, headers);
-        // 发送 POST
-        ResponseEntity<Map> response =
-            restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
+        ResponseEntity<Map> response = super.post(url, data);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }

@@ -1,9 +1,7 @@
 package com.hx.mcpsidecar.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.Map;
@@ -59,5 +57,40 @@ public abstract class AbstractApiCallService {
             login();
             return (String) tokenMap.get("token");
         }
+    }
+
+    // 从子类获取 restTemplate
+    abstract protected RestTemplate getRestTemplate();
+
+    // 封装通用Get调用逻辑
+    protected ResponseEntity<Map> get(String url) {
+        HttpHeaders headers = initHeaderAuthorization();
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        RestTemplate restTemplate = getRestTemplate();
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
+        return response;
+    }
+
+    // 封装通用不登录Get调用逻辑
+    protected ResponseEntity<Map> getWithTokenInHeader(String url, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + token);
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        RestTemplate restTemplate = getRestTemplate();
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
+        return response;
+    }
+
+    // 封装通用Post调用逻辑
+    protected ResponseEntity<Map> post(String url, Map<String, Object> data) {
+        HttpHeaders headers = initHeaderAuthorization();
+        // 封装请求
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(data, headers);
+        RestTemplate restTemplate = getRestTemplate();
+        // 发送 POST
+        ResponseEntity<Map> response =
+            restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
+        return response;
     }
 }
