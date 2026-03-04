@@ -1,4 +1,4 @@
-package com.hx.mcpsidecar.service.platform;
+package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.mcpsidecar.model.McpServerProperties;
@@ -55,6 +55,14 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
         HttpEntity<Void> request = new HttpEntity<>(headers);
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
         log.info("GET请求[{}]成功获取到数据", url);
+        PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
+        return platformResp.getData();
+    }
+
+    @Override
+    public Object doGetCallWithoutLogin(String url) {
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, null, Map.class);
+        log.info("GET无登录请求[{}]成功获取到数据", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }

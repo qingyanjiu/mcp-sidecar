@@ -1,4 +1,4 @@
-package com.hx.mcpsidecar.service.platform;
+package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
 import com.hx.mcpsidecar.service.IApiCallService;

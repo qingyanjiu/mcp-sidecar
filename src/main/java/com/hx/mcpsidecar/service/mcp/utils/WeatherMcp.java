@@ -1,4 +1,4 @@
-package com.hx.mcpsidecar.service.utils;
+package com.hx.mcpsidecar.service.mcp.utils;
 
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;

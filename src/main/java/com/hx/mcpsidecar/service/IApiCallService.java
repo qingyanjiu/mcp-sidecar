@@ -9,6 +9,8 @@ public interface IApiCallService<T> {
 
     Object doGetCall(String url);
 
+    Object doGetCallWithoutLogin(String url);
+
     Object doPostCall(String url, Map<String, Object> data);
 
     String getBaseUrl();

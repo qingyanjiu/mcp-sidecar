@@ -61,3 +61,24 @@ springdoc:
         tags-sorter: alpha         # tag排序
         display-request-duration: true  # 显示请求耗时
 
+################### 大模型相关配置 ###############
+
+# mcp服务器配置
+mcp:
+    servers:
+        platform:
+#            mcp服务 platform平台 地址
+            baseUrl: http://localhost:9300/platform
+
+# 大模型对话流量限制
+llm:
+    chat:
+#        对话最大限制人数
+        limitSize: 10
+#        python端agent接口地址
+        wsBasePath: ws://127.0.0.1:8001/agentic_rag_query/%s/%s
+    auth:
+#        认证检查平台后端服务接口
+        url: http://localhost:9300/platform/llmChat/auth?token=%s&userId=%s
+
+################### 大模型相关配置 ###############
