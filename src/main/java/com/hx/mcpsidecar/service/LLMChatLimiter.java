@@ -1,7 +1,9 @@
 package com.hx.mcpsidecar.service;
 
+import com.hx.mcpsidecar.config.ws.LLMConfiguration;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class LLMChatLimiter {
 
-    @Value("${llm.chat.limitSize}")
-    private int limitSize;
+    @Autowired
+    private LLMConfiguration llmConfiguration;
 
     // 信号量
     private Semaphore requestPool = null;
@@ -25,7 +27,7 @@ public class LLMChatLimiter {
     // 初始化信号量对象
     @PostConstruct
     public void init() {
-        requestPool = new Semaphore(limitSize);
+        requestPool = new Semaphore(llmConfiguration.getLimitSize());
     }
 
     /**

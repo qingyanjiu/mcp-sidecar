@@ -21,5 +21,8 @@ public class WsConfig implements WebSocketConfigurer {
         registry.addHandler(proxyWebSocketHandler, "/llm/chat")
             .setAllowedOrigins("*")
             .addInterceptors(authHandshakeInterceptor);
+        registry.addHandler(proxyWebSocketHandler, "/llm/gen_doc")
+            .setAllowedOrigins("*")
+            .addInterceptors(authHandshakeInterceptor);
     }
 }

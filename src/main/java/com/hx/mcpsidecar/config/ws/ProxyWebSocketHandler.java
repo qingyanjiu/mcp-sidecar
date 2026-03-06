@@ -4,8 +4,6 @@ import com.hx.mcpsidecar.service.IAuthService;
 import com.hx.mcpsidecar.service.LLMChatLimiter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.socket.*;
@@ -17,8 +15,8 @@ import java.net.URI;
 @Component
 public class ProxyWebSocketHandler implements WebSocketHandler {
 
-    @Value("${llm.chat.wsBasePath}")
-    private String wsBasePath;
+    @Autowired
+    private LLMConfiguration llmConfiguration;
 
     @Autowired
     private IAuthService authService;
@@ -70,7 +68,15 @@ public class ProxyWebSocketHandler implements WebSocketHandler {
             return;
         }
 
-        String wsUrl = String.format(wsBasePath, userId, sessionId);
+        String wsUrl = "";
+        String path = client.getUri().getPath();
+        // 根据前缀判断代理哪个ws请求
+        if (path.startsWith("/llm/chat")) {
+            wsUrl = llmConfiguration.getWsPath().get("chat");
+        } else if (path.startsWith("/llm/gen_doc")) {
+            wsUrl = llmConfiguration.getWsPath().get("gen_doc");
+        }
+        wsUrl = String.format(wsUrl, userId, sessionId);
         URI uri = URI.create(wsUrl);
 
         // 连接到后端 Python WS

@@ -72,11 +72,14 @@ mcp:
 
 # 大模型对话流量限制
 llm:
-    chat:
-#        对话最大限制人数
-        limitSize: 10
-#        python端agent接口地址
-        wsBasePath: ws://127.0.0.1:8001/agentic_rag_query/%s/%s
+#   对话最大限制人数
+    limitSize: 10
+#   python端agent接口地址
+    wsPath:
+#       智能体聊天
+        chat: ws://127.0.0.1:8001/chat/%s/%s
+#       文档生成
+        gen_doc: ws://127.0.0.1:8001/gen_doc/%s/%s
     auth:
 #        认证检查平台后端服务接口
         url: http://localhost:9300/platform/llmChat/auth?token=%s&userId=%s
