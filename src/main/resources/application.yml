@@ -13,7 +13,7 @@ spring:
                 # 关闭全局 @McpTool 扫描,工具由各模块配置类手动装配
                 annotation-scanner:
                     enabled: false
-                endpoint: /mcp
+#                endpoint: /mcp
 
     kafka:
         bootstrap-servers: localhost:9092

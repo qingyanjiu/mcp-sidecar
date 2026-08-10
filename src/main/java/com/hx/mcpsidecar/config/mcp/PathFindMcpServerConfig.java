@@ -16,16 +16,16 @@ import org.springframework.web.servlet.function.ServerResponse;
 import java.util.List;
 
 /**
- * platform 模块 MCP server:暴露 {@code /mcp/platform} 端点,只含路径规划类工具。
+ * 寻路模块 MCP server:暴露 {@code /mcp/pathFind} 端点,只含路径规划类工具。
  */
 @Configuration
-public class PlatformMcpServerConfig {
+public class PathFindMcpServerConfig {
 
     @Bean
     public WebMvcStreamableServerTransportProvider platformMcpTransport(ObjectMapper objectMapper) {
         return WebMvcStreamableServerTransportProvider.builder()
                 .jsonMapper(new JacksonMcpJsonMapper(objectMapper))
-                .mcpEndpoint("/mcp/platform")
+                .mcpEndpoint("/mcp/pathFind")
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class PlatformMcpServerConfig {
             @Qualifier("platformMcpTransport") WebMvcStreamableServerTransportProvider transport,
             PlatformPathFindMcp platformPathFindMcp) {
         return McpServer.sync(transport)
-                .serverInfo("mcp-platform", "1.0.0")
+                .serverInfo("mcp-path-find", "1.0.0")
                 .tools(SyncMcpAnnotationProviders.toolSpecifications(List.of(platformPathFindMcp)))
                 .build();
     }
