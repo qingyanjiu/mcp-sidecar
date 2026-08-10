@@ -38,11 +38,14 @@
 //
 //    @PostMapping("/session/end")
 //    public ResponseEntity<?> end(
-//        @RequestHeader("Authorization") String auth) {
+//        @RequestHeader("Authorization") String auth, String userId) {
 //
 //        String token = auth.replace("Bearer ", "");
-//        String userId = authService.validateToken(token);
-//        limiter.endSession(userId);
+//        if(authService.validateToken(token, userId)) {
+//            llmChatLimiter.completeChat(userId);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("未登录用户，不允许结束对话");
+//        }
 //
 //        return ResponseEntity.ok("结束成功");
 //    }
