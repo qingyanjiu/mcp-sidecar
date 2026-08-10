@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ENV spring_profiles_active=server
+ENV SPRING_PROFILES_ACTIVE=server
 ENV TZ=Asia/Shanghai
 
 EXPOSE 2222/tcp

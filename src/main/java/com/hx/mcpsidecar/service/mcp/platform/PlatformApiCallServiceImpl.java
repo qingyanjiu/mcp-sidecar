@@ -41,7 +41,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public void login() {
-        URI uri = URI.create(getBaseUrl() + "/login" + "?username=hexinadmin&password=123456&login_type=1");
+        URI uri = URI.create(getBaseUrl() + "/login" + "?username=hexinadmin&password=Hxkj@2026&login_type=1&captcha_code=d0080921765faab7b6a4d264dcf43f01");
         ResponseEntity<PlatformResponse> responseEntity = restTemplate.postForEntity(uri, null, PlatformResponse.class);
         PlatformResponse resp = responseEntity.getBody();
         Assert.isTrue(resp.getData() != null && resp.getStatus().equals("1"), "登录请求失败");
