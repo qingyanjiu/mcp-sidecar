@@ -36,6 +36,10 @@ Spring AI MCP Sidecar Service - 一个支持多服务端接入的MCP服务器和
   - 查询路径规划配置列表
   - 返回空间内墙体矩阵数据（1可通过，0不可通过）
   
+- **人员态势服务** (`person_status:getTodayPersonnelAffairs`)
+  - 查询今日态势
+  - 返回实时在园人数、今日进入人数、今日离开人数
+  
 - **时间服务** (`time_service:getCurrentDate`)
   - 获取当前日期
 
