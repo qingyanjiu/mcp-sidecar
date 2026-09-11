@@ -53,8 +53,9 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public Object doGetCall(String url) {
+        log.info("MCP调用后端接口 GET [{}]", url);
         ResponseEntity<Map> response = super.get(url);
-        log.info("GET请求[{}]成功获取到数据", url);
+        log.info("MCP调用后端接口 GET [{}] 成功", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }
@@ -69,7 +70,9 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
 
     @Override
     public Object doPostCall(String url, Map<String, Object> data) {
+        log.info("MCP调用后端接口 POST [{}], 参数: {}", url, data);
         ResponseEntity<Map> response = super.post(url, data);
+        log.info("MCP调用后端接口 POST [{}] 成功", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         return platformResp.getData();
     }

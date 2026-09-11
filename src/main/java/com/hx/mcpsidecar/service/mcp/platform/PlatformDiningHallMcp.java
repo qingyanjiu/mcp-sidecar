@@ -3,10 +3,13 @@ package com.hx.mcpsidecar.service.mcp.platform;
 import com.alibaba.fastjson.JSON;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,12 +107,15 @@ public class PlatformDiningHallMcp {
             - soldCount: 销量
             - likes: 点赞数
             - positiveReview: 好评数
-            请根据用户问题(如"哪些菜最受欢迎"/"菜品热度排行")回答。
+            支持按时间范围查询,请根据用户问题(如"哪些菜最受欢迎"/"本月菜品热度排行")回答。
             """
     )
-    public String getDishPopularity() {
-        // GET 接口,直接拼 URL 调用平台
-        String url = platformApiCallServiceImpl.getBaseUrl() + DISH_POPULARITY_URL;
+    public String getDishPopularity(
+            @McpToolParam(description = "查询开始时间,格式 yyyy-MM-dd,可不传") String startTime,
+            @McpToolParam(description = "查询结束时间,格式 yyyy-MM-dd,可不传") String endTime
+    ) {
+        // GET 接口,直接拼 URL 调用平台;如传了时间参数则拼接到 query string
+        String url = buildUrlWithTimeParams(platformApiCallServiceImpl.getBaseUrl() + DISH_POPULARITY_URL, startTime, endTime);
         Object raw = platformApiCallServiceImpl.doGetCall(url);
         // 整形:只保留 rank/name/price/soldCount/likes/positiveReview,并截取前5
         List<Map<String, Object>> shaped = shapeDishPopularity(raw);
@@ -122,12 +128,16 @@ public class PlatformDiningHallMcp {
             查询就餐人数统计,返回结构如下:
             - category: 分类(时间段,如早餐/午餐/晚餐 或具体时间点)数组
             - values: 与 category 对应的就餐人数数组
-            请根据用户问题(如"今天就餐人数"/"用餐高峰是什么时候")回答。
+            支持按时间范围和餐次(早餐/午餐/晚餐)查询,请根据用户问题(如"今天就餐人数"/"用餐高峰是什么时候")回答。
             """
     )
-    public String getDiningCount() {
-        // GET 接口,直接拼 URL 调用平台,返回数据本身就是 {category, values} 结构
-        String url = platformApiCallServiceImpl.getBaseUrl() + DINING_COUNT_URL;
+    public String getDiningCount(
+            @McpToolParam(description = "查询开始时间,格式 yyyy-MM-dd,可不传") String startTime,
+            @McpToolParam(description = "查询结束时间,格式 yyyy-MM-dd,可不传") String endTime,
+            @McpToolParam(description = "餐次:早餐/午餐/晚餐,可不传") String meal
+    ) {
+        // GET 接口,直接拼 URL 调用平台,如传了时间参数或餐次则拼接到 query string
+        String url = buildUrlWithTimeAndMealParams(platformApiCallServiceImpl.getBaseUrl() + DINING_COUNT_URL, startTime, endTime, meal);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }
@@ -260,5 +270,57 @@ public class PlatformDiningHallMcp {
      */
     private static String getStr(Object v, String defaultVal) {
         return v == null ? defaultVal : v.toString();
+    }
+
+    /**
+     * 给 GET URL 追加可选的时间参数(startTime/endTime)
+     */
+    private static String buildUrlWithTimeParams(String baseUrl, String startTime, String endTime) {
+        StringBuilder sb = new StringBuilder(baseUrl);
+        boolean first = !baseUrl.contains("?");
+        if (startTime != null && !startTime.isEmpty()) {
+            sb.append(first ? "?" : "&");
+            sb.append("startTime=").append(encode(startTime));
+            first = false;
+        }
+        if (endTime != null && !endTime.isEmpty()) {
+            sb.append(first ? "?" : "&");
+            sb.append("endTime=").append(encode(endTime));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 给 GET URL 追加可选的时间参数(startTime/endTime)和餐次参数(meal)
+     */
+    private static String buildUrlWithTimeAndMealParams(String baseUrl, String startTime, String endTime, String meal) {
+        StringBuilder sb = new StringBuilder(baseUrl);
+        boolean first = !baseUrl.contains("?");
+        if (startTime != null && !startTime.isEmpty()) {
+            sb.append(first ? "?" : "&");
+            sb.append("startTime=").append(encode(startTime));
+            first = false;
+        }
+        if (endTime != null && !endTime.isEmpty()) {
+            sb.append(first ? "?" : "&");
+            sb.append("endTime=").append(encode(endTime));
+            first = false;
+        }
+        if (meal != null && !meal.isEmpty()) {
+            sb.append(first ? "?" : "&");
+            sb.append("meal=").append(encode(meal));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * URL 参数编码,避免中文或特殊字符破坏 query string
+     */
+    private static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            return value;
+        }
     }
 }
