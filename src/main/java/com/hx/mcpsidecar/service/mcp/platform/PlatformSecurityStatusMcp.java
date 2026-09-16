@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 安防态势mcp工具集 - 来自platform平台
@@ -30,6 +33,10 @@ public class PlatformSecurityStatusMcp {
     public static final String SECURITY_INDEX_URL = "/screenPage/anfang/securityIndex";
     // 查询AI告警态势接口URL
     public static final String AI_ALARM_SITUATION_URL = "/calldevice/alarm/anfang/alarmSituation";
+    // 查询AI告警总览接口URL
+    public static final String AI_ALARM_VIEW_URL = "/deviceAlarm/aiAlarmView";
+    // 查询AI告警趋势接口URL
+    public static final String ALERT_SITUATION_URL = "/deviceAlarm/alertSituation";
     // 查询巡查任务统计接口URL
     public static final String PATROL_MISSION_URL = "/screenPatrol/missionStat";
     // 查询安全巡查趋势接口URL
@@ -50,13 +57,37 @@ public class PlatformSecurityStatusMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getSecurityAlarmList",
             description = TOOL_DESC_PREFIX + """
-            查询安防告警列表,
+            查询安防告警列表(分类告警明细),返回按类别分组的告警列表,key为类别名(安防告警/管理预警/环境预警),每个告警项包含:
+            - alarmTypeName: 告警名称
+            - alarmDate: 告警时间
+            - alarmPosition: 告警位置
+            - handleStat: 处理状态(0未处理/1已处理)
+            - alarmGrade: 告警等级(1一般/2重要,更大更严重)
+            请根据用户问题(如"安防告警有哪些"/"最近有什么告警")从返回中提取对应类别与信息回答。
             """
     )
     public String getSecurityAlarmList() {
         String url = platformApiCallServiceImpl.getBaseUrl() + SECURITY_ALARM_LIST_URL;
-        Object result = platformApiCallServiceImpl.doGetCall(url);
+        Object result = platformApiCallServiceImpl.doPostCall(url, buildAlarmListWithTypeBody(null, null));
         return JSON.toJSONString(result);
+    }
+
+    // 构造分类告警明细接口(alarmListWithType)的POST请求体:大华协议必传producerCode/protocolVersion,过滤条件与大屏一致
+    private Map<String, Object> buildAlarmListWithTypeBody(String startTime, String endTime) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("producerCode", DAHUA_PRODUCER_CODE);
+        body.put("protocolVersion", DAHUA_PROTOCOL_VERSION);
+        body.put("deviceCategory", 1);
+        body.put("alarmTypeList", Arrays.asList(303, 307, 311, 312, 596, 597));
+        body.put("alarmGradeList", Arrays.asList(1, 2));
+        body.put("filterAi", true);
+        if (startTime != null && !startTime.isEmpty()) {
+            body.put("startTime", startTime);
+        }
+        if (endTime != null && !endTime.isEmpty()) {
+            body.put("endTime", endTime);
+        }
+        return body;
     }
 
     @McpTool(
@@ -214,6 +245,73 @@ public class PlatformSecurityStatusMcp {
         }
         body.put("channelCodeList", channelCodes);
         Object result = platformApiCallServiceImpl.doPostCall(url, body);
+        return JSON.toJSONString(result);
+    }
+
+    @McpTool(
+            name = TOOL_NAME_PREFIX + "getAlarmView",
+            description = TOOL_DESC_PREFIX + """
+            查询AI告警总览统计,返回值包含:
+            - todayCount: 今日告警数
+            - yearCount: 累计告警数
+            - alarmTypeCount: 算法类型数
+            - accuracy: 识别准确率(百分比数值)
+            请根据用户问题(如"今天AI告警多少"/"累计告警多少"/"识别准确率多少")从返回中提取对应信息回答。
+            """
+    )
+    public String getAlarmView() {
+        String url = platformApiCallServiceImpl.getBaseUrl() + AI_ALARM_VIEW_URL;
+        Object result = platformApiCallServiceImpl.doGetCall(url);
+        return JSON.toJSONString(result);
+    }
+
+    @McpTool(
+            name = TOOL_NAME_PREFIX + "getAlertSituation",
+            description = TOOL_DESC_PREFIX + """
+            查询AI告警趋势,返回近7天(last7Days)与近30天(last30Days)两组按日期的告警数量序列,每项包含:
+            - date: 日期
+            - count: 当日AI告警数量
+            适合回答"近7天/近30天告警走势"类问题;startTime/endTime为可选的ISO格式时间字符串,传入则按该区间查询。
+            """
+    )
+    public String getAlertSituation(
+            @McpToolParam(description = "查询开始时间,ISO格式(如2026-09-01T00:00:00),可不传") String startTime,
+            @McpToolParam(description = "查询结束时间,ISO格式(如2026-09-15T23:59:59),可不传") String endTime
+    ) {
+        String url = platformApiCallServiceImpl.getBaseUrl() + ALERT_SITUATION_URL;
+        List<String> queryParams = new ArrayList<>();
+        if (startTime != null && !startTime.isEmpty()) {
+            queryParams.add("startTime=" + URLEncoder.encode(startTime, StandardCharsets.UTF_8));
+        }
+        if (endTime != null && !endTime.isEmpty()) {
+            queryParams.add("endTime=" + URLEncoder.encode(endTime, StandardCharsets.UTF_8));
+        }
+        if (!queryParams.isEmpty()) {
+            url += "?" + queryParams.stream().collect(Collectors.joining("&"));
+        }
+        Object result = platformApiCallServiceImpl.doGetCall(url);
+        return JSON.toJSONString(result);
+    }
+
+    @McpTool(
+            name = TOOL_NAME_PREFIX + "getAlarmListWithType",
+            description = TOOL_DESC_PREFIX + """
+            查询分类AI告警明细,返回按类别分组的告警列表,key为类别名(安防告警/管理预警/环境预警),每个告警项包含:
+            - alarmTypeName: 告警名称
+            - alarmDate: 告警时间
+            - alarmPosition: 告警位置
+            - handleStat: 处理状态(0未处理/1已处理)
+            - alarmGrade: 告警等级(1一般/2重要,更大更严重)
+            startTime/endTime可选,格式yyyy-MM-dd;
+            请根据用户问题(如"安防告警有哪些"/"最近环境预警明细")从返回中提取对应类别与信息回答。
+            """
+    )
+    public String getAlarmListWithType(
+            @McpToolParam(description = "查询开始时间,格式yyyy-MM-dd,可不传") String startTime,
+            @McpToolParam(description = "查询结束时间,格式yyyy-MM-dd,可不传") String endTime
+    ) {
+        String url = platformApiCallServiceImpl.getBaseUrl() + SECURITY_ALARM_LIST_URL;
+        Object result = platformApiCallServiceImpl.doPostCall(url, buildAlarmListWithTypeBody(startTime, endTime));
         return JSON.toJSONString(result);
     }
 }
