@@ -72,6 +72,10 @@ mcp:
         platform:
 #            mcp服务 platform平台 地址
             baseUrl: http://10.0.0.5:9500/platform
+        ragflow:
+            baseUrl: http://localhost:9380    # RAGFlow API 地址
+            apiKey: 123             # 网页"头像→API"创建
+            datasetIds: "531584b4b01f11f19e1465040d524065"   # 可选，逗号分隔；留空=全库检索
 
 # 大模型对话流量限制
 llm:
