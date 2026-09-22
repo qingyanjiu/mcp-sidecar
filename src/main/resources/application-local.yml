@@ -84,5 +84,5 @@ mcp:
            baseUrl: http://10.0.0.5:9500/platform
         ragflow:
             baseUrl: http://localhost:9380    # RAGFlow API 地址
-            apiKey: 123             # 网页"头像→API"创建
+            apiKey: ragflow-rw4uGV4lFxy4VSSc6535iuTBRdT_DJe4VvnbpF3cZXA            # 网页"头像→API"创建
             datasetIds: "531584b4b01f11f19e1465040d524065"                        # 可选，逗号分隔；空=全库检索
