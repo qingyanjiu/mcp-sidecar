@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class PlatformPersonStatusMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelAffairs",
             description = TOOL_DESC_PREFIX + """
@@ -60,6 +62,7 @@ public class PlatformPersonStatusMcp {
     // 人员态势人员流动 URL
     public static final String  PERSONNEL_FLOW_URL = "/personnel/personFlow";
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelFlow",
             description = TOOL_DESC_PREFIX + """
@@ -74,6 +77,7 @@ public class PlatformPersonStatusMcp {
     // 人员态势人员结构 URL
     public static final String  PERSONNEL_STRUCTURE_URL = "/personnel/personnelStructure";
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getPersonnelStructure",
             description = TOOL_DESC_PREFIX + """

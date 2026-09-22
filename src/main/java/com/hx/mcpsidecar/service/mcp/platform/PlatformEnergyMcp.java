@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class PlatformEnergyMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getOverallEnergyConsu",
             description = TOOL_DESC_PREFIX + """
@@ -50,6 +52,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeteringEquipment",
             description = TOOL_DESC_PREFIX + """
@@ -65,6 +68,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getElectricityUsageRanking",
             description = TOOL_DESC_PREFIX + """
@@ -79,6 +83,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getWaterUsageRanking",
             description = TOOL_DESC_PREFIX + """
@@ -93,6 +98,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceStatus",
             description = TOOL_DESC_PREFIX + """
@@ -108,6 +114,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeElectricityUsage",
             description = TOOL_DESC_PREFIX + """
@@ -124,6 +131,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeWaterUsage",
             description = TOOL_DESC_PREFIX + """

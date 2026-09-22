@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
@@ -50,6 +51,7 @@ public class PlatformDeviceMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getEquipClass",
             description = TOOL_DESC_PREFIX + """
@@ -67,6 +69,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getCategoryHealth",
             description = TOOL_DESC_PREFIX + """
@@ -85,6 +88,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMonthMaintenance",
             description = TOOL_DESC_PREFIX + """
@@ -106,6 +110,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMonthRepair",
             description = TOOL_DESC_PREFIX + """
@@ -127,6 +132,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getStatisRegion",
             description = TOOL_DESC_PREFIX + """
@@ -149,6 +155,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAnfangDeviceOnlinePercentage",
             description = TOOL_DESC_PREFIX + """
@@ -164,6 +171,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getGbOnlinePercentage",
             description = TOOL_DESC_PREFIX + """
@@ -184,6 +192,7 @@ public class PlatformDeviceMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMjOnlinePercentage",
             description = TOOL_DESC_PREFIX + """

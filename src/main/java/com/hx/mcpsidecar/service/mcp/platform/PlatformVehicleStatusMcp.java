@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class PlatformVehicleStatusMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingSpace",
             description = TOOL_DESC_PREFIX + """
@@ -52,6 +54,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTrafficVolume",
             description = TOOL_DESC_PREFIX + """
@@ -68,6 +71,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingStructure",
             description = TOOL_DESC_PREFIX + """
@@ -84,6 +88,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getCarStatistic",
             description = TOOL_DESC_PREFIX + """
@@ -101,6 +106,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingRank",
             description = TOOL_DESC_PREFIX + """
@@ -117,6 +123,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getVehiclePassRecord",
             description = TOOL_DESC_PREFIX + """

@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
@@ -159,6 +160,7 @@ public class PlatformDeviceQueryMcp {
     // 一、设备资产库查询(/deviceInfo/*)
     // ==================================================================
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "listDevice",
             description = TOOL_DESC_PREFIX + """
@@ -208,6 +210,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "listDeviceOnly",
             description = TOOL_DESC_PREFIX + """
@@ -242,6 +245,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "listDeviceWithSpace",
             description = TOOL_DESC_PREFIX + """
@@ -271,6 +275,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceDetail",
             description = TOOL_DESC_PREFIX + """
@@ -295,6 +300,7 @@ public class PlatformDeviceQueryMcp {
         return orFail(result, "设备id不存在");
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceStatistics",
             description = TOOL_DESC_PREFIX + """
@@ -330,6 +336,7 @@ public class PlatformDeviceQueryMcp {
     // 本组所有接口的 status 口径均为"设备启用状态"(VISUAL_DEVICE_STATUS:
     // 0停用 1启用 2维修 3报废),不是在线/离线。tools 描述里已逐条标明。
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByDeviceType",
             description = TOOL_DESC_PREFIX + """
@@ -348,6 +355,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByStatus",
             description = TOOL_DESC_PREFIX + """
@@ -369,6 +377,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByTypeAndStatus",
             description = TOOL_DESC_PREFIX + """
@@ -390,6 +399,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countBySpace",
             description = TOOL_DESC_PREFIX + """
@@ -410,6 +420,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByFloor",
             description = TOOL_DESC_PREFIX + """
@@ -429,6 +440,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countMonitorBySubType",
             description = TOOL_DESC_PREFIX + """
@@ -446,6 +458,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countMonitorByStatus",
             description = TOOL_DESC_PREFIX + """
@@ -464,6 +477,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDistribution",
             description = TOOL_DESC_PREFIX + """
@@ -487,6 +501,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByParam",
             description = TOOL_DESC_PREFIX + """
@@ -509,6 +524,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getEquipClass",
             description = TOOL_DESC_PREFIX + """
@@ -528,6 +544,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getStatisRegion",
             description = TOOL_DESC_PREFIX + """
@@ -554,6 +571,7 @@ public class PlatformDeviceQueryMcp {
     // ==================================================================
     // 本组各接口的在线判定口径差异很大,描述里逐个标明,不要混用结论。
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getEnergyOnlineRate",
             description = TOOL_DESC_PREFIX + """
@@ -576,6 +594,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getEnergyDeviceStatus",
             description = TOOL_DESC_PREFIX + """
@@ -590,6 +609,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getCategoryHealth",
             description = TOOL_DESC_PREFIX + """
@@ -612,6 +632,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getEquipDistribution",
             description = TOOL_DESC_PREFIX + """
@@ -631,6 +652,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getCameraOnlinePercentage",
             description = TOOL_DESC_PREFIX + """
@@ -649,6 +671,7 @@ public class PlatformDeviceQueryMcp {
         return orFail(result, "厂商侧监控列表为空");
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMjOnlinePercentage",
             description = TOOL_DESC_PREFIX + """
@@ -667,6 +690,7 @@ public class PlatformDeviceQueryMcp {
         return orFail(result, "厂商侧门禁列表为空");
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAnfangDeviceOnlinePercentage",
             description = TOOL_DESC_PREFIX + """
@@ -695,6 +719,7 @@ public class PlatformDeviceQueryMcp {
     // 四、厂商平台实时设备列表(calldevice 透传)
     // ==================================================================
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getVendorDeviceList",
             description = TOOL_DESC_PREFIX + """
@@ -740,6 +765,7 @@ public class PlatformDeviceQueryMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getVendorDeviceDetail",
             description = TOOL_DESC_PREFIX + """

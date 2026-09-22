@@ -83,3 +83,6 @@ mcp:
     servers:
         platform:
             baseUrl: http://10.204.20.159:9401/platform
+#   部署环境固定走真实接口,不受 application.yml 里 mock 总开关的影响
+    mock:
+        enabled: false

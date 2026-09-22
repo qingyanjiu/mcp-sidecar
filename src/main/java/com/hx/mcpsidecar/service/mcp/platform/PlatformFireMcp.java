@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
@@ -37,6 +38,7 @@ public class PlatformFireMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAssets",
             description = TOOL_DESC_PREFIX + """
@@ -71,6 +73,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAlarmNum",
             description = TOOL_DESC_PREFIX + """
@@ -103,6 +106,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAlarmList",
             description = TOOL_DESC_PREFIX + """
@@ -138,6 +142,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMonthRepair",
             description = TOOL_DESC_PREFIX + """

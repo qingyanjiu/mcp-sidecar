@@ -72,6 +72,17 @@ mcp:
         platform:
 #            mcp服务 platform平台 地址
             baseUrl: http://10.0.0.5:9500/platform
+#   mock数据开关:被 @MockData 标注的工具按此处的配置决定返回mock数据还是调真实接口
+    mock:
+#       总开关,true=工具默认返回mock数据(不再调用平台后端);false=全部走真实接口
+        enabled: true
+#       只mock这些工具(白名单),为空表示不启用白名单。工具名取 @McpTool 的 name
+        include: []
+#       这些工具走真实接口(黑名单)
+        exclude: []
+#       按工具名精确覆盖,优先级最高,true走mock/false走真实接口。工具名含冒号,必须加引号
+        tools: {}
+#           "device_query:getVendorDeviceList": false
 
 # 大模型对话流量限制
 llm:

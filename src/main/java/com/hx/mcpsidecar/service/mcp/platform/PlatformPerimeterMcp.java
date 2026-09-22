@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
@@ -30,6 +31,7 @@ public class PlatformPerimeterMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getKeyMetrics",
             description = TOOL_DESC_PREFIX + """
@@ -47,6 +49,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAreaOverview",
             description = TOOL_DESC_PREFIX + """
@@ -64,6 +67,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getPerimeterAlarmStats",
             description = TOOL_DESC_PREFIX + """
@@ -86,6 +90,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAlarmOverview",
             description = TOOL_DESC_PREFIX + """

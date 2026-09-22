@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
@@ -37,6 +38,7 @@ public class PlatformMeetingMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingStatistics",
             description = TOOL_DESC_PREFIX + """
@@ -56,6 +58,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getHighFrequencyMeetingRooms",
             description = TOOL_DESC_PREFIX + """
@@ -73,6 +76,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingRoomOverview",
             description = TOOL_DESC_PREFIX + """
@@ -88,6 +92,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getNumberOfMeetings",
             description = TOOL_DESC_PREFIX + """
@@ -106,6 +111,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingRoomStatus",
             description = TOOL_DESC_PREFIX + """
@@ -121,6 +127,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
+    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRoomMeetListByDay",
             description = TOOL_DESC_PREFIX + """
