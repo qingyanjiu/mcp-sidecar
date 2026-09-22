@@ -1,0 +1,532 @@
+{
+  "getSecurityAlarmList": {
+    "安防告警": [
+      {
+        "alarmTypeName": "周界入侵",
+        "alarmDate": "2026-09-21 09:12:36",
+        "alarmPosition": "园区/东侧围墙/3号防区",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "门禁异常开启",
+        "alarmDate": "2026-09-21 08:45:02",
+        "alarmPosition": "园区/C栋/2层弱电间",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "车辆违停",
+        "alarmDate": "2026-09-21 07:30:18",
+        "alarmPosition": "园区/地下车库/B区",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "高空抛物",
+        "alarmDate": "2026-09-20 22:05:44",
+        "alarmPosition": "园区/B栋/北侧裙楼",
+        "handleStat": 1,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "周界入侵",
+        "alarmDate": "2026-09-20 16:48:10",
+        "alarmPosition": "园区/北门/门岗外侧",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "门禁异常开启",
+        "alarmDate": "2026-09-20 11:22:55",
+        "alarmPosition": "园区/中心机房/入口",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "车辆违停",
+        "alarmDate": "2026-09-19 19:03:27",
+        "alarmPosition": "园区/南门/车行道",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ],
+    "管理预警": [
+      {
+        "alarmTypeName": "人员离岗",
+        "alarmDate": "2026-09-21 09:05:11",
+        "alarmPosition": "园区/A栋/3层走廊",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "未戴安全帽",
+        "alarmDate": "2026-09-21 08:39:47",
+        "alarmPosition": "园区/工程部/施工现场",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "区域滞留",
+        "alarmDate": "2026-09-21 07:24:03",
+        "alarmPosition": "园区/地下车库/A区",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "人群聚集",
+        "alarmDate": "2026-09-20 21:58:20",
+        "alarmPosition": "园区/食堂/一层大厅",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "未戴安全帽",
+        "alarmDate": "2026-09-20 16:41:55",
+        "alarmPosition": "园区/B栋/设备层",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "人员离岗",
+        "alarmDate": "2026-09-19 18:57:04",
+        "alarmPosition": "园区/门岗/北门岗亭",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ],
+    "环境预警": [
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-21 06:52:41",
+        "alarmPosition": "园区/食堂/后厨操作间",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "消防通道占用",
+        "alarmDate": "2026-09-21 08:12:09",
+        "alarmPosition": "园区/A栋/消防通道东段",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-20 19:36:57",
+        "alarmPosition": "园区/B栋/1层设备间",
+        "handleStat": 1,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "消防通道占用",
+        "alarmDate": "2026-09-20 14:20:33",
+        "alarmPosition": "园区/C栋/地下消防通道",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-19 12:47:16",
+        "alarmPosition": "园区/地下车库/C区",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ]
+  },
+  "getSecurityIndex": {
+    "index": 92.6,
+    "indicators": [
+      { "name": "设备在线率", "value": 96.8, "unit": "%" },
+      { "name": "告警处理率", "value": 94.3, "unit": "%" },
+      { "name": "巡查任务完成率", "value": 93.2, "unit": "%" },
+      { "name": "消防设施完好率", "value": 96.5, "unit": "%" },
+      { "name": "周界防护完好率", "value": 96.1, "unit": "%" },
+      { "name": "门禁合规率", "value": 95.6, "unit": "%" }
+    ]
+  },
+  "getAiAlertSituation": {
+    "周界入侵": { "count": 4, "percentage": 33.3 },
+    "人员离岗": { "count": 3, "percentage": 25.0 },
+    "未戴安全帽": { "count": 2, "percentage": 16.7 },
+    "区域滞留": { "count": 1, "percentage": 8.3 },
+    "烟火检测": { "count": 1, "percentage": 8.3 },
+    "车辆违停": { "count": 1, "percentage": 8.4 }
+  },
+  "getPatrolMission": [
+    { "name": "待处理", "value": 6 },
+    { "name": "已处理", "value": 138 },
+    { "name": "异常", "value": 4 }
+  ],
+  "getInspectionTrend": {
+    "category": ["00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"],
+    "oneData": [3, 2, 2, 5, 12, 15, 9, 14, 13, 10, 6, 4],
+    "twoData": [0, 0, 0, 1, 2, 1, 0, 2, 1, 1, 0, 0]
+  },
+  "getAiInspectionEvents": [
+    {
+      "alarmTypeName": "周界入侵",
+      "alarmGrade": 2,
+      "alarmDate": "2026-09-21 09:12:36",
+      "alarmPosition": "园区/东侧围墙/3号防区",
+      "orgName": "安保部",
+      "alarmPicture": "/profile/alarm/2026/09/21/af0931c2.jpg",
+      "pic": "/profile/alarm/2026/09/21/af0931c2.jpg",
+      "handleStat": 0
+    },
+    {
+      "alarmTypeName": "未戴安全帽",
+      "alarmGrade": 2,
+      "alarmDate": "2026-09-21 08:39:47",
+      "alarmPosition": "园区/工程部/施工现场",
+      "orgName": "工程部",
+      "alarmPicture": "/profile/alarm/2026/09/21/7b21e4a0.jpg",
+      "pic": "/profile/alarm/2026/09/21/7b21e4a0.jpg",
+      "handleStat": 0
+    },
+    {
+      "alarmTypeName": "人员离岗",
+      "alarmGrade": 1,
+      "alarmDate": "2026-09-21 09:05:11",
+      "alarmPosition": "园区/A栋/3层走廊",
+      "orgName": "园区管理处",
+      "alarmPicture": "/profile/alarm/2026/09/21/3d5c81e6.jpg",
+      "pic": "/profile/alarm/2026/09/21/3d5c81e6.jpg",
+      "handleStat": 0
+    },
+    {
+      "alarmTypeName": "消防通道占用",
+      "alarmGrade": 1,
+      "alarmDate": "2026-09-21 08:12:09",
+      "alarmPosition": "园区/A栋/消防通道东段",
+      "orgName": "后勤部",
+      "alarmPicture": "/profile/alarm/2026/09/21/c19f2b74.jpg",
+      "pic": "/profile/alarm/2026/09/21/c19f2b74.jpg",
+      "handleStat": 1
+    },
+    {
+      "alarmTypeName": "烟火检测",
+      "alarmGrade": 2,
+      "alarmDate": "2026-09-20 19:36:57",
+      "alarmPosition": "园区/B栋/1层设备间",
+      "orgName": "工程部",
+      "alarmPicture": "/profile/alarm/2026/09/20/e4a70d15.jpg",
+      "pic": "/profile/alarm/2026/09/20/e4a70d15.jpg",
+      "handleStat": 1
+    },
+    {
+      "alarmTypeName": "车辆违停",
+      "alarmGrade": 1,
+      "alarmDate": "2026-09-19 19:03:27",
+      "alarmPosition": "园区/南门/车行道",
+      "orgName": "安保部",
+      "alarmPicture": "/profile/alarm/2026/09/19/5f8b3a92.jpg",
+      "pic": "/profile/alarm/2026/09/19/5f8b3a92.jpg",
+      "handleStat": 1
+    },
+    {
+      "alarmTypeName": "人群聚集",
+      "alarmGrade": 1,
+      "alarmDate": "2026-09-20 21:58:20",
+      "alarmPosition": "园区/食堂/一层大厅",
+      "orgName": "后勤部",
+      "alarmPicture": "/profile/alarm/2026/09/20/8c2d6f31.jpg",
+      "pic": "/profile/alarm/2026/09/20/8c2d6f31.jpg",
+      "handleStat": 1
+    },
+    {
+      "alarmTypeName": "高空抛物",
+      "alarmGrade": 2,
+      "alarmDate": "2026-09-20 22:05:44",
+      "alarmPosition": "园区/B栋/北侧裙楼",
+      "orgName": "安保部",
+      "alarmPicture": "/profile/alarm/2026/09/20/1a6e94bd.jpg",
+      "pic": "/profile/alarm/2026/09/20/1a6e94bd.jpg",
+      "handleStat": 0
+    }
+  ],
+  "getDeviceDetail": [
+    {
+      "channelName": "A栋3层走廊枪机01",
+      "channelCode": "CH-A-0301",
+      "deviceCode": "DEV-CAM-A0301",
+      "channelDeviceIp": "10.20.11.31",
+      "isOnline": 1,
+      "cameraType": "枪机",
+      "gpsX": 116.397412,
+      "gpsY": 39.908326
+    },
+    {
+      "channelName": "A栋3层走廊球机02",
+      "channelCode": "CH-A-0302",
+      "deviceCode": "DEV-CAM-A0302",
+      "channelDeviceIp": "10.20.11.32",
+      "isOnline": 1,
+      "cameraType": "球机",
+      "gpsX": 116.397568,
+      "gpsY": 39.908411
+    },
+    {
+      "channelName": "A栋1层大厅半球01",
+      "channelCode": "CH-A-0101",
+      "deviceCode": "DEV-CAM-A0101",
+      "channelDeviceIp": "10.20.11.11",
+      "isOnline": 1,
+      "cameraType": "半球",
+      "gpsX": 116.397245,
+      "gpsY": 39.908102
+    },
+    {
+      "channelName": "B栋北侧裙楼枪机01",
+      "channelCode": "CH-B-0102",
+      "deviceCode": "DEV-CAM-B0102",
+      "channelDeviceIp": "10.20.12.12",
+      "isOnline": 0,
+      "cameraType": "枪机",
+      "gpsX": 116.398033,
+      "gpsY": 39.908774
+    },
+    {
+      "channelName": "C栋2层弱电间半球01",
+      "channelCode": "CH-C-0201",
+      "deviceCode": "DEV-CAM-C0201",
+      "channelDeviceIp": "10.20.13.21",
+      "isOnline": 1,
+      "cameraType": "半球",
+      "gpsX": 116.396871,
+      "gpsY": 39.907658
+    },
+    {
+      "channelName": "北门门岗人脸抓拍机01",
+      "channelCode": "CH-GN-0001",
+      "deviceCode": "DEV-CAM-GN0001",
+      "channelDeviceIp": "10.20.21.11",
+      "isOnline": 1,
+      "cameraType": "人脸抓拍机",
+      "gpsX": 116.399214,
+      "gpsY": 39.910231
+    },
+    {
+      "channelName": "南门车行道枪机01",
+      "channelCode": "CH-GS-0001",
+      "deviceCode": "DEV-CAM-GS0001",
+      "channelDeviceIp": "10.20.22.11",
+      "isOnline": 1,
+      "cameraType": "枪机",
+      "gpsX": 116.398572,
+      "gpsY": 39.906114
+    },
+    {
+      "channelName": "东门车行道球机01",
+      "channelCode": "CH-GE-0001",
+      "deviceCode": "DEV-CAM-GE0001",
+      "channelDeviceIp": "10.20.23.11",
+      "isOnline": 1,
+      "cameraType": "球机",
+      "gpsX": 116.400863,
+      "gpsY": 39.908437
+    },
+    {
+      "channelName": "地下车库B区枪机01",
+      "channelCode": "CH-PK-B001",
+      "deviceCode": "DEV-CAM-PKB001",
+      "channelDeviceIp": "10.20.31.42",
+      "isOnline": 1,
+      "cameraType": "枪机",
+      "gpsX": 116.397726,
+      "gpsY": 39.907238
+    },
+    {
+      "channelName": "东侧围墙3号防区枪机01",
+      "channelCode": "CH-PZ-E003",
+      "deviceCode": "DEV-CAM-PZE003",
+      "channelDeviceIp": "10.20.41.13",
+      "isOnline": 0,
+      "cameraType": "枪机",
+      "gpsX": 116.401152,
+      "gpsY": 39.909086
+    }
+  ],
+  "getAlarmView": {
+    "todayCount": 12,
+    "yearCount": 5286,
+    "alarmTypeCount": 10,
+    "accuracy": 96.8
+  },
+  "getAlertSituation": {
+    "last7Days": [
+      { "date": "2026-09-15", "count": 18 },
+      { "date": "2026-09-16", "count": 24 },
+      { "date": "2026-09-17", "count": 15 },
+      { "date": "2026-09-18", "count": 31 },
+      { "date": "2026-09-19", "count": 22 },
+      { "date": "2026-09-20", "count": 27 },
+      { "date": "2026-09-21", "count": 12 }
+    ],
+    "last30Days": [
+      { "date": "2026-08-23", "count": 16 },
+      { "date": "2026-08-24", "count": 21 },
+      { "date": "2026-08-25", "count": 19 },
+      { "date": "2026-08-26", "count": 14 },
+      { "date": "2026-08-27", "count": 26 },
+      { "date": "2026-08-28", "count": 23 },
+      { "date": "2026-08-29", "count": 11 },
+      { "date": "2026-08-30", "count": 9 },
+      { "date": "2026-08-31", "count": 13 },
+      { "date": "2026-09-01", "count": 25 },
+      { "date": "2026-09-02", "count": 28 },
+      { "date": "2026-09-03", "count": 20 },
+      { "date": "2026-09-04", "count": 17 },
+      { "date": "2026-09-05", "count": 22 },
+      { "date": "2026-09-06", "count": 30 },
+      { "date": "2026-09-07", "count": 12 },
+      { "date": "2026-09-08", "count": 19 },
+      { "date": "2026-09-09", "count": 24 },
+      { "date": "2026-09-10", "count": 16 },
+      { "date": "2026-09-11", "count": 21 },
+      { "date": "2026-09-12", "count": 27 },
+      { "date": "2026-09-13", "count": 18 },
+      { "date": "2026-09-14", "count": 23 },
+      { "date": "2026-09-15", "count": 18 },
+      { "date": "2026-09-16", "count": 24 },
+      { "date": "2026-09-17", "count": 15 },
+      { "date": "2026-09-18", "count": 31 },
+      { "date": "2026-09-19", "count": 22 },
+      { "date": "2026-09-20", "count": 27 },
+      { "date": "2026-09-21", "count": 12 }
+    ]
+  },
+  "getAlarmListWithType": {
+    "安防告警": [
+      {
+        "alarmTypeName": "周界入侵",
+        "alarmDate": "2026-09-21 09:12:36",
+        "alarmPosition": "园区/东侧围墙/3号防区",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "门禁异常开启",
+        "alarmDate": "2026-09-21 08:45:02",
+        "alarmPosition": "园区/C栋/2层弱电间",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "车辆违停",
+        "alarmDate": "2026-09-21 07:30:18",
+        "alarmPosition": "园区/地下车库/B区",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "高空抛物",
+        "alarmDate": "2026-09-20 22:05:44",
+        "alarmPosition": "园区/B栋/北侧裙楼",
+        "handleStat": 1,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "周界入侵",
+        "alarmDate": "2026-09-20 16:48:10",
+        "alarmPosition": "园区/北门/门岗外侧",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "门禁异常开启",
+        "alarmDate": "2026-09-20 11:22:55",
+        "alarmPosition": "园区/中心机房/入口",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "车辆违停",
+        "alarmDate": "2026-09-19 19:03:27",
+        "alarmPosition": "园区/南门/车行道",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ],
+    "管理预警": [
+      {
+        "alarmTypeName": "人员离岗",
+        "alarmDate": "2026-09-21 09:05:11",
+        "alarmPosition": "园区/A栋/3层走廊",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "未戴安全帽",
+        "alarmDate": "2026-09-21 08:39:47",
+        "alarmPosition": "园区/工程部/施工现场",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "区域滞留",
+        "alarmDate": "2026-09-21 07:24:03",
+        "alarmPosition": "园区/地下车库/A区",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "人群聚集",
+        "alarmDate": "2026-09-20 21:58:20",
+        "alarmPosition": "园区/食堂/一层大厅",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "未戴安全帽",
+        "alarmDate": "2026-09-20 16:41:55",
+        "alarmPosition": "园区/B栋/设备层",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "人员离岗",
+        "alarmDate": "2026-09-19 18:57:04",
+        "alarmPosition": "园区/门岗/北门岗亭",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ],
+    "环境预警": [
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-21 06:52:41",
+        "alarmPosition": "园区/食堂/后厨操作间",
+        "handleStat": 0,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "消防通道占用",
+        "alarmDate": "2026-09-21 08:12:09",
+        "alarmPosition": "园区/A栋/消防通道东段",
+        "handleStat": 1,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-20 19:36:57",
+        "alarmPosition": "园区/B栋/1层设备间",
+        "handleStat": 1,
+        "alarmGrade": 2
+      },
+      {
+        "alarmTypeName": "消防通道占用",
+        "alarmDate": "2026-09-20 14:20:33",
+        "alarmPosition": "园区/C栋/地下消防通道",
+        "handleStat": 0,
+        "alarmGrade": 1
+      },
+      {
+        "alarmTypeName": "烟火检测",
+        "alarmDate": "2026-09-19 12:47:16",
+        "alarmPosition": "园区/地下车库/C区",
+        "handleStat": 1,
+        "alarmGrade": 1
+      }
+    ]
+  }
+}

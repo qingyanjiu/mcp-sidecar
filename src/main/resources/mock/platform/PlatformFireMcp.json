@@ -1,0 +1,361 @@
+{
+  "getFireAssets": {
+    "rows": [
+      {
+        "assetsName": "消火栓",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.38, "unit": "MPa" },
+          { "monitorName": "电量", "monitorValue": 92, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-HY-0001",
+        "assetsId": "XF-AST-000001"
+      },
+      {
+        "assetsName": "消火栓",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.41, "unit": "MPa" },
+          { "monitorName": "电量", "monitorValue": 88, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-HY-0002",
+        "assetsId": "XF-AST-000002"
+      },
+      {
+        "assetsName": "消火栓",
+        "offLineFlag": 0,
+        "faultFlag": 1,
+        "usageFlag": 0,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.0, "unit": "MPa" },
+          { "monitorName": "电量", "monitorValue": 12, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-HY-0003",
+        "assetsId": "XF-AST-000003"
+      },
+      {
+        "assetsName": "消火栓",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 1,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.36, "unit": "MPa" },
+          { "monitorName": "电量", "monitorValue": 81, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-HY-0004",
+        "assetsId": "XF-AST-000004"
+      },
+      {
+        "assetsName": "压力表",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.45, "unit": "MPa" }
+        ],
+        "deviceCode": "SJY-XF-YLB-0011",
+        "assetsId": "XF-AST-000011"
+      },
+      {
+        "assetsName": "压力表",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 1,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.51, "unit": "MPa" }
+        ],
+        "deviceCode": "SJY-XF-YLB-0012",
+        "assetsId": "XF-AST-000012"
+      },
+      {
+        "assetsName": "压力表",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "压力", "monitorValue": 0.44, "unit": "MPa" }
+        ],
+        "deviceCode": "SJY-XF-YLB-0013",
+        "assetsId": "XF-AST-000013"
+      },
+      {
+        "assetsName": "液位表",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "液位", "monitorValue": 2.35, "unit": "m" },
+          { "monitorName": "电量", "monitorValue": 76, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-YWB-0021",
+        "assetsId": "XF-AST-000021"
+      },
+      {
+        "assetsName": "液位表",
+        "offLineFlag": 1,
+        "faultFlag": 1,
+        "usageFlag": 0,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "液位", "monitorValue": 0.12, "unit": "m" },
+          { "monitorName": "电量", "monitorValue": 64, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-YWB-0022",
+        "assetsId": "XF-AST-000022"
+      },
+      {
+        "assetsName": "液位表",
+        "offLineFlag": 0,
+        "faultFlag": 1,
+        "usageFlag": 0,
+        "hiddenDangerFlag": 1,
+        "dataMap": [
+          { "monitorName": "液位", "monitorValue": 0.0, "unit": "m" },
+          { "monitorName": "电量", "monitorValue": 9, "unit": "%" }
+        ],
+        "deviceCode": "SJY-XF-YWB-0023",
+        "assetsId": "XF-AST-000023"
+      },
+      {
+        "assetsName": "传输装置",
+        "offLineFlag": 1,
+        "faultFlag": 0,
+        "usageFlag": 1,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "电量", "monitorValue": 97, "unit": "%" },
+          { "monitorName": "倾角", "monitorValue": 1.2, "unit": "°" }
+        ],
+        "deviceCode": "SJY-XF-CSZZ-0031",
+        "assetsId": "XF-AST-000031"
+      },
+      {
+        "assetsName": "传输装置",
+        "offLineFlag": 0,
+        "faultFlag": 0,
+        "usageFlag": 0,
+        "hiddenDangerFlag": 0,
+        "dataMap": [
+          { "monitorName": "电量", "monitorValue": 0, "unit": "%" },
+          { "monitorName": "倾角", "monitorValue": 0.0, "unit": "°" }
+        ],
+        "deviceCode": "SJY-XF-CSZZ-0032",
+        "assetsId": "XF-AST-000032"
+      }
+    ],
+    "total": 1860
+  },
+  "getFireAlarmNum": {
+    "allAlarmNum": 68,
+    "fireNum": 12,
+    "fireMisreportNum": 5,
+    "fireDangerNum": 18,
+    "fireDangerMisreportNum": 7,
+    "deviceFaultNum": 21,
+    "deviceFaultMisreportNum": 9,
+    "deviceStateNum": 11,
+    "userLeaveNum": 6
+  },
+  "getFireAlarmList": {
+    "rows": [
+      {
+        "title": "B栋1层设备间烟雾报警",
+        "alarmTypeName": "火灾告警",
+        "assetsName": "感烟探测器",
+        "areaName": "B栋/1层设备间",
+        "nowAlarmTime": 1789953156000,
+        "firstAlarmTime": 1789952711000,
+        "alarmLevel": 2,
+        "handleStatus": 0,
+        "alarmReason": "检测到烟雾浓度超过报警阈值,持续30秒",
+        "deviceCode": "SJY-XF-YG-B0121",
+        "alarmCode": "AL-20260921-0001",
+        "alarmType": 1,
+        "assetsId": "XF-AST-000121"
+      },
+      {
+        "title": "A栋消防通道消火栓压力异常",
+        "alarmTypeName": "火灾隐患告警",
+        "assetsName": "消火栓",
+        "areaName": "A栋/消防通道东段",
+        "nowAlarmTime": 1789951502000,
+        "firstAlarmTime": 1789951187000,
+        "alarmLevel": 2,
+        "handleStatus": 0,
+        "alarmReason": "消火栓压力持续低于0.20MPa,判定为火灾隐患",
+        "deviceCode": "SJY-XF-HY-0002",
+        "alarmCode": "AL-20260921-0002",
+        "alarmType": 2,
+        "assetsId": "XF-AST-000002"
+      },
+      {
+        "title": "A栋3层管道井压力表故障",
+        "alarmTypeName": "设备故障告警",
+        "assetsName": "压力表",
+        "areaName": "A栋/3层管道井",
+        "nowAlarmTime": 1789947018000,
+        "firstAlarmTime": 1789946643000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "压力表采集数据连续中断,心跳丢失超过2小时",
+        "deviceCode": "SJY-XF-YLB-0013",
+        "alarmCode": "AL-20260921-0003",
+        "alarmType": 3,
+        "assetsId": "XF-AST-000013"
+      },
+      {
+        "title": "中心机房消防主机离人报警",
+        "alarmTypeName": "离人告警",
+        "assetsName": "传输装置",
+        "areaName": "中心机房/消防主机房",
+        "nowAlarmTime": 1789913144000,
+        "firstAlarmTime": 1789912700000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "值守区域检测到人员离岗超过15分钟",
+        "deviceCode": "SJY-XF-CSZZ-0031",
+        "alarmCode": "AL-20260920-0011",
+        "alarmType": 5,
+        "assetsId": "XF-AST-000031"
+      },
+      {
+        "title": "食堂后厨操作间烟雾报警",
+        "alarmTypeName": "火灾告警",
+        "assetsName": "感烟探测器",
+        "areaName": "食堂/后厨操作间",
+        "nowAlarmTime": 1789894090000,
+        "firstAlarmTime": 1789893715000,
+        "alarmLevel": 2,
+        "handleStatus": 1,
+        "alarmReason": "后厨油烟触发感烟探测器,现场核实为误报",
+        "deviceCode": "SJY-XF-YG-S0108",
+        "alarmCode": "AL-20260920-0012",
+        "alarmType": 1,
+        "assetsId": "XF-AST-000108"
+      },
+      {
+        "title": "C栋地下消防通道消火栓被遮挡",
+        "alarmTypeName": "火灾隐患告警",
+        "assetsName": "消火栓",
+        "areaName": "C栋/地下消防通道",
+        "nowAlarmTime": 1789874575000,
+        "firstAlarmTime": 1789874132000,
+        "alarmLevel": 1,
+        "handleStatus": 0,
+        "alarmReason": "消火栓箱前堆放杂物,通道宽度不足",
+        "deviceCode": "SJY-XF-HY-0016",
+        "alarmCode": "AL-20260920-0013",
+        "alarmType": 2,
+        "assetsId": "XF-AST-000016"
+      },
+      {
+        "title": "地下车库C区消防水池液位状态异常",
+        "alarmTypeName": "设备状态告警",
+        "assetsName": "液位表",
+        "areaName": "地下车库/C区消防水池",
+        "nowAlarmTime": 1789815807000,
+        "firstAlarmTime": 1789815424000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "消防水池液位低于下限值0.50m",
+        "deviceCode": "SJY-XF-YWB-0021",
+        "alarmCode": "AL-20260919-0021",
+        "alarmType": 4,
+        "assetsId": "XF-AST-000021"
+      },
+      {
+        "title": "地下车库B区消防水池液位表故障",
+        "alarmTypeName": "设备故障告警",
+        "assetsName": "液位表",
+        "areaName": "地下车库/B区消防水池",
+        "nowAlarmTime": 1789799861000,
+        "firstAlarmTime": 1789799409000,
+        "alarmLevel": 2,
+        "handleStatus": 0,
+        "alarmReason": "液位表回传数值异常跳变,判定为传感器故障",
+        "deviceCode": "SJY-XF-YWB-0022",
+        "alarmCode": "AL-20260919-0022",
+        "alarmType": 3,
+        "assetsId": "XF-AST-000022"
+      },
+      {
+        "title": "B栋1层消防栓箱消火栓压力偏低",
+        "alarmTypeName": "火灾隐患告警",
+        "assetsName": "消火栓",
+        "areaName": "B栋/1层消防栓箱",
+        "nowAlarmTime": 1789697709000,
+        "firstAlarmTime": 1789697331000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "消火栓压力低于正常区间下限,存在灭火供水隐患",
+        "deviceCode": "SJY-XF-HY-0004",
+        "alarmCode": "AL-20260918-0031",
+        "alarmType": 2,
+        "assetsId": "XF-AST-000004"
+      },
+      {
+        "title": "北门门岗消防传输装置故障",
+        "alarmTypeName": "设备故障告警",
+        "assetsName": "传输装置",
+        "areaName": "北门/门岗",
+        "nowAlarmTime": 1789653153000,
+        "firstAlarmTime": 1789652656000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "传输装置与消防主机通信中断,离线超过4小时",
+        "deviceCode": "SJY-XF-CSZZ-0032",
+        "alarmCode": "AL-20260917-0041",
+        "alarmType": 3,
+        "assetsId": "XF-AST-000032"
+      },
+      {
+        "title": "A栋1层消防泵房压力表状态异常",
+        "alarmTypeName": "设备状态告警",
+        "assetsName": "压力表",
+        "areaName": "A栋/1层消防泵房",
+        "nowAlarmTime": 1789518374000,
+        "firstAlarmTime": 1789517980000,
+        "alarmLevel": 1,
+        "handleStatus": 1,
+        "alarmReason": "消防泵房压力表读数长期无变化,疑似设备停用",
+        "deviceCode": "SJY-XF-YLB-0011",
+        "alarmCode": "AL-20260916-0051",
+        "alarmType": 4,
+        "assetsId": "XF-AST-000011"
+      },
+      {
+        "title": "会议中心2层会议室烟雾报警",
+        "alarmTypeName": "火灾告警",
+        "assetsName": "感烟探测器",
+        "areaName": "会议中心/2层会议室",
+        "nowAlarmTime": 1789451098000,
+        "firstAlarmTime": 1789450702000,
+        "alarmLevel": 2,
+        "handleStatus": 1,
+        "alarmReason": "会议室烟雾浓度短时超阈值,现场核实为误报",
+        "deviceCode": "SJY-XF-YG-H0201",
+        "alarmCode": "AL-20260915-0061",
+        "alarmType": 1,
+        "assetsId": "XF-AST-000201"
+      }
+    ],
+    "total": 68
+  },
+  "getMonthRepair": {
+    "category": ["2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"],
+    "oneData": [14, 11, 17, 13, 9, 12, 16, 10, 8, 15, 13, 12],
+    "twoData": [6, 8, 5, 9, 7, 4, 8, 6, 5, 7, 9, 6]
+  }
+}

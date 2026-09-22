@@ -1,0 +1,3704 @@
+{
+  "listDevice": {
+    "page": {
+      "total": 13100,
+      "size": 100,
+      "pages": 131,
+      "current": 1
+    },
+    "data": [
+      {
+        "id": "100654",
+        "name": "东门智能水表2号",
+        "code": "NH-DM-0002",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "23",
+        "spaceName": "园区/东门",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100491",
+        "name": "南门周界红外对射2号",
+        "code": "ZJ-NM-0002",
+        "syncSource": "4",
+        "deviceTypeName": "入侵报警",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100247",
+        "name": "A栋6层门禁读卡器2号",
+        "code": "MJ-A-0602",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/6层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100610",
+        "name": "A栋8层智能水表3号",
+        "code": "NH-A-0803",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/8层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100625",
+        "name": "B栋5层智能水表3号",
+        "code": "NH-B-0503",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "0"
+      },
+      {
+        "id": "100726",
+        "name": "C栋3层智能电表3号",
+        "code": "NH-C-0303",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "3",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/3层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100430",
+        "name": "B栋4层走廊南侧摄像机2号",
+        "code": "CAM-B-0402",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/4层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100732",
+        "name": "C栋5层智能电表3号",
+        "code": "NH-C-0503",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100233",
+        "name": "A栋1层门禁读卡器3号",
+        "code": "MJ-A-0103",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/1层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100378",
+        "name": "B栋6层电梯梯控1号",
+        "code": "TK-B-0601",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/6层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100241",
+        "name": "A栋4层门禁读卡器2号",
+        "code": "MJ-A-0402",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/4层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100410",
+        "name": "A栋5层走廊西侧摄像机3号",
+        "code": "CAM-A-0503",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/5层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100299",
+        "name": "东门门禁读卡器3号",
+        "code": "MJ-DM-0003",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "23",
+        "spaceName": "园区/东门",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100352",
+        "name": "A栋5层电梯梯控2号",
+        "code": "TK-A-0502",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/5层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100236",
+        "name": "A栋2层门禁读卡器3号",
+        "code": "MJ-A-0203",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/2层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100579",
+        "name": "会议中心广播终端2号",
+        "code": "GB-HY-0002",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "42",
+        "spaceName": "园区/会议中心",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100560",
+        "name": "南门广播终端1号",
+        "code": "GB-NM-0001",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100623",
+        "name": "B栋5层智能水表1号",
+        "code": "NH-B-0501",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100252",
+        "name": "A栋8层门禁读卡器1号",
+        "code": "MJ-A-0801",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/8层",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100321",
+        "name": "北门车行道闸2号",
+        "code": "DZ-BM-0002",
+        "syncSource": "1",
+        "deviceTypeName": "道闸",
+        "status": "1",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100542",
+        "name": "C栋1层广播终端3号",
+        "code": "GB-C-0103",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/1层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100554",
+        "name": "C栋5层广播终端3号",
+        "code": "GB-C-0503",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100584",
+        "name": "门岗广播终端1号",
+        "code": "GB-MG-0001",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "61",
+        "spaceName": "园区/门岗",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "0"
+      },
+      {
+        "id": "100588",
+        "name": "A栋1层智能水表2号",
+        "code": "NH-A-0102",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/1层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100721",
+        "name": "C栋2层智能电表1号",
+        "code": "NH-C-0201",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/2层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100235",
+        "name": "A栋2层门禁读卡器2号",
+        "code": "MJ-A-0202",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/2层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100460",
+        "name": "南门走廊西侧摄像机3号",
+        "code": "CAM-NM-0003",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100278",
+        "name": "C栋2层门禁读卡器3号",
+        "code": "MJ-C-0203",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/2层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100424",
+        "name": "B栋2层走廊南侧摄像机2号",
+        "code": "CAM-B-0202",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/2层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100556",
+        "name": "北门广播终端2号",
+        "code": "GB-BM-0002",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100737",
+        "name": "北门智能电表5号",
+        "code": "NH-BM-0005",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "0",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "0"
+      },
+      {
+        "id": "100467",
+        "name": "地下车库走廊南侧摄像机2号",
+        "code": "CAM-CK-0002",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "31",
+        "spaceName": "园区/地下车库",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100234",
+        "name": "A栋2层门禁读卡器1号",
+        "code": "MJ-A-0201",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/2层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100470",
+        "name": "地下车库走廊东侧摄像机5号",
+        "code": "CAM-CK-0005",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "31",
+        "spaceName": "园区/地下车库",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100421",
+        "name": "B栋1层走廊南侧摄像机2号",
+        "code": "CAM-B-0102",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "2",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/1层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100382",
+        "name": "C栋1层电梯梯控2号",
+        "code": "TK-C-0102",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/1层",
+        "personInChargeName": "陈静",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100761",
+        "name": "中心机房智能电表3号",
+        "code": "NH-JF-0003",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "51",
+        "spaceName": "园区/中心机房",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100268",
+        "name": "B栋5层门禁读卡器2号",
+        "code": "MJ-B-0502",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100682",
+        "name": "A栋3层智能电表1号",
+        "code": "NH-A-0301",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/3层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100516",
+        "name": "A栋7层广播终端1号",
+        "code": "GB-A-0701",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/7层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "0"
+      },
+      {
+        "id": "100437",
+        "name": "B栋6层走廊西侧摄像机3号",
+        "code": "CAM-B-0603",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/6层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100310",
+        "name": "食堂门禁读卡器4号",
+        "code": "MJ-ST-0004",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "41",
+        "spaceName": "园区/食堂",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100502",
+        "name": "A栋2层广播终端2号",
+        "code": "GB-A-0202",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/2层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100328",
+        "name": "南门车行道闸4号",
+        "code": "DZ-NM-0004",
+        "syncSource": "1",
+        "deviceTypeName": "道闸",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100714",
+        "name": "B栋5层智能电表3号",
+        "code": "NH-B-0503",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "2",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100594",
+        "name": "A栋3层智能水表2号",
+        "code": "NH-A-0302",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/3层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100307",
+        "name": "食堂门禁读卡器1号",
+        "code": "MJ-ST-0001",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "41",
+        "spaceName": "园区/食堂",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100353",
+        "name": "A栋5层电梯梯控3号",
+        "code": "TK-A-0503",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/5层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "0"
+      },
+      {
+        "id": "100433",
+        "name": "B栋5层走廊南侧摄像机2号",
+        "code": "CAM-B-0502",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100538",
+        "name": "B栋6层广播终端2号",
+        "code": "GB-B-0602",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/6层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100688",
+        "name": "A栋5层智能电表1号",
+        "code": "NH-A-0501",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100503",
+        "name": "A栋2层广播终端3号",
+        "code": "GB-A-0203",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/2层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100740",
+        "name": "南门智能电表3号",
+        "code": "NH-NM-0003",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100479",
+        "name": "中心机房走廊东侧摄像机1号",
+        "code": "CAM-JF-0001",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "51",
+        "spaceName": "园区/中心机房",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100347",
+        "name": "A栋3层电梯梯控3号",
+        "code": "TK-A-0303",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/3层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "0"
+      },
+      {
+        "id": "100596",
+        "name": "A栋4层智能水表1号",
+        "code": "NH-A-0401",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/4层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100254",
+        "name": "A栋8层门禁读卡器3号",
+        "code": "MJ-A-0803",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/8层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100283",
+        "name": "C栋4层门禁读卡器2号",
+        "code": "MJ-C-0402",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/4层",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100493",
+        "name": "南门周界红外对射4号",
+        "code": "ZJ-NM-0004",
+        "syncSource": "4",
+        "deviceTypeName": "入侵报警",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100297",
+        "name": "东门门禁读卡器1号",
+        "code": "MJ-DM-0001",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "23",
+        "spaceName": "园区/东门",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "0"
+      },
+      {
+        "id": "100295",
+        "name": "南门门禁读卡器3号",
+        "code": "MJ-NM-0003",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "22",
+        "spaceName": "园区/南门",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100335",
+        "name": "地下车库车行道闸3号",
+        "code": "DZ-CK-0003",
+        "syncSource": "1",
+        "deviceTypeName": "道闸",
+        "status": "1",
+        "spaceId": "31",
+        "spaceName": "园区/地下车库",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100641",
+        "name": "C栋5层智能水表1号",
+        "code": "NH-C-0501",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "0",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "0"
+      },
+      {
+        "id": "100251",
+        "name": "A栋7层门禁读卡器3号",
+        "code": "MJ-A-0703",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/7层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100581",
+        "name": "中心机房广播终端1号",
+        "code": "GB-JF-0001",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "51",
+        "spaceName": "园区/中心机房",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100730",
+        "name": "C栋5层智能电表1号",
+        "code": "NH-C-0501",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100359",
+        "name": "A栋7层电梯梯控3号",
+        "code": "TK-A-0703",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/7层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100315",
+        "name": "中心机房门禁读卡器2号",
+        "code": "MJ-JF-0002",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "51",
+        "spaceName": "园区/中心机房",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100238",
+        "name": "A栋3层门禁读卡器2号",
+        "code": "MJ-A-0302",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/3层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100345",
+        "name": "A栋3层电梯梯控1号",
+        "code": "TK-A-0301",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "2",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/3层",
+        "personInChargeName": "陈静",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100368",
+        "name": "B栋2层电梯梯控3号",
+        "code": "TK-B-0203",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/2层",
+        "personInChargeName": "陈静",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100558",
+        "name": "北门广播终端4号",
+        "code": "GB-BM-0004",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100511",
+        "name": "A栋5层广播终端2号",
+        "code": "GB-A-0502",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "0",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/5层",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100703",
+        "name": "B栋2层智能电表1号",
+        "code": "NH-B-0201",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/2层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100370",
+        "name": "B栋3层电梯梯控2号",
+        "code": "TK-B-0302",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/3层",
+        "personInChargeName": "刘洋",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100758",
+        "name": "会议中心智能电表3号",
+        "code": "NH-HY-0003",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "42",
+        "spaceName": "园区/会议中心",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "0"
+      },
+      {
+        "id": "100311",
+        "name": "会议中心门禁读卡器1号",
+        "code": "MJ-HY-0001",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "42",
+        "spaceName": "园区/会议中心",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100547",
+        "name": "C栋3层广播终端2号",
+        "code": "GB-C-0302",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "0",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/3层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100661",
+        "name": "地下车库智能水表5号",
+        "code": "NH-CK-0005",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "31",
+        "spaceName": "园区/地下车库",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100535",
+        "name": "B栋5层广播终端2号",
+        "code": "GB-B-0502",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/5层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100552",
+        "name": "C栋5层广播终端1号",
+        "code": "GB-C-0501",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100508",
+        "name": "A栋4层广播终端2号",
+        "code": "GB-A-0402",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/4层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100498",
+        "name": "A栋1层广播终端1号",
+        "code": "GB-A-0101",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/1层",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100645",
+        "name": "北门智能水表2号",
+        "code": "NH-BM-0002",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100531",
+        "name": "B栋4层广播终端1号",
+        "code": "GB-B-0401",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/4层",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100286",
+        "name": "C栋5层门禁读卡器2号",
+        "code": "MJ-C-0502",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100532",
+        "name": "B栋4层广播终端2号",
+        "code": "GB-B-0402",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/4层",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100557",
+        "name": "北门广播终端3号",
+        "code": "GB-BM-0003",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "0",
+        "spaceId": "21",
+        "spaceName": "园区/北门",
+        "personInChargeName": "赵磊",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100481",
+        "name": "中心机房走廊西侧摄像机3号",
+        "code": "CAM-JF-0003",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "51",
+        "spaceName": "园区/中心机房",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100695",
+        "name": "A栋7层智能电表2号",
+        "code": "NH-A-0702",
+        "syncSource": "7",
+        "deviceTypeName": "电表",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/7层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100396",
+        "name": "A栋1层走廊东侧摄像机1号",
+        "code": "CAM-A-0101",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/1层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100496",
+        "name": "东门周界红外对射3号",
+        "code": "ZJ-DM-0003",
+        "syncSource": "4",
+        "deviceTypeName": "入侵报警",
+        "status": "1",
+        "spaceId": "23",
+        "spaceName": "园区/东门",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100638",
+        "name": "C栋4层智能水表1号",
+        "code": "NH-C-0401",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/4层",
+        "personInChargeName": "李娜",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100357",
+        "name": "A栋7层电梯梯控1号",
+        "code": "TK-A-0701",
+        "syncSource": "2",
+        "deviceTypeName": "梯控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/7层",
+        "personInChargeName": "陈静",
+        "orgName": "工程部",
+        "maintained": "1"
+      },
+      {
+        "id": "100483",
+        "name": "门岗走廊南侧摄像机2号",
+        "code": "CAM-MG-0002",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "61",
+        "spaceName": "园区/门岗",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100419",
+        "name": "A栋8层走廊西侧摄像机3号",
+        "code": "CAM-A-0803",
+        "syncSource": "3",
+        "deviceTypeName": "监控",
+        "status": "1",
+        "spaceId": "11",
+        "spaceName": "园区/A栋/8层",
+        "personInChargeName": "张伟",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100643",
+        "name": "C栋5层智能水表3号",
+        "code": "NH-C-0503",
+        "syncSource": "6",
+        "deviceTypeName": "水表",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/5层",
+        "personInChargeName": "周敏",
+        "orgName": "后勤部",
+        "maintained": "1"
+      },
+      {
+        "id": "100575",
+        "name": "食堂广播终端2号",
+        "code": "GB-ST-0002",
+        "syncSource": "5",
+        "deviceTypeName": "广播",
+        "status": "1",
+        "spaceId": "41",
+        "spaceName": "园区/食堂",
+        "personInChargeName": "孙倩",
+        "orgName": "信息中心",
+        "maintained": "1"
+      },
+      {
+        "id": "100270",
+        "name": "B栋6层门禁读卡器1号",
+        "code": "MJ-B-0601",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "12",
+        "spaceName": "园区/B栋/6层",
+        "personInChargeName": "王强",
+        "orgName": "安保部",
+        "maintained": "1"
+      },
+      {
+        "id": "100279",
+        "name": "C栋3层门禁读卡器1号",
+        "code": "MJ-C-0301",
+        "syncSource": "0",
+        "deviceTypeName": "门禁",
+        "status": "1",
+        "spaceId": "13",
+        "spaceName": "园区/C栋/3层",
+        "personInChargeName": "李娜",
+        "orgName": "安保部",
+        "maintained": "1"
+      }
+    ]
+  },
+  "listDeviceOnly": [
+    {
+      "id": "100614",
+      "name": "B栋2层智能水表1号",
+      "code": "NH-B-0201",
+      "syncSource": "6",
+      "status": "0",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/2层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100755",
+      "name": "食堂智能电表4号",
+      "code": "NH-ST-0004",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "41",
+      "spaceName": "园区/食堂",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100393",
+      "name": "C栋5层电梯梯控1号",
+      "code": "TK-C-0501",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/5层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100457",
+      "name": "北门走廊东侧摄像机5号",
+      "code": "CAM-BM-0005",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "21",
+      "spaceName": "园区/北门",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "0"
+    },
+    {
+      "id": "100354",
+      "name": "A栋6层电梯梯控1号",
+      "code": "TK-A-0601",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/6层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100686",
+      "name": "A栋4层智能电表2号",
+      "code": "NH-A-0402",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100306",
+      "name": "地下车库门禁读卡器6号",
+      "code": "MJ-CK-0006",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "31",
+      "spaceName": "园区/地下车库",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100372",
+      "name": "B栋4层电梯梯控1号",
+      "code": "TK-B-0401",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/4层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100698",
+      "name": "A栋8层智能电表2号",
+      "code": "NH-A-0802",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100476",
+      "name": "会议中心走廊东侧摄像机1号",
+      "code": "CAM-HY-0001",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "42",
+      "spaceName": "园区/会议中心",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "0"
+    },
+    {
+      "id": "100717",
+      "name": "B栋6层智能电表3号",
+      "code": "NH-B-0603",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/6层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100244",
+      "name": "A栋5层门禁读卡器2号",
+      "code": "MJ-A-0502",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100383",
+      "name": "C栋1层电梯梯控3号",
+      "code": "TK-C-0103",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/1层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100731",
+      "name": "C栋5层智能电表2号",
+      "code": "NH-C-0502",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/5层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100550",
+      "name": "C栋4层广播终端2号",
+      "code": "GB-C-0402",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100331",
+      "name": "东门车行道闸3号",
+      "code": "DZ-DM-0003",
+      "syncSource": "1",
+      "status": "1",
+      "spaceId": "23",
+      "spaceName": "园区/东门",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100358",
+      "name": "A栋7层电梯梯控2号",
+      "code": "TK-A-0702",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100549",
+      "name": "C栋4层广播终端1号",
+      "code": "GB-C-0401",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100534",
+      "name": "B栋5层广播终端1号",
+      "code": "GB-B-0501",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/5层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100709",
+      "name": "B栋4层智能电表1号",
+      "code": "NH-B-0401",
+      "syncSource": "7",
+      "status": "0",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/4层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100284",
+      "name": "C栋4层门禁读卡器3号",
+      "code": "MJ-C-0403",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100304",
+      "name": "地下车库门禁读卡器4号",
+      "code": "MJ-CK-0004",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "31",
+      "spaceName": "园区/地下车库",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100342",
+      "name": "A栋2层电梯梯控1号",
+      "code": "TK-A-0201",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100363",
+      "name": "B栋1层电梯梯控1号",
+      "code": "TK-B-0101",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/1层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100282",
+      "name": "C栋4层门禁读卡器1号",
+      "code": "MJ-C-0401",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "0"
+    },
+    {
+      "id": "100565",
+      "name": "东门广播终端2号",
+      "code": "GB-DM-0002",
+      "syncSource": "5",
+      "status": "2",
+      "spaceId": "23",
+      "spaceName": "园区/东门",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "0"
+    },
+    {
+      "id": "100309",
+      "name": "食堂门禁读卡器3号",
+      "code": "MJ-ST-0003",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "41",
+      "spaceName": "园区/食堂",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "0"
+    },
+    {
+      "id": "100576",
+      "name": "食堂广播终端3号",
+      "code": "GB-ST-0003",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "41",
+      "spaceName": "园区/食堂",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100276",
+      "name": "C栋2层门禁读卡器1号",
+      "code": "MJ-C-0201",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/2层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100289",
+      "name": "北门门禁读卡器2号",
+      "code": "MJ-BM-0002",
+      "syncSource": "0",
+      "status": "0",
+      "spaceId": "21",
+      "spaceName": "园区/北门",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100313",
+      "name": "会议中心门禁读卡器3号",
+      "code": "MJ-HY-0003",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "42",
+      "spaceName": "园区/会议中心",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100631",
+      "name": "C栋1层智能水表3号",
+      "code": "NH-C-0103",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/1层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "0"
+    },
+    {
+      "id": "100635",
+      "name": "C栋3层智能水表1号",
+      "code": "NH-C-0301",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/3层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100636",
+      "name": "C栋3层智能水表2号",
+      "code": "NH-C-0302",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/3层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100722",
+      "name": "C栋2层智能电表2号",
+      "code": "NH-C-0202",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/2层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100371",
+      "name": "B栋3层电梯梯控3号",
+      "code": "TK-B-0303",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/3层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100648",
+      "name": "北门智能水表5号",
+      "code": "NH-BM-0005",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "21",
+      "spaceName": "园区/北门",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100450",
+      "name": "C栋5层走廊东侧摄像机1号",
+      "code": "CAM-C-0501",
+      "syncSource": "3",
+      "status": "2",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/5层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100734",
+      "name": "北门智能电表2号",
+      "code": "NH-BM-0002",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "21",
+      "spaceName": "园区/北门",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100746",
+      "name": "地下车库智能电表1号",
+      "code": "NH-CK-0001",
+      "syncSource": "7",
+      "status": "3",
+      "spaceId": "31",
+      "spaceName": "园区/地下车库",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100327",
+      "name": "南门车行道闸3号",
+      "code": "DZ-NM-0003",
+      "syncSource": "1",
+      "status": "1",
+      "spaceId": "22",
+      "spaceName": "园区/南门",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100672",
+      "name": "中心机房智能水表3号",
+      "code": "NH-JF-0003",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "51",
+      "spaceName": "园区/中心机房",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100525",
+      "name": "B栋2层广播终端1号",
+      "code": "GB-B-0201",
+      "syncSource": "5",
+      "status": "0",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/2层",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100569",
+      "name": "地下车库广播终端2号",
+      "code": "GB-CK-0002",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "31",
+      "spaceName": "园区/地下车库",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100685",
+      "name": "A栋4层智能电表1号",
+      "code": "NH-A-0401",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100275",
+      "name": "C栋1层门禁读卡器3号",
+      "code": "MJ-C-0103",
+      "syncSource": "0",
+      "status": "0",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/1层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100505",
+      "name": "A栋3层广播终端2号",
+      "code": "GB-A-0302",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100727",
+      "name": "C栋4层智能电表1号",
+      "code": "NH-C-0401",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100706",
+      "name": "B栋3层智能电表1号",
+      "code": "NH-B-0301",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/3层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100397",
+      "name": "A栋1层走廊南侧摄像机2号",
+      "code": "CAM-A-0102",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/1层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100568",
+      "name": "地下车库广播终端1号",
+      "code": "GB-CK-0001",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "31",
+      "spaceName": "园区/地下车库",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100702",
+      "name": "B栋1层智能电表3号",
+      "code": "NH-B-0103",
+      "syncSource": "7",
+      "status": "0",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/1层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "0"
+    },
+    {
+      "id": "100262",
+      "name": "B栋3层门禁读卡器2号",
+      "code": "MJ-B-0302",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/3层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100377",
+      "name": "B栋5层电梯梯控3号",
+      "code": "TK-B-0503",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/5层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100701",
+      "name": "B栋1层智能电表2号",
+      "code": "NH-B-0102",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "12",
+      "spaceName": "园区/B栋/1层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100567",
+      "name": "东门广播终端4号",
+      "code": "GB-DM-0004",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "23",
+      "spaceName": "园区/东门",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100323",
+      "name": "北门车行道闸4号",
+      "code": "DZ-BM-0004",
+      "syncSource": "1",
+      "status": "1",
+      "spaceId": "21",
+      "spaceName": "园区/北门",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100448",
+      "name": "C栋4层走廊南侧摄像机2号",
+      "code": "CAM-C-0402",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "13",
+      "spaceName": "园区/C栋/4层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100473",
+      "name": "食堂走廊南侧摄像机2号",
+      "code": "CAM-ST-0002",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "41",
+      "spaceName": "园区/食堂",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100599",
+      "name": "A栋5层智能水表1号",
+      "code": "NH-A-0501",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    }
+  ],
+  "listDeviceWithSpace": [
+    {
+      "id": "100247",
+      "name": "A栋6层门禁读卡器2号",
+      "code": "MJ-A-0602",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/6层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100610",
+      "name": "A栋8层智能水表3号",
+      "code": "NH-A-0803",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100233",
+      "name": "A栋1层门禁读卡器3号",
+      "code": "MJ-A-0103",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/1层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100241",
+      "name": "A栋4层门禁读卡器2号",
+      "code": "MJ-A-0402",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100410",
+      "name": "A栋5层走廊西侧摄像机3号",
+      "code": "CAM-A-0503",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100352",
+      "name": "A栋5层电梯梯控2号",
+      "code": "TK-A-0502",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100236",
+      "name": "A栋2层门禁读卡器3号",
+      "code": "MJ-A-0203",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "0"
+    },
+    {
+      "id": "100252",
+      "name": "A栋8层门禁读卡器1号",
+      "code": "MJ-A-0801",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100588",
+      "name": "A栋1层智能水表2号",
+      "code": "NH-A-0102",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/1层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100235",
+      "name": "A栋2层门禁读卡器2号",
+      "code": "MJ-A-0202",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "王强",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100234",
+      "name": "A栋2层门禁读卡器1号",
+      "code": "MJ-A-0201",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100682",
+      "name": "A栋3层智能电表1号",
+      "code": "NH-A-0301",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100516",
+      "name": "A栋7层广播终端1号",
+      "code": "GB-A-0701",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "0"
+    },
+    {
+      "id": "100502",
+      "name": "A栋2层广播终端2号",
+      "code": "GB-A-0202",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100594",
+      "name": "A栋3层智能水表2号",
+      "code": "NH-A-0302",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100353",
+      "name": "A栋5层电梯梯控3号",
+      "code": "TK-A-0503",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100688",
+      "name": "A栋5层智能电表1号",
+      "code": "NH-A-0501",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100503",
+      "name": "A栋2层广播终端3号",
+      "code": "GB-A-0203",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100347",
+      "name": "A栋3层电梯梯控3号",
+      "code": "TK-A-0303",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100596",
+      "name": "A栋4层智能水表1号",
+      "code": "NH-A-0401",
+      "syncSource": "6",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100254",
+      "name": "A栋8层门禁读卡器3号",
+      "code": "MJ-A-0803",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100251",
+      "name": "A栋7层门禁读卡器3号",
+      "code": "MJ-A-0703",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100359",
+      "name": "A栋7层电梯梯控3号",
+      "code": "TK-A-0703",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "刘洋",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100238",
+      "name": "A栋3层门禁读卡器2号",
+      "code": "MJ-A-0302",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100345",
+      "name": "A栋3层电梯梯控1号",
+      "code": "TK-A-0301",
+      "syncSource": "2",
+      "status": "2",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100511",
+      "name": "A栋5层广播终端2号",
+      "code": "GB-A-0502",
+      "syncSource": "5",
+      "status": "0",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100508",
+      "name": "A栋4层广播终端2号",
+      "code": "GB-A-0402",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100498",
+      "name": "A栋1层广播终端1号",
+      "code": "GB-A-0101",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/1层",
+      "personInChargeName": "赵磊",
+      "orgName": "信息中心",
+      "maintained": "1"
+    },
+    {
+      "id": "100695",
+      "name": "A栋7层智能电表2号",
+      "code": "NH-A-0702",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100396",
+      "name": "A栋1层走廊东侧摄像机1号",
+      "code": "CAM-A-0101",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/1层",
+      "personInChargeName": "李娜",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100357",
+      "name": "A栋7层电梯梯控1号",
+      "code": "TK-A-0701",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100419",
+      "name": "A栋8层走廊西侧摄像机3号",
+      "code": "CAM-A-0803",
+      "syncSource": "3",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100354",
+      "name": "A栋6层电梯梯控1号",
+      "code": "TK-A-0601",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/6层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100686",
+      "name": "A栋4层智能电表2号",
+      "code": "NH-A-0402",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100698",
+      "name": "A栋8层智能电表2号",
+      "code": "NH-A-0802",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/8层",
+      "personInChargeName": "周敏",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100244",
+      "name": "A栋5层门禁读卡器2号",
+      "code": "MJ-A-0502",
+      "syncSource": "0",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/5层",
+      "personInChargeName": "张伟",
+      "orgName": "安保部",
+      "maintained": "1"
+    },
+    {
+      "id": "100358",
+      "name": "A栋7层电梯梯控2号",
+      "code": "TK-A-0702",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/7层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "1"
+    },
+    {
+      "id": "100342",
+      "name": "A栋2层电梯梯控1号",
+      "code": "TK-A-0201",
+      "syncSource": "2",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/2层",
+      "personInChargeName": "陈静",
+      "orgName": "工程部",
+      "maintained": "0"
+    },
+    {
+      "id": "100685",
+      "name": "A栋4层智能电表1号",
+      "code": "NH-A-0401",
+      "syncSource": "7",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/4层",
+      "personInChargeName": "李娜",
+      "orgName": "后勤部",
+      "maintained": "1"
+    },
+    {
+      "id": "100505",
+      "name": "A栋3层广播终端2号",
+      "code": "GB-A-0302",
+      "syncSource": "5",
+      "status": "1",
+      "spaceId": "11",
+      "spaceName": "园区/A栋/3层",
+      "personInChargeName": "孙倩",
+      "orgName": "信息中心",
+      "maintained": "1"
+    }
+  ],
+  "getDeviceDetail": {
+    "id": "100402",
+    "name": "A栋3层走廊东侧摄像机1号",
+    "code": "CAM-A-0301",
+    "syncSource": "3",
+    "deviceTypeName": "监控",
+    "status": "1",
+    "spaceId": "11",
+    "spaceName": "园区/A栋/3层",
+    "personInChargeName": "王强",
+    "orgName": "安保部",
+    "maintained": "1"
+  },
+  "getDeviceStatistics": {
+    "page": {
+      "total": 11,
+      "size": 100,
+      "pages": 1,
+      "current": 1
+    },
+    "data": [
+      {
+        "unit": "和信科技园",
+        "department": "安保部",
+        "type": "监控",
+        "deviceType": "3",
+        "quantity": 2600,
+        "totalValue": 8320000,
+        "enabled": 2496,
+        "disabled": 104
+      },
+      {
+        "unit": "和信科技园",
+        "department": "工程部",
+        "type": "监控",
+        "deviceType": "3",
+        "quantity": 1420,
+        "totalValue": 4544000,
+        "enabled": 1363,
+        "disabled": 57
+      },
+      {
+        "unit": "和信科技园",
+        "department": "信息中心",
+        "type": "监控",
+        "deviceType": "3",
+        "quantity": 500,
+        "totalValue": 1600000,
+        "enabled": 480,
+        "disabled": 20
+      },
+      {
+        "unit": "和信科技园",
+        "department": "安保部",
+        "type": "门禁",
+        "deviceType": "0",
+        "quantity": 1380,
+        "totalValue": 6210000,
+        "enabled": 1325,
+        "disabled": 55
+      },
+      {
+        "unit": "和信科技园",
+        "department": "工程部",
+        "type": "门禁",
+        "deviceType": "0",
+        "quantity": 800,
+        "totalValue": 3600000,
+        "enabled": 768,
+        "disabled": 32
+      },
+      {
+        "unit": "和信科技园",
+        "department": "安保部",
+        "type": "道闸",
+        "deviceType": "1",
+        "quantity": 320,
+        "totalValue": 3840000,
+        "enabled": 307,
+        "disabled": 13
+      },
+      {
+        "unit": "和信科技园",
+        "department": "工程部",
+        "type": "梯控",
+        "deviceType": "2",
+        "quantity": 480,
+        "totalValue": 3840000,
+        "enabled": 461,
+        "disabled": 19
+      },
+      {
+        "unit": "和信科技园",
+        "department": "安保部",
+        "type": "入侵报警",
+        "deviceType": "4",
+        "quantity": 620,
+        "totalValue": 1612000,
+        "enabled": 595,
+        "disabled": 25
+      },
+      {
+        "unit": "和信科技园",
+        "department": "信息中心",
+        "type": "广播",
+        "deviceType": "5",
+        "quantity": 720,
+        "totalValue": 2736000,
+        "enabled": 691,
+        "disabled": 29
+      },
+      {
+        "unit": "和信科技园",
+        "department": "后勤部",
+        "type": "水表",
+        "deviceType": "6",
+        "quantity": 368,
+        "totalValue": 331200,
+        "enabled": 353,
+        "disabled": 15
+      },
+      {
+        "unit": "和信科技园",
+        "department": "后勤部",
+        "type": "电表",
+        "deviceType": "7",
+        "quantity": 612,
+        "totalValue": 734400,
+        "enabled": 588,
+        "disabled": 24
+      }
+    ]
+  },
+  "countByDeviceType": [
+    {
+      "count": 4520,
+      "deviceType": "3",
+      "deviceTypeName": "监控"
+    },
+    {
+      "count": 2180,
+      "deviceType": "0",
+      "deviceTypeName": "门禁"
+    },
+    {
+      "count": 620,
+      "deviceType": "4",
+      "deviceTypeName": "入侵报警"
+    },
+    {
+      "count": 720,
+      "deviceType": "5",
+      "deviceTypeName": "广播"
+    },
+    {
+      "count": 480,
+      "deviceType": "2",
+      "deviceTypeName": "梯控"
+    },
+    {
+      "count": 320,
+      "deviceType": "1",
+      "deviceTypeName": "道闸"
+    },
+    {
+      "count": 368,
+      "deviceType": "6",
+      "deviceTypeName": "水表"
+    },
+    {
+      "count": 612,
+      "deviceType": "7",
+      "deviceTypeName": "电表"
+    },
+    {
+      "count": 0,
+      "deviceType": "8",
+      "deviceTypeName": "其他"
+    }
+  ],
+  "countByStatus": [
+    {
+      "count": 420,
+      "status": "0",
+      "statusName": "停用",
+      "deviceType": null
+    },
+    {
+      "count": 12392,
+      "status": "1",
+      "statusName": "启用",
+      "deviceType": null
+    },
+    {
+      "count": 192,
+      "status": "2",
+      "statusName": "维修",
+      "deviceType": null
+    },
+    {
+      "count": 96,
+      "status": "3",
+      "statusName": "报废",
+      "deviceType": null
+    }
+  ],
+  "countByTypeAndStatus": [
+    {
+      "deviceType": "3",
+      "deviceTypeName": "监控",
+      "statusCount": {
+        "0": 165,
+        "1": 4293,
+        "2": 42,
+        "3": 20
+      }
+    },
+    {
+      "deviceType": "0",
+      "deviceTypeName": "门禁",
+      "statusCount": {
+        "0": 85,
+        "1": 2065,
+        "2": 21,
+        "3": 9
+      }
+    },
+    {
+      "deviceType": "4",
+      "deviceTypeName": "入侵报警",
+      "statusCount": {
+        "0": 28,
+        "1": 583,
+        "2": 6,
+        "3": 3
+      }
+    },
+    {
+      "deviceType": "5",
+      "deviceTypeName": "广播",
+      "statusCount": {
+        "0": 37,
+        "1": 673,
+        "2": 7,
+        "3": 3
+      }
+    },
+    {
+      "deviceType": "2",
+      "deviceTypeName": "梯控",
+      "statusCount": {
+        "0": 20,
+        "1": 452,
+        "2": 5,
+        "3": 3
+      }
+    },
+    {
+      "deviceType": "1",
+      "deviceTypeName": "道闸",
+      "statusCount": {
+        "0": 15,
+        "1": 299,
+        "2": 4,
+        "3": 2
+      }
+    },
+    {
+      "deviceType": "6",
+      "deviceTypeName": "水表",
+      "statusCount": {
+        "0": 7,
+        "1": 355,
+        "2": 4,
+        "3": 2
+      }
+    },
+    {
+      "deviceType": "7",
+      "deviceTypeName": "电表",
+      "statusCount": {
+        "0": 8,
+        "1": 596,
+        "2": 5,
+        "3": 3
+      }
+    }
+  ],
+  "countBySpace": [
+    {
+      "spaceId": "11",
+      "spaceName": null,
+      "count": 2600
+    },
+    {
+      "spaceId": "12",
+      "spaceName": null,
+      "count": 2300
+    },
+    {
+      "spaceId": "13",
+      "spaceName": null,
+      "count": 2000
+    },
+    {
+      "spaceId": "21",
+      "spaceName": null,
+      "count": 900
+    },
+    {
+      "spaceId": "22",
+      "spaceName": null,
+      "count": 800
+    },
+    {
+      "spaceId": "23",
+      "spaceName": null,
+      "count": 700
+    },
+    {
+      "spaceId": "31",
+      "spaceName": null,
+      "count": 1600
+    },
+    {
+      "spaceId": "41",
+      "spaceName": null,
+      "count": 1000
+    },
+    {
+      "spaceId": "42",
+      "spaceName": null,
+      "count": 580
+    },
+    {
+      "spaceId": "51",
+      "spaceName": null,
+      "count": 400
+    },
+    {
+      "spaceId": "61",
+      "spaceName": null,
+      "count": 220
+    }
+  ],
+  "countByFloor": [
+    {
+      "space_name": "A栋1层",
+      "count": 320
+    },
+    {
+      "space_name": "A栋2层",
+      "count": 340
+    },
+    {
+      "space_name": "A栋3层",
+      "count": 356
+    },
+    {
+      "space_name": "A栋4层",
+      "count": 348
+    },
+    {
+      "space_name": "A栋5层",
+      "count": 330
+    },
+    {
+      "space_name": "A栋6层",
+      "count": 318
+    },
+    {
+      "space_name": "A栋7层",
+      "count": 305
+    },
+    {
+      "space_name": "A栋8层",
+      "count": 283
+    },
+    {
+      "space_name": "B栋1层",
+      "count": 420
+    },
+    {
+      "space_name": "B栋2层",
+      "count": 410
+    },
+    {
+      "space_name": "B栋3层",
+      "count": 395
+    },
+    {
+      "space_name": "B栋4层",
+      "count": 385
+    },
+    {
+      "space_name": "B栋5层",
+      "count": 370
+    },
+    {
+      "space_name": "B栋6层",
+      "count": 320
+    },
+    {
+      "space_name": "C栋1层",
+      "count": 560
+    },
+    {
+      "space_name": "C栋2层",
+      "count": 540
+    },
+    {
+      "space_name": "C栋3层",
+      "count": 520
+    },
+    {
+      "space_name": "C栋4层",
+      "count": 380
+    },
+    {
+      "space_name": "C栋5层",
+      "count": 0
+    },
+    {
+      "space_name": "北门",
+      "count": 900
+    },
+    {
+      "space_name": "南门",
+      "count": 800
+    },
+    {
+      "space_name": "东门",
+      "count": 700
+    },
+    {
+      "space_name": "地下车库B1",
+      "count": 1000
+    },
+    {
+      "space_name": "地下车库B2",
+      "count": 600
+    },
+    {
+      "space_name": "食堂1层",
+      "count": 1000
+    },
+    {
+      "space_name": "会议中心1层",
+      "count": 580
+    },
+    {
+      "space_name": "中心机房",
+      "count": 400
+    },
+    {
+      "space_name": "门岗",
+      "count": 220
+    }
+  ],
+  "countMonitorBySubType": [
+    {
+      "subTypeCode": "1",
+      "subTypeName": "枪机",
+      "count": 1980
+    },
+    {
+      "subTypeCode": "2",
+      "subTypeName": "球机",
+      "count": 1320
+    },
+    {
+      "subTypeCode": "3",
+      "subTypeName": "半球",
+      "count": 980
+    },
+    {
+      "subTypeCode": "5",
+      "subTypeName": "本地采集",
+      "count": 240
+    }
+  ],
+  "countMonitorByStatus": [
+    {
+      "statusCode": "0",
+      "statusName": "停用",
+      "count": 165
+    },
+    {
+      "statusCode": "1",
+      "statusName": "启用",
+      "count": 4293
+    },
+    {
+      "statusCode": "2",
+      "statusName": "维修",
+      "count": 42
+    },
+    {
+      "statusCode": "3",
+      "statusName": "报废",
+      "count": 20
+    }
+  ],
+  "getDistribution": [
+    {
+      "unit": "和信科技园",
+      "department": "安保部",
+      "type": "监控",
+      "quantity": 2600,
+      "totalValue": 8320000,
+      "paiming": 1
+    },
+    {
+      "unit": "和信科技园",
+      "department": "园区管理处",
+      "type": "消防",
+      "quantity": 1600,
+      "totalValue": 8000000,
+      "paiming": 2
+    },
+    {
+      "unit": "和信科技园",
+      "department": "工程部",
+      "type": "监控",
+      "quantity": 1420,
+      "totalValue": 4544000,
+      "paiming": 3
+    },
+    {
+      "unit": "和信科技园",
+      "department": "安保部",
+      "type": "门禁",
+      "quantity": 1380,
+      "totalValue": 6210000,
+      "paiming": 4
+    },
+    {
+      "unit": "和信科技园",
+      "department": "工程部",
+      "type": "门禁",
+      "quantity": 800,
+      "totalValue": 3600000,
+      "paiming": 5
+    },
+    {
+      "unit": "和信科技园",
+      "department": "园区管理处",
+      "type": "空调",
+      "quantity": 780,
+      "totalValue": 4680000,
+      "paiming": 6
+    },
+    {
+      "unit": "和信科技园",
+      "department": "信息中心",
+      "type": "广播",
+      "quantity": 720,
+      "totalValue": 2736000,
+      "paiming": 7
+    },
+    {
+      "unit": "和信科技园",
+      "department": "后勤部",
+      "type": "空调",
+      "quantity": 640,
+      "totalValue": 3840000,
+      "paiming": 8
+    },
+    {
+      "unit": "和信科技园",
+      "department": "安保部",
+      "type": "入侵报警",
+      "quantity": 620,
+      "totalValue": 1612000,
+      "paiming": 9
+    },
+    {
+      "unit": "和信科技园",
+      "department": "后勤部",
+      "type": "电表",
+      "quantity": 612,
+      "totalValue": 734400,
+      "paiming": 10
+    },
+    {
+      "unit": "和信科技园",
+      "department": "信息中心",
+      "type": "监控",
+      "quantity": 500,
+      "totalValue": 1600000,
+      "paiming": 11
+    },
+    {
+      "unit": "和信科技园",
+      "department": "工程部",
+      "type": "梯控",
+      "quantity": 480,
+      "totalValue": 3840000,
+      "paiming": 12
+    },
+    {
+      "unit": "和信科技园",
+      "department": "后勤部",
+      "type": "水表",
+      "quantity": 368,
+      "totalValue": 331200,
+      "paiming": 13
+    },
+    {
+      "unit": "和信科技园",
+      "department": "安保部",
+      "type": "道闸",
+      "quantity": 320,
+      "totalValue": 3840000,
+      "paiming": 14
+    },
+    {
+      "unit": "和信科技园",
+      "department": "信息中心",
+      "type": "消防",
+      "quantity": 260,
+      "totalValue": 1300000,
+      "paiming": 15
+    }
+  ],
+  "countByParam": {
+    "total": 13100,
+    "online": 12392,
+    "offline": 708,
+    "details": [
+      {
+        "deviceType": "监控",
+        "total": 4520,
+        "online": 4293,
+        "offline": 227
+      },
+      {
+        "deviceType": "门禁",
+        "total": 2180,
+        "online": 2065,
+        "offline": 115
+      },
+      {
+        "deviceType": "消防",
+        "total": 1860,
+        "online": 1745,
+        "offline": 115
+      },
+      {
+        "deviceType": "空调",
+        "total": 1420,
+        "online": 1331,
+        "offline": 89
+      },
+      {
+        "deviceType": "能耗",
+        "total": 980,
+        "online": 951,
+        "offline": 29
+      },
+      {
+        "deviceType": "广播",
+        "total": 720,
+        "online": 673,
+        "offline": 47
+      },
+      {
+        "deviceType": "周界",
+        "total": 620,
+        "online": 583,
+        "offline": 37
+      },
+      {
+        "deviceType": "梯控",
+        "total": 480,
+        "online": 452,
+        "offline": 28
+      },
+      {
+        "deviceType": "道闸",
+        "total": 320,
+        "online": 299,
+        "offline": 21
+      }
+    ]
+  },
+  "getEquipClass": [
+    {
+      "name": "监控",
+      "value": 4520,
+      "itemStyle": {
+        "color": "#1890FF"
+      }
+    },
+    {
+      "name": "门禁",
+      "value": 2180,
+      "itemStyle": {
+        "color": "#52C41A"
+      }
+    },
+    {
+      "name": "消防",
+      "value": 1860,
+      "itemStyle": {
+        "color": "#F5222D"
+      }
+    },
+    {
+      "name": "空调",
+      "value": 1420,
+      "itemStyle": {
+        "color": "#13C2C2"
+      }
+    },
+    {
+      "name": "能耗",
+      "value": 980,
+      "itemStyle": {
+        "color": "#FAAD14"
+      }
+    },
+    {
+      "name": "广播",
+      "value": 720,
+      "itemStyle": {
+        "color": "#722ED1"
+      }
+    },
+    {
+      "name": "周界",
+      "value": 620,
+      "itemStyle": {
+        "color": "#EB2F96"
+      }
+    },
+    {
+      "name": "梯控",
+      "value": 480,
+      "itemStyle": {
+        "color": "#2F54EB"
+      }
+    },
+    {
+      "name": "道闸",
+      "value": 320,
+      "itemStyle": {
+        "color": "#FA8C16"
+      }
+    }
+  ],
+  "getStatisRegion": {
+    "xAxisNameMap": [
+      "A栋",
+      "B栋",
+      "C栋",
+      "北门",
+      "南门",
+      "东门",
+      "地下车库",
+      "食堂"
+    ],
+    "VALUE": [
+      2860,
+      2480,
+      2140,
+      980,
+      860,
+      740,
+      1860,
+      1180
+    ],
+    "MAX": [
+      3000,
+      3000,
+      3000,
+      1000,
+      1000,
+      1000,
+      2000,
+      2000
+    ]
+  },
+  "getEnergyOnlineRate": {
+    "6": {
+      "total": 368,
+      "ONLINE_PERCENTAGE": 0.97,
+      "online_count": 358
+    },
+    "7": {
+      "total": 612,
+      "ONLINE_PERCENTAGE": 0.96,
+      "online_count": 588
+    }
+  },
+  "getEnergyDeviceStatus": {
+    "onlineCount": 946,
+    "offlineCount": 34,
+    "totalCount": 980
+  },
+  "getCategoryHealth": {
+    "allDevices": [
+      {
+        "name": "安防设备",
+        "score": 94.6,
+        "onlineRate": {
+          "current": 7397,
+          "total": 7640,
+          "percent": 97
+        },
+        "maintenanceRate": {
+          "percent": 0
+        },
+        "lifeRate": {
+          "current": 6812,
+          "total": 7640,
+          "percent": 89
+        }
+      },
+      {},
+      {},
+      {
+        "name": "能耗设备",
+        "score": 97.2,
+        "onlineRate": {
+          "current": 946,
+          "total": 980,
+          "percent": 96
+        },
+        "maintenanceRate": {
+          "percent": 0
+        },
+        "lifeRate": {
+          "current": 902,
+          "total": 980,
+          "percent": 92
+        }
+      }
+    ]
+  },
+  "getEquipDistribution": {
+    "xData": [
+      "A栋1层",
+      "A栋2层",
+      "A栋3层",
+      "A栋4层",
+      "A栋5层",
+      "A栋6层",
+      "A栋7层",
+      "A栋8层",
+      "B栋1层",
+      "B栋2层",
+      "B栋3层",
+      "B栋4层",
+      "B栋5层",
+      "B栋6层",
+      "C栋1层",
+      "C栋2层",
+      "C栋3层",
+      "C栋4层",
+      "C栋5层",
+      "北门",
+      "南门",
+      "东门",
+      "地下车库B1",
+      "地下车库B2",
+      "食堂1层",
+      "会议中心1层",
+      "中心机房",
+      "门岗"
+    ],
+    "yData1": [
+      310,
+      329,
+      345,
+      337,
+      319,
+      308,
+      295,
+      274,
+      407,
+      397,
+      382,
+      373,
+      358,
+      310,
+      542,
+      523,
+      503,
+      368,
+      0,
+      871,
+      774,
+      678,
+      968,
+      581,
+      968,
+      561,
+      387,
+      213
+    ],
+    "yData2": [
+      10,
+      11,
+      11,
+      11,
+      11,
+      10,
+      10,
+      9,
+      13,
+      13,
+      13,
+      12,
+      12,
+      10,
+      18,
+      17,
+      17,
+      12,
+      0,
+      29,
+      26,
+      22,
+      32,
+      19,
+      32,
+      19,
+      13,
+      7
+    ]
+  },
+  "getCameraOnlinePercentage": {
+    "onlineNum": 4408,
+    "totalNum": 4520,
+    "onlinePercentage": 97.5
+  },
+  "getMjOnlinePercentage": {
+    "totalNum": 2180,
+    "onlineNum": 2085,
+    "onlinePercentage": 95.6
+  },
+  "getAnfangDeviceOnlinePercentage": {
+    "total": {
+      "totalNum": 7640,
+      "onlineNum": 7397,
+      "onlinePercentage": 96.8
+    },
+    "zhoujie": {
+      "totalNum": 620,
+      "onlineNum": 596,
+      "onlinePercentage": 96.1
+    },
+    "dz": {
+      "totalNum": 320,
+      "onlineNum": 308,
+      "onlinePercentage": 96.3
+    },
+    "mj": {
+      "totalNum": 2180,
+      "onlineNum": 2085,
+      "onlinePercentage": 95.6
+    },
+    "menjin": {
+      "totalNum": 2180,
+      "onlineNum": 2085,
+      "onlinePercentage": 95.6
+    }
+  },
+  "getVendorDeviceList": {
+    "jk": {
+      "code": 200,
+      "msg": "success",
+      "data": [
+        {
+          "channelCode": "1000000$1$0$0",
+          "channelName": "A栋3层走廊东侧摄像机1号",
+          "cameraType": 1,
+          "chExt": {
+            "channelDeviceIp": "10.20.31.11"
+          }
+        },
+        {
+          "channelCode": "1000000$1$0$1",
+          "channelName": "A栋3层走廊南侧摄像机2号",
+          "cameraType": 2,
+          "chExt": {
+            "channelDeviceIp": "10.20.31.12"
+          }
+        },
+        {
+          "channelCode": "1000000$1$0$2",
+          "channelName": "A栋1层大堂半球摄像机3号",
+          "cameraType": 3,
+          "chExt": {
+            "channelDeviceIp": "10.20.11.13"
+          }
+        },
+        {
+          "channelCode": "1000000$1$0$3",
+          "channelName": "北门出入口摄像机4号",
+          "cameraType": 1,
+          "chExt": {
+            "channelDeviceIp": "10.20.21.14"
+          }
+        },
+        {
+          "channelCode": "1000000$1$0$4",
+          "channelName": "地下车库B1车道摄像机5号",
+          "cameraType": 5,
+          "chExt": {
+            "channelDeviceIp": "10.20.31.15"
+          }
+        }
+      ],
+      "total": 5
+    },
+    "mj": {
+      "code": 200,
+      "msg": "success",
+      "data": {
+        "totalRows": 2180,
+        "pageData": [
+          {
+            "deviceCode": "MJ-BM-0001",
+            "deviceName": "北门人行通道闸机1号",
+            "deviceIp": "10.20.21.31",
+            "units": [
+              {
+                "unitType": 7,
+                "unitName": "门禁通道",
+                "channels": [
+                  {
+                    "channelCode": "MJ-BM-0001$1$0$0",
+                    "channelName": "北门人行通道进向读头"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "deviceCode": "MJ-A-0101",
+            "deviceName": "A栋1层大门门禁读卡器1号",
+            "deviceIp": "10.20.11.32",
+            "units": [
+              {
+                "unitType": 7,
+                "unitName": "门禁通道",
+                "channels": [
+                  {
+                    "channelCode": "MJ-A-0101$1$0$0",
+                    "channelName": "A栋1层大门进向读头"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "dz": {
+      "code": 200,
+      "msg": "success",
+      "data": {
+        "totalRows": 320,
+        "pageData": [
+          {
+            "deviceCode": "DZ-BM-0001",
+            "deviceName": "北门车行道闸1号",
+            "deviceIp": "10.20.21.41",
+            "units": [
+              {
+                "unitType": 7,
+                "unitName": "道闸通道",
+                "channels": [
+                  {
+                    "channelCode": "DZ-BM-0001$1$0$0",
+                    "channelName": "北门车行道闸入口"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "deviceCode": "DZ-NM-0001",
+            "deviceName": "南门车行道闸1号",
+            "deviceIp": "10.20.22.41",
+            "units": [
+              {
+                "unitType": 7,
+                "unitName": "道闸通道",
+                "channels": [
+                  {
+                    "channelCode": "DZ-NM-0001$1$0$0",
+                    "channelName": "南门车行道闸出口"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "gb": {
+      "code": 200,
+      "msg": "success",
+      "data": {
+        "EndPointsArray": [
+          {
+            "EndpointID": "GB-A-0101",
+            "EndpointName": "A栋1层大堂广播终端1号",
+            "EndpointIP": "10.20.11.51"
+          },
+          {
+            "EndpointID": "GB-C-0012",
+            "EndpointName": "C栋户外广播终端1号",
+            "EndpointIP": "10.20.13.52"
+          },
+          {
+            "EndpointID": "GB-BM-0001",
+            "EndpointName": "北门广播终端1号",
+            "EndpointIP": "10.20.21.53"
+          }
+        ]
+      }
+    },
+    "xxfb": {
+      "code": 200,
+      "msg": "success",
+      "data": [
+        {
+          "code": "XXFB-A-0001",
+          "name": "A栋1层大堂信息发布屏1号",
+          "ipAddress": "10.20.11.61",
+          "address": "A栋1层大堂",
+          "online": 1,
+          "status": 1,
+          "lastTime": "2026-09-21 09:12:33",
+          "deptName": "信息中心",
+          "resolution": "1920x1080"
+        },
+        {
+          "code": "XXFB-BM-0001",
+          "name": "北门人行通道信息发布屏1号",
+          "ipAddress": "10.20.21.62",
+          "address": "北门人行通道入口",
+          "online": 1,
+          "status": 1,
+          "lastTime": "2026-09-21 09:15:02",
+          "deptName": "信息中心",
+          "resolution": "1080x1920"
+        },
+        {
+          "code": "XXFB-ST-0002",
+          "name": "食堂1层信息发布屏2号",
+          "ipAddress": "10.20.41.63",
+          "address": "食堂1层就餐区",
+          "online": 0,
+          "status": 4,
+          "lastTime": "2026-09-18 17:40:11",
+          "deptName": "后勤部",
+          "resolution": "1920x1080"
+        }
+      ]
+    }
+  },
+  "getVendorDeviceDetail": {
+    "id": "100944",
+    "name": "A栋3层走廊东侧摄像机1号",
+    "code": "CY-HIK-JK-001-0001",
+    "syncSource": "3",
+    "deviceType": "1_10",
+    "deviceTypeName": "监控",
+    "status": "1",
+    "ip": "10.20.31.11",
+    "port": 8000,
+    "brand": "海康",
+    "model": "DS-2CD7A47FWD",
+    "delFlag": "0",
+    "createTime": "2025-11-08 10:23:41",
+    "space": {
+      "id": "11",
+      "name": "A栋",
+      "parentId": "1",
+      "level": 2,
+      "sort": 1
+    }
+  }
+}

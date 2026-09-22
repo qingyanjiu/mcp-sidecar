@@ -1,0 +1,95 @@
+{
+  "getKeyMetrics": {
+    "onlineDevices": 7397,
+    "offlineDevices": 243,
+    "todayAlarmCount": 13
+  },
+  "getAreaOverview": [
+    { "code": "PZ-01", "name": "北侧围墙", "status": "1" },
+    { "code": "PZ-02", "name": "东侧围墙", "status": "3" },
+    { "code": "PZ-03", "name": "南侧围墙", "status": "1" },
+    { "code": "PZ-04", "name": "西侧围墙", "status": "1" },
+    { "code": "PZ-05", "name": "北门", "status": "1" },
+    { "code": "PZ-06", "name": "南门", "status": "2" },
+    { "code": "PZ-07", "name": "东门", "status": "0" }
+  ],
+  "getPerimeterAlarmStats": {
+    "areaStats": [
+      { "name": "东侧围墙", "num": 5 },
+      { "name": "北门", "num": 3 },
+      { "name": "南侧围墙", "num": 2 },
+      { "name": "北侧围墙", "num": 1 },
+      { "name": "西侧围墙", "num": 1 },
+      { "name": "东门", "num": 1 },
+      { "name": "南门", "num": 0 }
+    ],
+    "timeStats": [
+      { "timeduration": "00:00-02:00", "num": 1 },
+      { "timeduration": "02:00-04:00", "num": 0 },
+      { "timeduration": "04:00-06:00", "num": 1 },
+      { "timeduration": "06:00-08:00", "num": 1 },
+      { "timeduration": "08:00-10:00", "num": 3 },
+      { "timeduration": "10:00-12:00", "num": 2 },
+      { "timeduration": "12:00-14:00", "num": 1 },
+      { "timeduration": "14:00-16:00", "num": 1 },
+      { "timeduration": "16:00-18:00", "num": 2 },
+      { "timeduration": "18:00-20:00", "num": 1 },
+      { "timeduration": "20:00-22:00", "num": 0 },
+      { "timeduration": "22:00-24:00", "num": 0 }
+    ],
+    "hourlyData": {
+      "category": ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+      "datas": [0, 0, 1, 0, 0, 1, 0, 1, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0]
+    }
+  },
+  "getAlarmOverview": [
+    {
+      "status": "0",
+      "title": "周界入侵",
+      "channelName": "东侧围墙-3号防区枪机",
+      "date": "2026-09-21 09:12:36",
+      "content": "东侧围墙3号防区检测到人员翻越围栏,行为持续12秒,已推送安保部复核",
+      "pic": "/profile/perimeter/2026/09/21/p1a2b3c4.jpg"
+    },
+    {
+      "status": "0",
+      "title": "周界入侵",
+      "channelName": "北门-门岗外侧球机",
+      "date": "2026-09-21 07:41:08",
+      "content": "北门门岗外侧检测到人员徘徊并靠近围栏,持续约2分钟",
+      "pic": "/profile/perimeter/2026/09/21/p5d6e7f8.jpg"
+    },
+    {
+      "status": "0",
+      "title": "周界入侵",
+      "channelName": "南侧围墙-1号防区枪机",
+      "date": "2026-09-21 05:26:47",
+      "content": "南侧围墙1号防区围栏震动报警,现场核实为树枝刮碰",
+      "pic": "/profile/perimeter/2026/09/21/p9a0b1c2.jpg"
+    },
+    {
+      "status": "1",
+      "title": "周界入侵",
+      "channelName": "东侧围墙-5号防区球机",
+      "date": "2026-09-20 22:05:44",
+      "content": "东侧围墙5号防区夜间检测到人员翻越,安保已现场处置完毕",
+      "pic": "/profile/perimeter/2026/09/20/p3c4d5e6.jpg"
+    },
+    {
+      "status": "0",
+      "title": "周界入侵",
+      "channelName": "西侧围墙-2号防区枪机",
+      "date": "2026-09-20 16:48:10",
+      "content": "西侧围墙2号防区检测到人员异常靠近,已确认为施工人员作业",
+      "pic": "/profile/perimeter/2026/09/20/p7f8a9b0.jpg"
+    },
+    {
+      "status": "1",
+      "title": "周界入侵",
+      "channelName": "东门-车行道枪机",
+      "date": "2026-09-19 19:03:27",
+      "content": "东门车行道检测到车辆长时间停留,已劝离",
+      "pic": "/profile/perimeter/2026/09/19/p2e3f4a5.jpg"
+    }
+  ]
+}

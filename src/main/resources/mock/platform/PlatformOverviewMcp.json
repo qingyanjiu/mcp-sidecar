@@ -1,0 +1,161 @@
+{
+  "getBasicInfo": {
+    "centerArea": 286000,
+    "iotDeviceCount": 13100
+  },
+  "getDeviceHealth": [
+    {
+      "name": "监控",
+      "score": 96.8,
+      "onlineRate": {
+        "current": 4408,
+        "total": 4520,
+        "percent": 97.5
+      },
+      "maintenanceRate": {
+        "percent": 92.4
+      },
+      "lifeRate": {
+        "current": 4380,
+        "total": 4520,
+        "percent": 96.9
+      }
+    },
+    {
+      "name": "门禁",
+      "score": 94.2,
+      "onlineRate": {
+        "current": 2085,
+        "total": 2180,
+        "percent": 95.6
+      },
+      "maintenanceRate": {
+        "percent": 88.6
+      },
+      "lifeRate": {
+        "current": 2094,
+        "total": 2180,
+        "percent": 96.1
+      }
+    },
+    {
+      "name": "消防",
+      "score": 95.6,
+      "onlineRate": {
+        "current": 1795,
+        "total": 1860,
+        "percent": 96.5
+      },
+      "maintenanceRate": {
+        "percent": 90.2
+      },
+      "lifeRate": {
+        "current": 1802,
+        "total": 1860,
+        "percent": 96.9
+      }
+    },
+    {
+      "name": "空调",
+      "score": 92.4,
+      "onlineRate": {
+        "current": 1336,
+        "total": 1420,
+        "percent": 94.1
+      },
+      "maintenanceRate": {
+        "percent": 85.8
+      },
+      "lifeRate": {
+        "current": 1320,
+        "total": 1420,
+        "percent": 93.0
+      }
+    },
+    {
+      "name": "能耗",
+      "score": 95.4,
+      "onlineRate": {
+        "current": 946,
+        "total": 980,
+        "percent": 96.5
+      },
+      "maintenanceRate": {
+        "percent": 89.5
+      },
+      "lifeRate": {
+        "current": 938,
+        "total": 980,
+        "percent": 95.7
+      }
+    },
+    {
+      "name": "广播",
+      "score": 94.6,
+      "onlineRate": {
+        "current": 690,
+        "total": 720,
+        "percent": 95.8
+      },
+      "maintenanceRate": {
+        "percent": 87.2
+      },
+      "lifeRate": {
+        "current": 682,
+        "total": 720,
+        "percent": 94.7
+      }
+    },
+    {
+      "name": "周界",
+      "score": 95.0,
+      "onlineRate": {
+        "current": 596,
+        "total": 620,
+        "percent": 96.1
+      },
+      "maintenanceRate": {
+        "percent": 86.4
+      },
+      "lifeRate": {
+        "current": 588,
+        "total": 620,
+        "percent": 94.8
+      }
+    },
+    {
+      "name": "梯控",
+      "score": 92.0,
+      "onlineRate": {
+        "current": 451,
+        "total": 480,
+        "percent": 94.0
+      },
+      "maintenanceRate": {
+        "percent": 83.5
+      },
+      "lifeRate": {
+        "current": 442,
+        "total": 480,
+        "percent": 92.1
+      }
+    },
+    {
+      "name": "道闸",
+      "score": 95.2,
+      "onlineRate": {
+        "current": 308,
+        "total": 320,
+        "percent": 96.3
+      },
+      "maintenanceRate": {
+        "percent": 91.0
+      },
+      "lifeRate": {
+        "current": 303,
+        "total": 320,
+        "percent": 94.7
+      }
+    }
+  ]
+}

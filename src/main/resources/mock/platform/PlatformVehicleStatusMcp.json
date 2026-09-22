@@ -1,0 +1,251 @@
+{
+  "getParkingSpace": {
+    "parkingTotal": 860,
+    "parkingUsed": 542,
+    "parkingUsedRate": "63.0%",
+    "parkingFree": 318,
+    "parkingFreeRate": "37.0%",
+    "currentPeopleCount": 1328
+  },
+  "getTrafficVolume": {
+    "category": [
+      "00:00",
+      "02:00",
+      "04:00",
+      "06:00",
+      "08:00",
+      "10:00",
+      "12:00",
+      "14:00",
+      "16:00",
+      "18:00",
+      "20:00",
+      "22:00"
+    ],
+    "oneData": [
+      12,
+      5,
+      3,
+      18,
+      86,
+      42,
+      35,
+      28,
+      32,
+      48,
+      22,
+      10
+    ],
+    "twoData": [
+      8,
+      3,
+      2,
+      10,
+      24,
+      30,
+      38,
+      26,
+      30,
+      78,
+      26,
+      14
+    ]
+  },
+  "getParkingStructure": [
+    {
+      "value": 268,
+      "name": "2小时以内",
+      "itemStyle": {
+        "color": "#52C41A"
+      }
+    },
+    {
+      "value": 152,
+      "name": "2-4小时",
+      "itemStyle": {
+        "color": "#40A9FF"
+      }
+    },
+    {
+      "value": 86,
+      "name": "4-8小时",
+      "itemStyle": {
+        "color": "#FAAD14"
+      }
+    },
+    {
+      "value": 36,
+      "name": "8小时以上",
+      "itemStyle": {
+        "color": "#FF4D4F"
+      }
+    }
+  ],
+  "getCarStatistic": {
+    "total": 48,
+    "used": 21,
+    "inCompany": 33,
+    "outCompany": 15
+  },
+  "getParkingRank": {
+    "overtimeStayRate": 12.5,
+    "avgParkingHours": 3,
+    "avgParkingMinutes": 25,
+    "tableData": [
+      {
+        "carId": "京A·8F236",
+        "parkTime": "17小时42分钟"
+      },
+      {
+        "carId": "京B·5K190",
+        "parkTime": "15小时08分钟"
+      },
+      {
+        "carId": "京A·2T774",
+        "parkTime": "13小时35分钟"
+      },
+      {
+        "carId": "京C·9M318",
+        "parkTime": "11小时50分钟"
+      },
+      {
+        "carId": "京A·6P052",
+        "parkTime": "10小时24分钟"
+      },
+      {
+        "carId": "京E·3H881",
+        "parkTime": "9小时12分钟"
+      },
+      {
+        "carId": "京B·7Q465",
+        "parkTime": "8小时06分钟"
+      },
+      {
+        "carId": "京A·4L629",
+        "parkTime": "7小时33分钟"
+      }
+    ]
+  },
+  "getVehiclePassRecord": [
+    {
+      "carNumber": "京A·8F236",
+      "passTime": "2026-09-21 18:42:16",
+      "eventType": "2",
+      "deviceName": "北门出口道闸",
+      "deviceCode": "DZ-BM-0002",
+      "recordId": "VP202609210001"
+    },
+    {
+      "carNumber": "京B·5K190",
+      "passTime": "2026-09-21 18:35:02",
+      "eventType": "1",
+      "deviceName": "北门入口道闸",
+      "deviceCode": "DZ-BM-0001",
+      "recordId": "VP202609210002"
+    },
+    {
+      "carNumber": "京C·9M318",
+      "passTime": "2026-09-21 18:20:47",
+      "eventType": "2",
+      "deviceName": "南门出口道闸",
+      "deviceCode": "DZ-NM-0002",
+      "recordId": "VP202609210003"
+    },
+    {
+      "carNumber": "京A·2T774",
+      "passTime": "2026-09-21 18:02:39",
+      "eventType": "1",
+      "deviceName": "东门入口道闸",
+      "deviceCode": "DZ-DM-0001",
+      "recordId": "VP202609210004"
+    },
+    {
+      "carNumber": "京E·3H881",
+      "passTime": "2026-09-21 17:48:11",
+      "eventType": "2",
+      "deviceName": "地下车库出口道闸",
+      "deviceCode": "DZ-DXC-0002",
+      "recordId": "VP202609210005"
+    },
+    {
+      "carNumber": "京A·6P052",
+      "passTime": "2026-09-21 17:31:58",
+      "eventType": "1",
+      "deviceName": "南门入口道闸",
+      "deviceCode": "DZ-NM-0001",
+      "recordId": "VP202609210006"
+    },
+    {
+      "carNumber": "京B·7Q465",
+      "passTime": "2026-09-21 12:26:04",
+      "eventType": "2",
+      "deviceName": "北门出口道闸",
+      "deviceCode": "DZ-BM-0002",
+      "recordId": "VP202609210007"
+    },
+    {
+      "carNumber": "京A·4L629",
+      "passTime": "2026-09-21 12:14:33",
+      "eventType": "1",
+      "deviceName": "地下车库入口道闸",
+      "deviceCode": "DZ-DXC-0001",
+      "recordId": "VP202609210008"
+    },
+    {
+      "carNumber": "京D·1X507",
+      "passTime": "2026-09-21 11:52:20",
+      "eventType": "2",
+      "deviceName": "东门出口道闸",
+      "deviceCode": "DZ-DM-0002",
+      "recordId": "VP202609210009"
+    },
+    {
+      "carNumber": "京A·9W138",
+      "passTime": "2026-09-21 09:41:45",
+      "eventType": "1",
+      "deviceName": "北门入口道闸",
+      "deviceCode": "DZ-BM-0001",
+      "recordId": "VP202609210010"
+    },
+    {
+      "carNumber": "京F·2R694",
+      "passTime": "2026-09-21 09:18:07",
+      "eventType": "2",
+      "deviceName": "南门出口道闸",
+      "deviceCode": "DZ-NM-0002",
+      "recordId": "VP202609210011"
+    },
+    {
+      "carNumber": "京B·5J372",
+      "passTime": "2026-09-21 08:56:52",
+      "eventType": "1",
+      "deviceName": "南门入口道闸",
+      "deviceCode": "DZ-NM-0001",
+      "recordId": "VP202609210012"
+    },
+    {
+      "carNumber": "京A·3C816",
+      "passTime": "2026-09-21 08:37:29",
+      "eventType": "1",
+      "deviceName": "东门入口道闸",
+      "deviceCode": "DZ-DM-0001",
+      "recordId": "VP202609210013"
+    },
+    {
+      "carNumber": "京C·6D940",
+      "passTime": "2026-09-21 08:12:11",
+      "eventType": "2",
+      "deviceName": "地下车库出口道闸",
+      "deviceCode": "DZ-DXC-0002",
+      "recordId": "VP202609210014"
+    },
+    {
+      "carNumber": "京A·7N255",
+      "passTime": "2026-09-21 07:35:48",
+      "eventType": "1",
+      "deviceName": "地下车库入口道闸",
+      "deviceCode": "DZ-DXC-0001",
+      "recordId": "VP202609210015"
+    }
+  ]
+}

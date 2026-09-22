@@ -1,0 +1,316 @@
+{
+  "getEquipClass": [
+    {
+      "name": "监控",
+      "value": 4520,
+      "itemStyle": {
+        "color": "#1890FF"
+      }
+    },
+    {
+      "name": "门禁",
+      "value": 2180,
+      "itemStyle": {
+        "color": "#52C41A"
+      }
+    },
+    {
+      "name": "消防",
+      "value": 1860,
+      "itemStyle": {
+        "color": "#F5222D"
+      }
+    },
+    {
+      "name": "空调",
+      "value": 1420,
+      "itemStyle": {
+        "color": "#13C2C2"
+      }
+    },
+    {
+      "name": "能耗",
+      "value": 980,
+      "itemStyle": {
+        "color": "#FAAD14"
+      }
+    },
+    {
+      "name": "广播",
+      "value": 720,
+      "itemStyle": {
+        "color": "#722ED1"
+      }
+    },
+    {
+      "name": "周界",
+      "value": 620,
+      "itemStyle": {
+        "color": "#EB2F96"
+      }
+    },
+    {
+      "name": "梯控",
+      "value": 480,
+      "itemStyle": {
+        "color": "#2F54EB"
+      }
+    },
+    {
+      "name": "道闸",
+      "value": 320,
+      "itemStyle": {
+        "color": "#FA8C16"
+      }
+    }
+  ],
+  "getCategoryHealth": {
+    "allDevices": [
+      {
+        "name": "安防设备",
+        "score": 94.6,
+        "onlineRate": {
+          "current": 7397,
+          "total": 7640,
+          "percent": 97
+        },
+        "maintenanceRate": {
+          "percent": 0
+        },
+        "lifeRate": {
+          "current": 6812,
+          "total": 7640,
+          "percent": 89
+        }
+      },
+      {},
+      {},
+      {
+        "name": "能耗设备",
+        "score": 97.2,
+        "onlineRate": {
+          "current": 946,
+          "total": 980,
+          "percent": 96
+        },
+        "maintenanceRate": {
+          "percent": 0
+        },
+        "lifeRate": {
+          "current": 902,
+          "total": 980,
+          "percent": 92
+        }
+      }
+    ]
+  },
+  "getMonthMaintenance": {
+    "xData": [
+      "2026-04",
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09"
+    ],
+    "series": [
+      {
+        "name": "计划维修",
+        "data": [
+          86,
+          92,
+          105,
+          98,
+          110,
+          96
+        ]
+      },
+      {
+        "name": "实际维修",
+        "data": [
+          82,
+          88,
+          101,
+          95,
+          106,
+          91
+        ]
+      }
+    ]
+  },
+  "getMonthRepair": {
+    "xData": [
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07",
+      "2026-09-08",
+      "2026-09-09",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12",
+      "2026-09-13",
+      "2026-09-14",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30"
+    ],
+    "series": [
+      {
+        "name": "和信",
+        "data": [
+          3,
+          2,
+          4,
+          1,
+          5,
+          2,
+          3,
+          4,
+          2,
+          3,
+          1,
+          4,
+          2,
+          3,
+          5,
+          2,
+          4,
+          3,
+          2,
+          4,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "设计院",
+        "data": [
+          1,
+          0,
+          2,
+          1,
+          1,
+          0,
+          2,
+          1,
+          1,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "getStatisRegion": {
+    "xAxisNameMap": [
+      "A栋",
+      "B栋",
+      "C栋",
+      "北门",
+      "南门",
+      "东门",
+      "地下车库",
+      "食堂"
+    ],
+    "VALUE": [
+      2860,
+      2480,
+      2140,
+      980,
+      860,
+      740,
+      1860,
+      1180
+    ],
+    "MAX": [
+      3000,
+      3000,
+      3000,
+      1000,
+      1000,
+      1000,
+      2000,
+      2000
+    ]
+  },
+  "getAnfangDeviceOnlinePercentage": {
+    "total": {
+      "totalNum": 7640,
+      "onlineNum": 7397,
+      "onlinePercentage": 96.8
+    },
+    "zhoujie": {
+      "totalNum": 620,
+      "onlineNum": 596,
+      "onlinePercentage": 96.1
+    },
+    "dz": {
+      "totalNum": 320,
+      "onlineNum": 308,
+      "onlinePercentage": 96.3
+    },
+    "mj": {
+      "totalNum": 2180,
+      "onlineNum": 2085,
+      "onlinePercentage": 95.6
+    },
+    "menjin": {
+      "totalNum": 2180,
+      "onlineNum": 2085,
+      "onlinePercentage": 95.6
+    }
+  },
+  "getGbOnlinePercentage": {
+    "totalCount": 720,
+    "onlineCount": 690,
+    "percentage": 95.8
+  },
+  "getMjOnlinePercentage": {
+    "totalNum": 2180,
+    "onlineNum": 2085,
+    "onlinePercentage": 95.6
+  }
+}

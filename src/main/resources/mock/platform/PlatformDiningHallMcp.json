@@ -1,0 +1,363 @@
+{
+  "getWeeklyRecipe": [
+    {
+      "day": "周一",
+      "breakfast": [
+        {
+          "dishName": "小米粥",
+          "price": 2.0
+        },
+        {
+          "dishName": "鲜肉包",
+          "price": 2.5
+        },
+        {
+          "dishName": "水煮蛋",
+          "price": 1.5
+        },
+        {
+          "dishName": "凉拌海带丝",
+          "price": 3.0
+        }
+      ],
+      "lunch": [
+        {
+          "dishName": "宫保鸡丁",
+          "price": 12.0
+        },
+        {
+          "dishName": "青椒土豆丝",
+          "price": 6.0
+        },
+        {
+          "dishName": "西红柿炒鸡蛋",
+          "price": 8.0
+        },
+        {
+          "dishName": "紫菜蛋花汤",
+          "price": 3.0
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ],
+      "dinner": [
+        {
+          "dishName": "红烧排骨",
+          "price": 16.0
+        },
+        {
+          "dishName": "蒜蓉西兰花",
+          "price": 7.5
+        },
+        {
+          "dishName": "冬瓜丸子汤",
+          "price": 4.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "day": "周二",
+      "breakfast": [
+        {
+          "dishName": "皮蛋瘦肉粥",
+          "price": 3.5
+        },
+        {
+          "dishName": "奶黄包",
+          "price": 2.5
+        },
+        {
+          "dishName": "煎饺",
+          "price": 4.0
+        },
+        {
+          "dishName": "豆浆",
+          "price": 2.0
+        }
+      ],
+      "lunch": [
+        {
+          "dishName": "红烧鸡腿",
+          "price": 13.0
+        },
+        {
+          "dishName": "麻婆豆腐",
+          "price": 8.0
+        },
+        {
+          "dishName": "清炒油麦菜",
+          "price": 6.0
+        },
+        {
+          "dishName": "玉米排骨汤",
+          "price": 5.0
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ],
+      "dinner": [
+        {
+          "dishName": "回锅肉",
+          "price": 15.0
+        },
+        {
+          "dishName": "干煸豆角",
+          "price": 8.0
+        },
+        {
+          "dishName": "番茄鸡蛋汤",
+          "price": 3.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "day": "周三",
+      "breakfast": [
+        {
+          "dishName": "八宝粥",
+          "price": 3.0
+        },
+        {
+          "dishName": "葱油饼",
+          "price": 3.0
+        },
+        {
+          "dishName": "茶叶蛋",
+          "price": 1.8
+        },
+        {
+          "dishName": "豆浆",
+          "price": 2.0
+        }
+      ],
+      "lunch": [
+        {
+          "dishName": "糖醋里脊",
+          "price": 14.0
+        },
+        {
+          "dishName": "家常豆腐",
+          "price": 7.0
+        },
+        {
+          "dishName": "蒜蓉菠菜",
+          "price": 6.0
+        },
+        {
+          "dishName": "冬瓜大骨汤",
+          "price": 4.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ],
+      "dinner": [
+        {
+          "dishName": "香菇滑鸡",
+          "price": 14.0
+        },
+        {
+          "dishName": "清炒时蔬",
+          "price": 6.5
+        },
+        {
+          "dishName": "海带豆腐汤",
+          "price": 3.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "day": "周四",
+      "breakfast": [
+        {
+          "dishName": "南瓜粥",
+          "price": 2.5
+        },
+        {
+          "dishName": "菜肉包",
+          "price": 2.5
+        },
+        {
+          "dishName": "油条",
+          "price": 2.0
+        },
+        {
+          "dishName": "卤蛋",
+          "price": 1.8
+        }
+      ],
+      "lunch": [
+        {
+          "dishName": "土豆烧牛肉",
+          "price": 18.0
+        },
+        {
+          "dishName": "鱼香肉丝",
+          "price": 12.0
+        },
+        {
+          "dishName": "手撕包菜",
+          "price": 6.0
+        },
+        {
+          "dishName": "绿豆汤",
+          "price": 2.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ],
+      "dinner": [
+        {
+          "dishName": "香煎小黄鱼",
+          "price": 15.0
+        },
+        {
+          "dishName": "肉末茄子",
+          "price": 9.0
+        },
+        {
+          "dishName": "白菜豆腐汤",
+          "price": 3.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "day": "周五",
+      "breakfast": [
+        {
+          "dishName": "红枣银耳粥",
+          "price": 3.5
+        },
+        {
+          "dishName": "小笼包",
+          "price": 4.5
+        },
+        {
+          "dishName": "水煮蛋",
+          "price": 1.5
+        },
+        {
+          "dishName": "豆浆",
+          "price": 2.0
+        }
+      ],
+      "lunch": [
+        {
+          "dishName": "可乐鸡翅",
+          "price": 14.0
+        },
+        {
+          "dishName": "地三鲜",
+          "price": 8.5
+        },
+        {
+          "dishName": "蚝油生菜",
+          "price": 6.0
+        },
+        {
+          "dishName": "萝卜牛腩汤",
+          "price": 6.0
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ],
+      "dinner": [
+        {
+          "dishName": "梅菜扣肉",
+          "price": 16.0
+        },
+        {
+          "dishName": "清炒藕片",
+          "price": 7.0
+        },
+        {
+          "dishName": "菌菇汤",
+          "price": 4.5
+        },
+        {
+          "dishName": "米饭",
+          "price": 1.0
+        }
+      ]
+    }
+  ],
+  "getDishPopularity": [
+    {
+      "rank": 1,
+      "name": "宫保鸡丁",
+      "price": 12.0,
+      "soldCount": 1862,
+      "likes": 486,
+      "positiveReview": 1797
+    },
+    {
+      "rank": 2,
+      "name": "红烧鸡腿",
+      "price": 13.0,
+      "soldCount": 1735,
+      "likes": 452,
+      "positiveReview": 1662
+    },
+    {
+      "rank": 3,
+      "name": "西红柿炒鸡蛋",
+      "price": 8.0,
+      "soldCount": 1608,
+      "likes": 431,
+      "positiveReview": 1529
+    },
+    {
+      "rank": 4,
+      "name": "糖醋里脊",
+      "price": 14.0,
+      "soldCount": 1486,
+      "likes": 398,
+      "positiveReview": 1401
+    },
+    {
+      "rank": 5,
+      "name": "鱼香肉丝",
+      "price": 12.0,
+      "soldCount": 1352,
+      "likes": 364,
+      "positiveReview": 1265
+    }
+  ],
+  "getDiningCount": {
+    "category": [
+      "早餐",
+      "午餐",
+      "晚餐"
+    ],
+    "values": [
+      386,
+      912,
+      604
+    ]
+  }
+}

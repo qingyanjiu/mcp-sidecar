@@ -1,0 +1,328 @@
+{
+  "getInfoView": {
+    "statisticList": [
+      {
+        "value": 720,
+        "name": "总计"
+      },
+      {
+        "value": 690,
+        "name": "在线"
+      },
+      {
+        "value": 30,
+        "name": "离线"
+      }
+    ],
+    "deviceList": [
+      {
+        "name": "A栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "A栋3层电梯厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "B栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "B栋2层走廊发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "C栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "C栋5层多功能厅发布屏",
+        "status": 0,
+        "online": 0
+      },
+      {
+        "name": "会议中心1层发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "会议中心2层发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "食堂1层入口发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "食堂2层入口发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "中心机房走廊发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "北门门岗发布屏",
+        "status": 1,
+        "online": 1
+      }
+    ],
+    "typeData": [
+      {
+        "name": "图片",
+        "value": 286
+      },
+      {
+        "name": "视频",
+        "value": 198
+      },
+      {
+        "name": "文字",
+        "value": 152
+      },
+      {
+        "name": "混合素材",
+        "value": 84
+      }
+    ]
+  },
+  "getInfoPublishiEquip": {
+    "statisticList": [
+      {
+        "value": 720,
+        "name": "总计"
+      },
+      {
+        "value": 690,
+        "name": "在线"
+      },
+      {
+        "value": 30,
+        "name": "离线"
+      }
+    ],
+    "deviceList": [
+      {
+        "name": "A栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "A栋3层电梯厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "B栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "B栋2层走廊发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "C栋1层大厅发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "C栋5层多功能厅发布屏",
+        "status": 0,
+        "online": 0
+      },
+      {
+        "name": "会议中心1层发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "会议中心2层发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "食堂1层入口发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "食堂2层入口发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "中心机房走廊发布屏",
+        "status": 1,
+        "online": 1
+      },
+      {
+        "name": "北门门岗发布屏",
+        "status": 1,
+        "online": 1
+      }
+    ],
+    "typeData": [
+      {
+        "name": "图片",
+        "value": 286
+      },
+      {
+        "name": "视频",
+        "value": 198
+      },
+      {
+        "name": "文字",
+        "value": 152
+      },
+      {
+        "name": "混合素材",
+        "value": 84
+      }
+    ]
+  },
+  "getBroadcastView": [
+    {
+      "name": "总计",
+      "value": 720
+    },
+    {
+      "name": "在线",
+      "value": 690
+    },
+    {
+      "name": "离线",
+      "value": 30
+    },
+    {
+      "name": "占用",
+      "value": 126
+    }
+  ],
+  "getTaskTrend": {
+    "xData": [
+      "00:00",
+      "01:00",
+      "02:00",
+      "03:00",
+      "04:00",
+      "05:00",
+      "06:00",
+      "07:00",
+      "08:00",
+      "09:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00",
+      "20:00",
+      "21:00",
+      "22:00",
+      "23:00"
+    ],
+    "data": {
+      "oneData": [2, 1, 1, 1, 2, 4, 12, 26, 38, 44, 42, 36, 30, 34, 46, 44, 40, 32, 24, 16, 10, 6, 4, 3],
+      "twoData": [1, 0, 0, 1, 1, 2, 6, 14, 22, 26, 24, 20, 18, 20, 26, 24, 22, 18, 12, 8, 5, 3, 2, 1]
+    }
+  },
+  "getProgramCount": {
+    "xData": [
+      "09-15",
+      "09-16",
+      "09-17",
+      "09-18",
+      "09-19",
+      "09-20",
+      "09-21"
+    ],
+    "count": [68, 72, 85, 79, 64, 22, 58]
+  },
+  "getBroadcastEquip": [
+    {
+      "name": "10.30.1.11",
+      "status": 1,
+      "taskName": "园区防疫通知播报"
+    },
+    {
+      "name": "10.30.1.12",
+      "status": 1,
+      "taskName": "上下班温馨提示"
+    },
+    {
+      "name": "10.30.1.23",
+      "status": 1,
+      "taskName": "园区防疫通知播报"
+    },
+    {
+      "name": "10.30.1.34",
+      "status": 0,
+      "taskName": ""
+    },
+    {
+      "name": "10.30.2.15",
+      "status": 1,
+      "taskName": "消防演练广播"
+    },
+    {
+      "name": "10.30.2.18",
+      "status": 1,
+      "taskName": ""
+    },
+    {
+      "name": "10.30.2.27",
+      "status": 1,
+      "taskName": "餐厅开餐提醒"
+    },
+    {
+      "name": "10.30.2.31",
+      "status": 1,
+      "taskName": "园区防疫通知播报"
+    },
+    {
+      "name": "10.30.3.16",
+      "status": 1,
+      "taskName": ""
+    },
+    {
+      "name": "10.30.3.22",
+      "status": 0,
+      "taskName": ""
+    },
+    {
+      "name": "10.30.3.25",
+      "status": 1,
+      "taskName": "会议开始提醒"
+    },
+    {
+      "name": "10.30.3.40",
+      "status": 1,
+      "taskName": "上下班温馨提示"
+    },
+    {
+      "name": "10.30.3.45",
+      "status": 1,
+      "taskName": ""
+    },
+    {
+      "name": "10.30.2.38",
+      "status": 1,
+      "taskName": "访客引导播报"
+    }
+  ]
+}

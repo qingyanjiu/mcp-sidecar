@@ -1,0 +1,234 @@
+{
+  "getMeetingStatistics": {
+    "reservations": 86,
+    "reservationsChangeRate": 12.5,
+    "reservationsChangeDirection": "up",
+    "avgDuration": 62,
+    "avgDurationChangeRate": 5.2,
+    "avgDurationChangeDirection": "down"
+  },
+  "getHighFrequencyMeetingRooms": [
+    {
+      "name": "A栋301会议室",
+      "value": 128,
+      "address": "A栋3层",
+      "capacity": 20
+    },
+    {
+      "name": "B栋201会议室",
+      "value": 112,
+      "address": "B栋2层",
+      "capacity": 16
+    },
+    {
+      "name": "C栋501多功能厅",
+      "value": 96,
+      "address": "C栋5层",
+      "capacity": 60
+    },
+    {
+      "name": "会议中心大会议室",
+      "value": 84,
+      "address": "会议中心1层",
+      "capacity": 80
+    },
+    {
+      "name": "A栋302会议室",
+      "value": 73,
+      "address": "A栋3层",
+      "capacity": 12
+    }
+  ],
+  "getMeetingRoomOverview": [
+    {
+      "name": "A栋301会议室",
+      "value": 128
+    },
+    {
+      "name": "A栋302会议室",
+      "value": 73
+    },
+    {
+      "name": "B栋201会议室",
+      "value": 112
+    },
+    {
+      "name": "B栋202会议室",
+      "value": 65
+    },
+    {
+      "name": "C栋501多功能厅",
+      "value": 96
+    },
+    {
+      "name": "会议中心大会议室",
+      "value": 84
+    }
+  ],
+  "getNumberOfMeetings": {
+    "trendCategory": [
+      "09-15",
+      "09-16",
+      "09-17",
+      "09-18",
+      "09-19",
+      "09-20",
+      "09-21"
+    ],
+    "trendDatas": [
+      {
+        "name": "已预约",
+        "data": [28, 32, 35, 30, 26, 12, 34]
+      },
+      {
+        "name": "已召开",
+        "data": [26, 30, 33, 29, 24, 10, 21]
+      }
+    ],
+    "trendYMax": 40,
+    "statusData": [
+      {
+        "name": "已结束",
+        "value": 9
+      },
+      {
+        "name": "进行中",
+        "value": 4
+      },
+      {
+        "name": "待开始",
+        "value": 18
+      },
+      {
+        "name": "已取消",
+        "value": 3
+      }
+    ],
+    "typeData": [
+      {
+        "name": "部门例会",
+        "value": 11
+      },
+      {
+        "name": "项目评审",
+        "value": 8
+      },
+      {
+        "name": "培训会议",
+        "value": 6
+      },
+      {
+        "name": "客户接待",
+        "value": 5
+      },
+      {
+        "name": "临时会议",
+        "value": 4
+      }
+    ]
+  },
+  "getMeetingRoomStatus": {
+    "pieData": [
+      {
+        "value": 4,
+        "name": "使用中",
+        "color": "#FF7A45"
+      },
+      {
+        "value": 2,
+        "name": "空闲",
+        "color": "#52C41A"
+      }
+    ],
+    "list": [
+      {
+        "name": "A栋301会议室",
+        "used": 14,
+        "free": 6
+      },
+      {
+        "name": "A栋302会议室",
+        "used": 9,
+        "free": 3
+      },
+      {
+        "name": "B栋201会议室",
+        "used": 11,
+        "free": 5
+      },
+      {
+        "name": "B栋202会议室",
+        "used": 8,
+        "free": 8
+      },
+      {
+        "name": "C栋501多功能厅",
+        "used": 42,
+        "free": 18
+      },
+      {
+        "name": "会议中心大会议室",
+        "used": 56,
+        "free": 24
+      }
+    ]
+  },
+  "getRoomMeetListByDay": [
+    {
+      "startTime": "08:30",
+      "endTime": "09:30",
+      "meetName": "研发中心晨会",
+      "applyUserName": "张伟",
+      "meetStatus": 0
+    },
+    {
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "meetName": "智慧园区平台迭代评审",
+      "applyUserName": "李娜",
+      "meetStatus": 0
+    },
+    {
+      "startTime": "09:30",
+      "endTime": "10:30",
+      "meetName": "安全生产月度例会",
+      "applyUserName": "王强",
+      "meetStatus": 0
+    },
+    {
+      "startTime": "10:00",
+      "endTime": "12:00",
+      "meetName": "访客接待与展厅讲解",
+      "applyUserName": "陈静",
+      "meetStatus": 0
+    },
+    {
+      "startTime": "13:30",
+      "endTime": "15:00",
+      "meetName": "园区能耗优化方案研讨",
+      "applyUserName": "刘洋",
+      "meetStatus": 1
+    },
+    {
+      "startTime": "14:00",
+      "endTime": "15:30",
+      "meetName": "新员工入职培训",
+      "applyUserName": "孙倩",
+      "meetStatus": 1
+    },
+    {
+      "startTime": "15:30",
+      "endTime": "17:00",
+      "meetName": "信息发布系统联调对接",
+      "applyUserName": "赵磊",
+      "meetStatus": 2
+    },
+    {
+      "startTime": "16:00",
+      "endTime": "17:30",
+      "meetName": "财务预算执行分析会",
+      "applyUserName": "周敏",
+      "meetStatus": 3
+    }
+  ]
+}
