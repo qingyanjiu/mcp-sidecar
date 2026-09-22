@@ -72,6 +72,10 @@ mcp:
         platform:
 #            mcp服务 platform平台 地址
             baseUrl: http://10.0.0.5:9500/platform
+        ragflow:
+            baseUrl: http://localhost:9380    # RAGFlow API 地址
+            apiKey: 123             # 网页"头像→API"创建
+            datasetIds: "531584b4b01f11f19e1465040d524065"   # 可选，逗号分隔；留空=全库检索
 #   mock数据开关:被 @MockData 标注的工具按此处的配置决定返回mock数据还是调真实接口
     mock:
 #       总开关,true=工具默认返回mock数据(不再调用平台后端);false=全部走真实接口

@@ -40,10 +40,10 @@ public class PlatformEnergyMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getOverallEnergyConsu",
             description = TOOL_DESC_PREFIX + """
-            查询总体能耗,返回:
-            - electricity: {annual, today} 电的年度累计与今日用量
-            - water: {annual, today} 水的年度累计与今日用量
-            请根据用户问题(如"今天用电多少"/"年度能耗")从返回中提取对应信息回答。
+            查询总体能耗,可查到年度耗电、年度耗水、今日用电和今日用水,返回:
+            - electricity: {annual, today} 年度耗电与今日用电
+            - water: {annual, today} 年度耗水与今日用水
+            请根据用户问题(如"今天用电多少"/"年度耗电"/"今日用水"/"年度耗水")从返回中提取对应信息回答。
             """
     )
     public String getOverallEnergyConsu() {
@@ -118,11 +118,11 @@ public class PlatformEnergyMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeElectricityUsage",
             description = TOOL_DESC_PREFIX + """
-            查询实时用电,返回今日vs昨日用电曲线,每项含:
+            查询用电对比,返回上周vs本周用电对比列表,每项含:
             - timeLabel: 时间标签
-            - todayValue: 今日用电值
-            - yesterdayValue: 昨日用电值
-            请根据用户问题(如"今天用电趋势"/"实时用电")从返回中提取对应信息回答。
+            - todayValue: 本周用电值
+            - yesterdayValue: 上周用电值
+            请根据用户问题(如"本周用电情况"/"上周和本周用电对比")从返回中提取对应信息回答。
             """
     )
     public String getRealtimeElectricityUsage() {
@@ -135,11 +135,11 @@ public class PlatformEnergyMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeWaterUsage",
             description = TOOL_DESC_PREFIX + """
-            查询实时用水,返回今日vs昨日用水曲线,每项含:
+            查询用水对比,返回上周vs本周用水对比列表,每项含:
             - timeLabel: 时间标签
-            - todayValue: 今日用水值
-            - yesterdayValue: 昨日用水值
-            请根据用户问题(如"今天用水趋势"/"实时用水")从返回中提取对应信息回答。
+            - todayValue: 本周用水值
+            - yesterdayValue: 上周用水值
+            请根据用户问题(如"本周用水情况"/"上周和本周用水对比")从返回中提取对应信息回答。
             """
     )
     public String getRealtimeWaterUsage() {
