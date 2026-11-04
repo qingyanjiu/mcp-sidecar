@@ -160,57 +160,7 @@ public class PlatformDeviceQueryMcp {
     // 一、设备资产库查询(/deviceInfo/*)
     // ==================================================================
 
-    @MockData
-    @McpTool(
-            name = TOOL_NAME_PREFIX + "listDevice",
-            description = TOOL_DESC_PREFIX + """
-            分页查询平台纳管的设备资产清单(主力接口)。查"有哪些设备"/"设备清单"/"某类的设备"用它。
-            返回 data 为 {page:{total(总数), size, pages, current}, data:[设备数组]},每项含:
-            - id: 设备内部ID(查详情要用它)
-            - name: 设备名称;code: 设备编号
-            - syncSource: 设备类型编码(见下);deviceTypeName: 类型中文名(本接口已翻译)
-            - status: 启用状态(0停用 1启用 2维修 3报废) —— 注意这不是在线状态
-            - spaceId/spaceName: 所在空间ID/全路径名(如 园区/北门/门岗)
-            - personInChargeName: 负责人;orgName: 所属组织
-            - maintained: 是否已维护(0否 1是)
-            筛选参数都是可选的,传几个就按几个过滤:
-            - syncSource: 设备类型编码,精确匹配。0门禁 1道闸 2梯控 3监控 4入侵报警 5广播 6水表 7电表
-            - deviceType: 设备子类型,精确匹配(和 syncSource 不是一回事:syncSource 是"哪一类设备",
-              deviceType 是这一类下面的细分;一般用 syncSource 就够)
-            - status: 启用状态,精确匹配
-            - name: 设备名称,模糊匹配;code: 设备编号,精确匹配
-            - spaceId: 空间ID,会连带查出该空间下级的设备;传 -1 表示不带这个条件
-            - maintained: 是否已维护
-            请根据用户问题(如"列出所有门禁设备"/"北区有哪些设备"/"叫摄像头的设备")决定传哪些条件,
-            从返回的 page.total 回答数量类问题,从 data 数组回答明细类问题。
-            """
-    )
-    public String listDevice(
-            @McpToolParam(description = "设备类型编码,精确匹配。0门禁 1道闸 2梯控 3监控 4入侵报警 5广播 6水表 7电表", required = false) String syncSource,
-            @McpToolParam(description = "设备子类型,精确匹配,一般不用传", required = false) String deviceType,
-            @McpToolParam(description = "启用状态,精确匹配。0停用 1启用 2维修 3报废", required = false) String status,
-            @McpToolParam(description = "设备名称,模糊匹配", required = false) String name,
-            @McpToolParam(description = "设备编号,精确匹配", required = false) String code,
-            @McpToolParam(description = "空间位置ID,会连带查下级设备;传 -1 表示不带该条件", required = false) String spaceId,
-            @McpToolParam(description = "是否已维护。0否 1是", required = false) String maintained,
-            @McpToolParam(description = "页码,从1开始,可不传默认1", required = false) Integer pageCurrent,
-            @McpToolParam(description = "每页条数,可不传默认100", required = false) Integer pageSize
-    ) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("page", page(pageCurrent, pageSize));
-        body.put("data", cond(
-                "syncSource", syncSource,
-                "deviceType", deviceType,
-                "status", status,
-                "name", name,
-                "code", code,
-                "spaceId", spaceId,
-                "maintained", maintained));
-        Object result = platformApiCallServiceImpl.doPostCall(base(DEVICE_INFO_LIST_URL), body);
-        return JSON.toJSONString(result);
-    }
-
-    @MockData
+//    @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "listDeviceOnly",
             description = TOOL_DESC_PREFIX + """
