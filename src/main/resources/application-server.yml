@@ -82,7 +82,8 @@ logging:
 mcp:
     servers:
         platform:
-            baseUrl: http://10.204.20.159:9401/platform
-#   部署环境固定走真实接口,不受 application.yml 里 mock 总开关的影响
-    mock:
-        enabled: false
+            baseUrl: http://10.0.0.5:9500/platform
+        ragflow:
+            baseUrl: http://localhost:9380    # RAGFlow API 地址
+            apiKey: ragflow-ub_TrtrKXrpTRhf7HiujsYfEYUy5KbNr8F1u4s9FDzg            # 网页"头像→API"创建
+            datasetIds: "86ff0e3cb72011f1a2545930cabfc3ca"

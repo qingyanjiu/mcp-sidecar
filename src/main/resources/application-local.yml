@@ -81,7 +81,7 @@ logging:
 mcp:
     servers:
         platform:
-           baseUrl: http://localhost:9500/platform
+           baseUrl: http://10.0.0.5:9500/platform
         ragflow:
             baseUrl: http://localhost:9380    # RAGFlow API 地址
             apiKey: ragflow-ub_TrtrKXrpTRhf7HiujsYfEYUy5KbNr8F1u4s9FDzg            # 网页"头像→API"创建

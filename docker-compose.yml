@@ -1,36 +1,197 @@
-version: '3.9'
-services:
-  mcp-sidecar:
-    image: qingyanjiu/mcp-sidecar
-    ports:
-      - "2222:2222"
-      - "9970:9970"
-    command: ["sh", "-c", "sh start-server.sh"]
-    deploy:
-      resources:
-        limits:
-          memory: 2G
-        reservations:
-          memory: 1G
-    networks:
-      - ai-agenic-network
-    depends_on:
-      - transcode-monitor
+# 完整栈：agentic-app（python agent）+ mcp-sidecar（Java MCP 边车）
+#
+# 用法：
+#   docker load -i agentic-app.tar     # 导入你自己导出的两个镜像
+#   docker load -i mcp-sidecar.tar
+#   cp env.docker.example .env         # 按需填镜像 tag / 密钥（.env 已被 .gitignore 忽略）
+#   docker compose up -d               # 起整个栈（app 先起，sidecar 依赖它）
+#   docker compose logs -f
+#   docker compose ps
+#   docker compose down
+#
+# 对外只有一个入口：mcp-sidecar 的 2222 / 9970
+#   agentic-app 不映射宿主机端口（只有 expose 8001），保证只能由 sidecar 访问
+#   客户端 → mcp-sidecar:2222 (/llm/chat, /llm/gen_doc) → agentic-app:8001（容器网络内）
+#
+# 设计约定：
+#   1. 镜像只装运行时环境；业务代码以宿主机挂载目录为准，改完 restart 生效，不用重建镜像。
+#   2. app 的启动脚本是 ${AGENTIC_CODE_DIR}/scripts/docker-start.sh，随代码挂载进容器。
+#   3. 两个 compose 项目合并成一个，网络由本文件自己创建（名字固定 ai-agenic-network）。
+#   4. 想从宿主机直连 app 调试，把 app 的 ports 注释取消（只绑 127.0.0.1）。
+#   5. redis 默认不启动；要自包含就 REDIS_HOST=redis docker compose --profile redis up -d。
+#
+# 可覆盖变量（写进同目录 .env）：
+#   AGENTIC_IMAGE=qingyanjiu/langchain:1.0.3    MCP_IMAGE=qingyanjiu/mcp-sidecar:latest
+#   AGENTIC_CODE_DIR=/Users/louisliu/dev/AI_projects/agentic-app
+#   MCP_CODE_DIR=/Users/louisliu/dev/AI_projects/mcp-sidecar
+#   MCP_PORT=2222  MONITOR_PORT=9970  APP_PORT=8001
+#   REDIS_HOST / REDIS_PORT / REDIS_PASSWORD / REDIS_DATABASE
+#   AGENT_MODE=auto                              loop=全量新链路 / legacy=全走旧逻辑
+#   RELOAD=false  INSTALL_DEPS=0  WAIT_FOR_HOST=  WAIT_TIMEOUT=60  JAVA_TOOL_OPTIONS=
+#   TZ=Asia/Shanghai  HF_ENDPOINT=https://hf-mirror.com  RESTART_POLICY=unless-stopped
 
+name: agentic-stack
+
+x-common: &common
+  restart: ${RESTART_POLICY:-unless-stopped}
+  extra_hosts:
+    # 容器内访问宿主机服务（宿主机上的 redis / MCP）用 host.docker.internal
+    - host.docker.internal:host-gateway
+  networks:
+    - ai-agenic-network
+  logging:
+    driver: json-file
+    options:
+      max-size: "20m"
+      max-file: "5"
+
+services:
+  # ---------- python 侧：不对外开端口 ----------
   agentic-app:
-    image: qingyanjiu/langchain:1.0.3
+    <<: *common
+    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:1.0.3}
+    container_name: agentic-app
+    hostname: agentic-app
+    working_dir: /root/agentic-app
+    # 入口用挂载进来的脚本：启动行为跟着仓库代码走，不固化在镜像里
+    entrypoint: ["/bin/bash", "/root/agentic-app/scripts/docker-start.sh"]
+    # 只声明端口，不发布到宿主机；宿主机访问一律经 mcp-sidecar
+    expose:
+      - "${APP_PORT:-8001}"
+    # 本机调试要直连时取消注释（只绑 127.0.0.1）
+    # ports:
+    #   - "127.0.0.1:${APP_PORT:-8001}:${APP_PORT:-8001}"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      PYTHONUNBUFFERED: "1"
+      PIP_NO_CACHE_DIR: "1"
+      HF_ENDPOINT: ${HF_ENDPOINT:-https://hf-mirror.com}
+      APP_HOST: 0.0.0.0
+      APP_PORT: ${APP_PORT:-8001}
+      RELOAD: ${RELOAD:-false}
+      INSTALL_DEPS: ${INSTALL_DEPS:-0}
+      WAIT_FOR_HOST: ${WAIT_FOR_HOST:-}
+      WAIT_TIMEOUT: ${WAIT_TIMEOUT:-60}
+      EXTRA_UVICORN_ARGS: ${EXTRA_UVICORN_ARGS:-}
+      # 模型密钥统一只用 OPENAI_API_KEY（SILICON_API_KEY 已废弃）
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_THINKING: ${LLM_THINKING:-}
+      LLM_REASONING_EFFORT: ${LLM_REASONING_EFFORT:-}
+      # 意图模型：已从旧容器拷到项目的 agent/intent/models/BAAI_bge-small-zh-v1.5，
+      # 随代码目录一起挂载，不用额外卷；想改回让 HF 自己下载就把它置空
+      INTENT_MODEL_PATH: ${INTENT_MODEL_PATH:-/root/agentic-app/agent/intent/models/BAAI_bge-small-zh-v1.5}
+      # 启动级路由：loop=全量走 LOOP 新链路 / legacy=全走旧逻辑 / auto=按灰度变量
+      # 改完 docker compose up -d（或 restart）生效；日志首行会打印实际生效模式
+      AGENT_MODE: ${AGENT_MODE:-auto}
+      # UE 场景控制的 MCP 端点：与业务域同一个 sidecar:2222，只是路径是 /mcp/scene
+      # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
+      SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2222/mcp/scene}
+      PREWARM_ON_STARTUP: ${PREWARM_ON_STARTUP:-}
+    volumes:
+      # 代码：宿主机为准
+      - ${AGENTIC_CODE_DIR:-/Users/louisliu/dev/AI_projects/agentic-app}:/root/agentic-app
+      # 宿主机模型目录（可选）
+      # - ${MODELS_DIR:-/Users/louisliu/dev/models}:/root/models:ro
+    healthcheck:
+      # 不依赖 curl，用容器内 python 探 /docs；start_period 给模型加载留足时间
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import os, urllib.request as u;
+          u.urlopen('http://127.0.0.1:' + os.environ.get('APP_PORT', '8001') + '/docs', timeout=5)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+
+  # ---------- Java 侧：唯一对外入口 ----------
+  mcp-sidecar:
+    <<: *common
+    image: ${MCP_IMAGE:-qingyanjiu/mcp-sidecar:latest}
+    container_name: mcp-sidecar
+    hostname: mcp-sidecar
+    working_dir: /app
+    command: ["sh", "docker-start.sh"]
+    stop_grace_period: 30s
     ports:
-      - "8001:8001"
+      - "${MCP_PORT:-2222}:2222"      # MCP 接口
+      - "${MONITOR_PORT:-9970}:9970"  # actuator / 监控
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-server}
+      # 默认 profile=server：读 /app/config/application-server.yml；要临时切 local 就 SPRING_PROFILES_ACTIVE=local
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:-}
+      # redis：Boot 3 只认 spring.data.redis.*，配置里的 spring.redis.* 已失效，这里用环境变量覆盖
+      SPRING_DATA_REDIS_HOST: ${REDIS_HOST:-localhost}
+      SPRING_DATA_REDIS_PORT: ${REDIS_PORT:-6379}
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      SPRING_DATA_REDIS_DATABASE: ${REDIS_DATABASE:-10}
+      # 上游 python 服务地址：镜像里默认 ws://127.0.0.1:8001，改成同网络服务名
+      SPRING_APPLICATION_JSON: >-
+        {"llm":{"wsPath":{"chat":"ws://agentic-app:${APP_PORT:-8001}/chat/%s/%s","gen_doc":"ws://agentic-app:${APP_PORT:-8001}/gen_doc/%s/%s"}}}
+    volumes:
+      # jar 和配置放同一个目录：宿主机 mcp-sidecar/deploy 整体挂到 /app（镜像工作目录）
+      #   deploy/mcp-sidecar.jar          ← 编译产物
+      #   deploy/application-server.yml   ← profile=server 的配置（同目录，Spring 按 file:./ 读取）
+      #   deploy/docker-start.sh          ← 启动脚本
+      #   deploy/logs/                    ← 运行日志（容器内 /app/logs）
+      # 每次重新打包后刷新 jar：mvn package && cp target/mcp-sidecar.jar deploy/
+      - ${MCP_CODE_DIR:-/Users/louisliu/dev/AI_projects/mcp-sidecar}/deploy:/app
+    depends_on:
+      # app 启动慢（模型加载），这里只等它开始跑，不等 healthy
+      agentic-app:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9970/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+    mem_limit: 2g
+    mem_reservation: 1g
+
+  # 只保活的 app 调试容器，不进默认 up 流程：
+  #   docker compose --profile debug up -d agentic-shell
+  #   docker compose exec agentic-shell bash
+  agentic-shell:
+    <<: *common
+    profiles: ["debug"]
+    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:1.0.3}
+    container_name: agentic-app-shell
+    working_dir: /root/agentic-app
+    entrypoint: ["/bin/bash", "-lc", "sleep infinity"]
+    volumes:
+      - ${AGENTIC_CODE_DIR:-/Users/louisliu/dev/AI_projects/agentic-app}:/root/agentic-app
+
+  # 可选：自包含 redis（默认不启动，--profile redis 才起，配合 REDIS_HOST=redis）
+  redis:
+    profiles: ["redis"]
+    image: ${REDIS_IMAGE:-redis:6-alpine}
+    container_name: mcp-sidecar-redis
+    restart: ${RESTART_POLICY:-unless-stopped}
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
     networks:
       - ai-agenic-network
-    deploy:
-      resources:
-        limits:
-          memory: 2G
-        reservations:
-          memory: 1G
-    depends_on:
-      - mcp-sidecar
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
+  # 名字固定，方便别的容器/项目按 mcp-sidecar:2222 接入
   ai-agenic-network:
+    name: ai-agenic-network
+
+volumes:
+  redis-data:

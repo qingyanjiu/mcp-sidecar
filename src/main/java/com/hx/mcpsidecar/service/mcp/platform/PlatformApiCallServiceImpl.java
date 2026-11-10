@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -80,7 +81,8 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     }
 
     /**
-     * 读取平台的登录加密配置。返回 null 表示平台未开启 RSA 加密（或读取失败），按明文登录。
+     * 读取平台的登录加密配置。返回 null 表示平台未开启 RSA 加密（或该接口不可用），按明文登录；
+     * 平台连不上时直接抛 IllegalStateException。
      */
     private String getLoginPublicKey(String baseUrl) {
         try {
@@ -100,7 +102,15 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
             }
             Object publicKey = data.get("publicKey");
             return publicKey == null ? null : publicKey.toString();
+        } catch (ResourceAccessException e) {
+            // 连不上平台（Connection refused / 超时），退回明文登录没有意义，直接把原因抛出去，
+            // 否则只会看到一句“按明文登录”，真正的故障（平台没起）被掩盖。
+            Throwable cause = e.getMostSpecificCause();
+            String reason = cause == null ? e.getClass().getSimpleName()
+                    : cause.getClass().getSimpleName() + ": " + cause.getMessage();
+            throw new IllegalStateException("无法连接平台 " + baseUrl + "（" + reason + "）", e);
         } catch (RestClientException e) {
+            // 平台可达但 getLoginInfo 返回非 2xx（老版本平台可能没有这个接口），按明文登录兼容
             log.warn("获取平台登录公钥失败[{}]，按明文登录", e.getClass().getSimpleName());
             return null;
         }
