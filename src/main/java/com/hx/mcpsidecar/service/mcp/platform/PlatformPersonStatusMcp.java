@@ -24,7 +24,7 @@ public class PlatformPersonStatusMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelAffairs",
             description = TOOL_DESC_PREFIX + """
@@ -62,7 +62,7 @@ public class PlatformPersonStatusMcp {
     // 人员态势人员流动 URL
     public static final String  PERSONNEL_FLOW_URL = "/personnel/personFlow";
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelFlow",
             description = TOOL_DESC_PREFIX + """
@@ -77,7 +77,7 @@ public class PlatformPersonStatusMcp {
     // 人员态势人员结构 URL
     public static final String  PERSONNEL_STRUCTURE_URL = "/personnel/personnelStructure";
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getPersonnelStructure",
             description = TOOL_DESC_PREFIX + """

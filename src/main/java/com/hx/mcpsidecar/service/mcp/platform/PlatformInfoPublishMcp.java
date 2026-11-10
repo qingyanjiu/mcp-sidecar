@@ -46,7 +46,7 @@ public class PlatformInfoPublishMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getInfoView",
             description = TOOL_DESC_PREFIX + """
@@ -66,7 +66,7 @@ public class PlatformInfoPublishMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getBroadcastView",
             description = TOOL_DESC_PREFIX + """
@@ -85,7 +85,7 @@ public class PlatformInfoPublishMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTaskTrend",
             description = TOOL_DESC_PREFIX + """
@@ -113,7 +113,7 @@ public class PlatformInfoPublishMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getProgramCount",
             description = TOOL_DESC_PREFIX + """
@@ -132,7 +132,7 @@ public class PlatformInfoPublishMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getInfoPublishiEquip",
             description = TOOL_DESC_PREFIX + """
@@ -152,7 +152,7 @@ public class PlatformInfoPublishMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getBroadcastEquip",
             description = TOOL_DESC_PREFIX + """

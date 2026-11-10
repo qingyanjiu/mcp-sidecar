@@ -55,7 +55,7 @@ public class PlatformSecurityStatusMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getSecurityAlarmList",
             description = TOOL_DESC_PREFIX + """
@@ -92,7 +92,7 @@ public class PlatformSecurityStatusMcp {
         return body;
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getSecurityIndex",
             description = TOOL_DESC_PREFIX + """
@@ -108,7 +108,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAiAlertSituation",
             description = TOOL_DESC_PREFIX + """
@@ -141,7 +141,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getPatrolMission",
             description = TOOL_DESC_PREFIX + """
@@ -157,7 +157,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getInspectionTrend",
             description = TOOL_DESC_PREFIX + """
@@ -180,7 +180,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAiInspectionEvents",
             description = TOOL_DESC_PREFIX + """
@@ -217,7 +217,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceDetail",
             description = TOOL_DESC_PREFIX + """
@@ -256,7 +256,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAlarmView",
             description = TOOL_DESC_PREFIX + """
@@ -274,7 +274,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAlertSituation",
             description = TOOL_DESC_PREFIX + """
@@ -303,7 +303,7 @@ public class PlatformSecurityStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAlarmListWithType",
             description = TOOL_DESC_PREFIX + """

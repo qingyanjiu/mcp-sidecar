@@ -59,7 +59,7 @@ public class PlatformDiningHallMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getWeekMenu",
             description = TOOL_DESC_PREFIX + """
@@ -99,7 +99,7 @@ public class PlatformDiningHallMcp {
         return JSON.toJSONString(shaped);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDishPopularity",
             description = TOOL_DESC_PREFIX + """
@@ -125,7 +125,7 @@ public class PlatformDiningHallMcp {
         return JSON.toJSONString(shaped);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDiningCount",
             description = TOOL_DESC_PREFIX + """

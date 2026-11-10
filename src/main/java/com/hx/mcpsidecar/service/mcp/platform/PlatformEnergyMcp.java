@@ -36,7 +36,7 @@ public class PlatformEnergyMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getOverallEnergyConsu",
             description = TOOL_DESC_PREFIX + """
@@ -52,7 +52,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeteringEquipment",
             description = TOOL_DESC_PREFIX + """
@@ -68,7 +68,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getElectricityUsageRanking",
             description = TOOL_DESC_PREFIX + """
@@ -83,7 +83,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getWaterUsageRanking",
             description = TOOL_DESC_PREFIX + """
@@ -98,7 +98,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceStatus",
             description = TOOL_DESC_PREFIX + """
@@ -114,7 +114,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeElectricityUsage",
             description = TOOL_DESC_PREFIX + """
@@ -131,7 +131,7 @@ public class PlatformEnergyMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRealtimeWaterUsage",
             description = TOOL_DESC_PREFIX + """

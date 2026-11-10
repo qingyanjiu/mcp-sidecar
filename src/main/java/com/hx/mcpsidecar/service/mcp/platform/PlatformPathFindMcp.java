@@ -24,7 +24,7 @@ public class PlatformPathFindMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
         name = TOOL_NAME_PREFIX + "getPathFindGridList",
         description = TOOL_DESC_PREFIX + """

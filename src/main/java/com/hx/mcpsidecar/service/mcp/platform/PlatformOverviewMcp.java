@@ -26,7 +26,7 @@ public class PlatformOverviewMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getBasicInfo",
             description = TOOL_DESC_PREFIX + """
@@ -43,7 +43,7 @@ public class PlatformOverviewMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceHealth",
             description = TOOL_DESC_PREFIX + """

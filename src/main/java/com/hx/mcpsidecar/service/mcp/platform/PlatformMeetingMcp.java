@@ -38,7 +38,7 @@ public class PlatformMeetingMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingStatistics",
             description = TOOL_DESC_PREFIX + """
@@ -58,7 +58,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getHighFrequencyMeetingRooms",
             description = TOOL_DESC_PREFIX + """
@@ -76,7 +76,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingRoomOverview",
             description = TOOL_DESC_PREFIX + """
@@ -92,7 +92,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getNumberOfMeetings",
             description = TOOL_DESC_PREFIX + """
@@ -111,7 +111,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMeetingRoomStatus",
             description = TOOL_DESC_PREFIX + """
@@ -127,7 +127,7 @@ public class PlatformMeetingMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getRoomMeetListByDay",
             description = TOOL_DESC_PREFIX + """

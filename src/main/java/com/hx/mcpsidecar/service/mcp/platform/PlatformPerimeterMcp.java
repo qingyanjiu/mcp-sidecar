@@ -31,7 +31,7 @@ public class PlatformPerimeterMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getKeyMetrics",
             description = TOOL_DESC_PREFIX + """
@@ -49,7 +49,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAreaOverview",
             description = TOOL_DESC_PREFIX + """
@@ -67,7 +67,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getPerimeterAlarmStats",
             description = TOOL_DESC_PREFIX + """
@@ -90,7 +90,7 @@ public class PlatformPerimeterMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getAlarmOverview",
             description = TOOL_DESC_PREFIX + """

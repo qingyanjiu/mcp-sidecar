@@ -34,7 +34,7 @@ public class PlatformVehicleStatusMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingSpace",
             description = TOOL_DESC_PREFIX + """
@@ -54,7 +54,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTrafficVolume",
             description = TOOL_DESC_PREFIX + """
@@ -71,7 +71,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingStructure",
             description = TOOL_DESC_PREFIX + """
@@ -88,7 +88,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getCarStatistic",
             description = TOOL_DESC_PREFIX + """
@@ -106,7 +106,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getParkingRank",
             description = TOOL_DESC_PREFIX + """
@@ -123,7 +123,7 @@ public class PlatformVehicleStatusMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getVehiclePassRecord",
             description = TOOL_DESC_PREFIX + """

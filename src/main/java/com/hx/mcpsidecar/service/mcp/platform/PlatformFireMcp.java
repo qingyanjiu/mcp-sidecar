@@ -38,7 +38,7 @@ public class PlatformFireMcp {
     @Qualifier("platformApiCallServiceImpl")
     private IApiCallService platformApiCallServiceImpl;
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAssets",
             description = TOOL_DESC_PREFIX + """
@@ -73,7 +73,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAlarmNum",
             description = TOOL_DESC_PREFIX + """
@@ -106,7 +106,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getFireAlarmList",
             description = TOOL_DESC_PREFIX + """
@@ -142,7 +142,7 @@ public class PlatformFireMcp {
         return JSON.toJSONString(result);
     }
 
-    @MockData
+    // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "getMonthRepair",
             description = TOOL_DESC_PREFIX + """
