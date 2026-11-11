@@ -81,11 +81,18 @@ logging:
 mcp:
     servers:
         platform:
-           baseUrl: http://10.0.0.5:9500/platform
+           baseUrl: http://localhost:9500/platform
         ragflow:
             baseUrl: http://localhost:9380    # RAGFlow API 地址
             apiKey: ragflow-ub_TrtrKXrpTRhf7HiujsYfEYUy5KbNr8F1u4s9FDzg            # 网页"头像→API"创建
             datasetIds: "86ff0e3cb72011f1a2545930cabfc3ca"                        # 可选，逗号分隔；空=全库检索
+
+# 大模型对话流量限制
+llm:
+    auth:
+        #        认证检查平台后端服务接口
+        url: http://127.0.0.1:9500/platform/llmChat/auth?token=%s&userId=%s
+
 
 # redis 未被业务使用：关掉健康检查，否则每次访问 /actuator/health 都会去连 redis，
 # 失败后打 WARN + 几十行堆栈，lettuce 还会持续重连刷日志。

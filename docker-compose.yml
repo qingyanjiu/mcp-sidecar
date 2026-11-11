@@ -9,9 +9,11 @@
 #   docker compose ps
 #   docker compose down
 #
-# 对外只有一个入口：mcp-sidecar 的 2222 / 9970
+# 对外只有一个入口：mcp-sidecar 的 2222
 #   agentic-app 不映射宿主机端口（只有 expose 8001），保证只能由 sidecar 访问
-#   客户端 → mcp-sidecar:2222 (/llm/chat, /llm/gen_doc) → agentic-app:8001（容器网络内）
+#   浏览器 → mcp-sidecar:2222 (/llm/chat, /llm/gen_doc, /ws/scene)
+#   agentic-app → mcp-sidecar:2223 (/mcp/**，只走容器网络，不发布到宿主机)
+#   9970（actuator）只在容器内探活，不发布到宿主机
 #
 # 设计约定：
 #   1. 镜像只装运行时环境；业务代码以宿主机挂载目录为准，改完 restart 生效，不用重建镜像。
@@ -24,7 +26,7 @@
 #   AGENTIC_IMAGE=qingyanjiu/langchain:slim      MCP_IMAGE=qingyanjiu/mcp-sidecar:latest
 #   AGENTIC_CODE_DIR=/Users/louisliu/dev/AI_projects/agentic-app
 #   MCP_CODE_DIR=/Users/louisliu/dev/AI_projects/mcp-sidecar
-#   MCP_PORT=2222  MONITOR_PORT=9970  APP_PORT=8001
+#   MCP_PORT=2222  MCP_INTERNAL_PORT=2223  APP_PORT=8001
 #   REDIS_HOST / REDIS_PORT / REDIS_PASSWORD / REDIS_DATABASE
 #   AGENT_MODE=auto                              loop=全量新链路 / legacy=全走旧逻辑
 #   RELOAD=false  INSTALL_DEPS=0  WAIT_FOR_HOST=  WAIT_TIMEOUT=60  JAVA_TOOL_OPTIONS=
@@ -86,9 +88,9 @@ services:
       # 启动级路由：loop=全量走 LOOP 新链路 / legacy=全走旧逻辑 / auto=按灰度变量
       # 改完 docker compose up -d（或 restart）生效；日志首行会打印实际生效模式
       AGENT_MODE: ${AGENT_MODE:-auto}
-      # UE 场景控制的 MCP 端点：与业务域同一个 sidecar:2222，只是路径是 /mcp/scene
+      # UE 场景控制的 MCP 端点：走内网端口 2223，公网 2222 已不开放 /mcp/**
       # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
-      SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2222/mcp/scene}
+      SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2223/mcp/scene}
       PREWARM_ON_STARTUP: ${PREWARM_ON_STARTUP:-}
     volumes:
       # 代码：宿主机为准
@@ -117,8 +119,11 @@ services:
     command: ["sh", "docker-start.sh"]
     stop_grace_period: 30s
     ports:
-      - "${MCP_PORT:-2222}:2222"      # MCP 接口
-      - "${MONITOR_PORT:-9970}:9970"  # actuator / 监控
+      # 公网入口：只开放 /llm/** 和 /ws/**
+      - "${MCP_PORT:-2222}:2222"
+    expose:
+      # 内网 MCP 端口：/mcp/** 专用，不发布到宿主机
+      - "${MCP_INTERNAL_PORT:-2223}"
     environment:
       TZ: ${TZ:-Asia/Shanghai}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-server}
@@ -131,7 +136,7 @@ services:
       SPRING_DATA_REDIS_DATABASE: ${REDIS_DATABASE:-10}
       # 上游 python 服务地址：镜像里默认 ws://127.0.0.1:8001，改成同网络服务名
       SPRING_APPLICATION_JSON: >-
-        {"llm":{"wsPath":{"chat":"ws://agentic-app:${APP_PORT:-8001}/chat/%s/%s","gen_doc":"ws://agentic-app:${APP_PORT:-8001}/gen_doc/%s/%s"}}}
+        {"mcp":{"internal-port":${MCP_INTERNAL_PORT:-2223}},"llm":{"wsPath":{"chat":"ws://agentic-app:${APP_PORT:-8001}/chat/%s/%s","gen_doc":"ws://agentic-app:${APP_PORT:-8001}/gen_doc/%s/%s"}}}
     volumes:
       # jar 和配置放同一个目录：宿主机 mcp-sidecar/deploy 整体挂到 /app（镜像工作目录）
       #   deploy/mcp-sidecar.jar          ← 编译产物

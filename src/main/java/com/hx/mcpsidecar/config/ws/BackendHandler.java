@@ -1,21 +1,28 @@
 package com.hx.mcpsidecar.config.ws;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.*;
+
+import java.net.URI;
 
 /**
  * 连接python端ws接口的连接类
  */
+@Slf4j
 public class BackendHandler implements WebSocketHandler {
 
     private final WebSocketSession clientSession;
+    private final URI backendUri;
 
-    public BackendHandler(WebSocketSession clientSession) {
+    public BackendHandler(WebSocketSession clientSession, URI backendUri) {
         this.clientSession = clientSession;
+        this.backendUri = backendUri;
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession backendSession) {
-        System.out.println("Backend WebSocket connected: " + backendSession.getUri());
+        // 客户端会话（StandardWebSocketSession）的 getUri() 是 null，URI 要由调用方传进来
+        log.info("后端 WebSocket 已连接: {}", backendUri);
     }
 
     @Override

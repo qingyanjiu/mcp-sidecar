@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
@@ -21,8 +22,10 @@ public class LLMChatLimiter {
 
     // 信号量
     private Semaphore requestPool = null;
-    // 当前连接的用户，用来校验释放信号量是否合法，防止随意调用释放信号量接口
-    private Map<String, Object> connectedUserMap = new ConcurrentHashMap<>();
+    // 当前连接的用户及其占用数，用来校验释放信号量是否合法，防止随意调用释放信号量接口。
+    // 用计数是因为同一个用户可能同时开多个会话（多个 WS 连接 / MCP 会话），
+    // 每次 tryToChat 都占一个许可，必须按次数归还。
+    private Map<String, AtomicInteger> connectedUserMap = new ConcurrentHashMap<>();
 
     // 初始化信号量对象
     @PostConstruct
@@ -39,9 +42,10 @@ public class LLMChatLimiter {
         try {
             ret = requestPool.tryAcquire(3000, TimeUnit.MILLISECONDS);
             if (ret) {
-                connectedUserMap.putIfAbsent(userId, true);
+                connectedUserMap.computeIfAbsent(userId, k -> new AtomicInteger()).incrementAndGet();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.info("尝试获取对话许可失败，队列已满");
         }
         return ret;
@@ -51,13 +55,15 @@ public class LLMChatLimiter {
      * 结束一轮聊天
      */
     public boolean completeChat(String userId) {
-        boolean ret = false;
+        AtomicInteger count = connectedUserMap.get(userId);
         // 如果该用户正在聊天，则可以释放，否则不释放信号量
-        if (connectedUserMap.containsKey(userId)) {
-            requestPool.release();
-            connectedUserMap.remove(userId);
-            ret = true;
+        if (count == null) {
+            return false;
         }
-        return ret;
+        requestPool.release();
+        if (count.decrementAndGet() <= 0) {
+            connectedUserMap.remove(userId, count);
+        }
+        return true;
     }
 }

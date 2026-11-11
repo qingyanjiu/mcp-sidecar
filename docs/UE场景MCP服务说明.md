@@ -6,6 +6,7 @@
 > **代码是唯一事实来源。** 工具名/参数改动需要同时改
 > `service/mcp/scene/SceneMcp.java`、`scene/SceneActions.java` 和本文。
 > 请求格式的更多细节（报文样例、坑）见 [`场景动作下发接口.md`](./场景动作下发接口.md)。
+> 系统整体架构、端口分工与跨系统时序图见 [`系统架构说明.md`](./系统架构说明.md)。
 
 ---
 
@@ -16,8 +17,8 @@
 | MCP server 名称 | `mcp-scene`（`serverInfo.version = 1.0.0`） |
 | 传输方式 | **MCP Streamable HTTP**（Spring WebMvc 实现） |
 | 端点 | `POST /mcp/scene` |
-| 端口 | `2222`（`application-local.yml` / `application-server.yml`） |
-| 鉴权 | **无**（生产环境如需收紧，应在网关层处理；同进程的 `/scene/*` 联调接口也一并考虑） |
+| 端口 | **`2223`**（内网端口，仅容器网络可达；本地调试用 `127.0.0.1:2223`） |
+| 鉴权 | **无**（靠端口隔离：公网 `2222` 只开放 `/llm/**` 和 `/ws/**`，不开放 `/mcp/**`） |
 | 工具数量 | **20**：19 个动作工具 + 1 个查询工具 |
 | 动作帧出口 | WebSocket `/ws/scene`（由前端页面连接，不是 MCP 客户端） |
 | 动作超时 | `scene.action-timeout-ms`，默认 **15000ms** |
@@ -32,10 +33,11 @@ MCP server 只负责“让 LLM 能调”。真正的动作帧通过 `/ws/scene` 
 | `src/main/java/com/hx/mcpsidecar/service/mcp/scene/SceneMcp.java` | 20 个 MCP 工具的定义 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneActions.java` | 动作词表、参数名、楼层语义、中文枚举 |
 | `src/main/java/com/hx/mcpsidecar/config/mcp/SceneMcpServerConfig.java` | `/mcp/scene` 端点与 `X-Session-Id` 注入 |
+| `src/main/java/com/hx/mcpsidecar/config/mcp/McpInternalPortConfig.java` | `/mcp/**` 的内网端口（2223） |
+| `src/main/java/com/hx/mcpsidecar/config/EndpointPortGuardFilter.java` | 公网/内网端口的路径隔离 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneDispatcher.java` | 下发、等待回执、超时 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneSessionRegistry.java` | 会话路由与单会话兜底 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneWebSocketHandler.java` | `/ws/scene` 前端通道 |
-| `src/main/java/com/hx/mcpsidecar/controller/SceneTestController.java` | `/scene/*` 联调接口 |
 
 ---
 
@@ -46,7 +48,11 @@ MCP server 只负责“让 LLM 能调”。真正的动作帧通过 `/ws/scene` 
 MCP 客户端（Python / LangChain 等）按标准 Streamable HTTP 流程连接：
 
 ```
-POST http://<sidecar-host>:2222/mcp/scene
+# 容器网络内用服务名访问
+POST http://mcp-sidecar:2223/mcp/scene
+# 本地调试：
+# POST http://127.0.0.1:2223/mcp/scene
+
 Content-Type: application/json
 Accept: application/json, text/event-stream
 ```
@@ -132,7 +138,8 @@ Accept: application/json, text/event-stream
 ```yaml
 scene:
   transport: streamable_http
-  url: http://10.204.146.228:2222/mcp/scene
+  # 容器网络内走服务名 2223；本地调试走 127.0.0.1:2223
+  url: http://mcp-sidecar:2223/mcp/scene
   direct_client: true          # 由专用客户端接管，按请求注入 X-Session-Id
 ```
 
@@ -150,66 +157,14 @@ sidecar 下发动作后会等待页面回执，上限 `scene.action-timeout-ms`�
 
 | 端点 | 方法 | 使用者 | 说明 |
 |---|---|---|---|
-| `/mcp/scene` | POST | agent / LLM | MCP Streamable HTTP，20 个工具 |
-| `/scene/dispatch` | POST / GET | 人（联调、手测） | 直接下发一个动作，走同一条 dispatch 链路 |
-| `/scene/sessions` | GET | 人 | 当前连着的场景页面列表（拿 `sessionId`） |
-| `/scene/actions` | GET | 人 | 动作词表、破坏性动作、楼层语义 |
-| `/ws/scene` | WebSocket | 前端场景页面 | 接收 `hello` / `scene_state` / `action_result`，接收动作帧 |
-| `/actuator/health` | GET | 运维 | 健康检查，管理端口 **9970** |
+| `/mcp/scene` | POST | agent / LLM | MCP Streamable HTTP，20 个工具；**内网端口 2223** |
+| `/ws/scene` | WebSocket | 前端场景页面 | 接收 `hello` / `scene_state` / `action_result`，接收动作帧；**公网端口 2222** |
+| `/actuator/health` | GET | 运维 | 健康检查，管理端口 **9970**（仅容器内，不发布） |
 
-### 3.1 `/scene/dispatch`（联调用）
+> 原 `/scene/*` 联调接口（dispatch / sessions / actions）已删除。
+> 手工触发动作请走 `/mcp/scene` 的 `tools/call`。
 
-POST JSON body：
-
-```json
-{
-  "action": "scene_switch_floor",
-  "sessionId": "dev-1",
-  "params": { "floor": 3, "focus": true }
-}
-```
-
-GET query 版（`params` 必须是 **URL 编码后的 JSON 字符串**）：
-
-```
-GET /scene/dispatch?action=scene_switch_floor&sessionId=dev-1&params=%7B%22floor%22%3A3%7D
-```
-
-成功 `200`，失败 `409`：
-
-```json
-{ "action": "scene_switch_floor", "sessionId": "dev-1",
-  "params": { "floor": 3 }, "ok": true, "state": "dispatched" }
-```
-
-### 3.2 `/scene/sessions`
-
-返回当前已连接的页面：
-
-```json
-[
-  {
-    "sessionId": "dev-1",
-    "userId": "u-42",
-    "pendingActions": 0,
-    "sceneState": { "type": "scene_state", "sessionId": "dev-1",
-                    "ready": true, "floor": 11, "build": "科研办公楼" }
-  }
-]
-```
-
-### 3.3 `/scene/actions`
-
-```json
-{
-  "count": 19,
-  "actions": ["scene_switch_floor", "..."],
-  "destructive": ["scene_set_area_state", "scene_set_inspection_state"],
-  "floorSemantics": "楼层为整数：-1=B1，1~N 为具体楼层，99=整栋楼。..."
-}
-```
-
-### 3.4 `/ws/scene`（前端通道）
+### 3.1 `/ws/scene`（前端通道）
 
 页面连上后必须先发：
 
@@ -503,7 +458,7 @@ MCP 客户端**不要连这个端点**，它是给场景页面用的。
 
 **描述：** 查询场景页面当前的状态快照：是否就绪、当前在哪一层、哪栋楼、可选楼层列表。判断“用户现在看的是第几层”只能靠这个工具，不要靠你上一轮说过什么 —— 用户可能在页面里自己点了菜单切了楼层。无参数，不推送动作，只是读缓存。
 
-**注意：** 工具名**没有 `scene_` 前缀**，且不在 `/scene/dispatch` 词表里，只能通过
+**注意：** 工具名**没有 `scene_` 前缀**，且不在动作词表里，只能通过
 MCP `tools/call` 调用。
 
 返回示例：
@@ -561,27 +516,24 @@ MCP `tools/call` 调用。
 
 ## 7. 联调步骤
 
-1. **前端页面连上** `/ws/scene`，发 `hello`，记下 `sessionId`（如 `dev-1`）。
-2. **确认连接**：
+1. **前端页面连上** `ws://127.0.0.1:2222/ws/scene`，发 `hello`，记下 `sessionId`（如 `dev-1`）。
+2. **MCP 握手 + tools/list**：
    ```
-   GET http://127.0.0.1:2222/scene/sessions
+   POST http://mcp-sidecar:2223/mcp/scene      # 容器网络（内网）
+   POST http://127.0.0.1:2223/mcp/scene        # 本地调试
    ```
-3. **不经 LLM 手测一个动作**：
+   确认 20 个工具都在。
+3. **带 `X-Session-Id` 调 `tools/call`**：
    ```
-   GET http://127.0.0.1:2222/scene/dispatch?action=scene_switch_floor&sessionId=dev-1&params=%7B%22floor%22%3A3%7D
-   ```
-   页面应切到 3 楼。
-4. **MCP 握手 + tools/list**，确认 20 个工具都在。
-5. **带 `X-Session-Id` 调 `tools/call`**：
-   ```
-   curl -X POST http://127.0.0.1:2222/mcp/scene \
+   curl -X POST http://mcp-sidecar:2223/mcp/scene \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json, text/event-stream' \
      -H 'Mcp-Session-Id: <initialize 返回的值>' \
      -H 'X-Session-Id: dev-1' \
      -d '{"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"name":"scene_switch_floor","arguments":{"floor":3}}}'
    ```
-6. 验证 `get_scene_state` 能读到页面最新楼层。
+   页面应切到 3 楼。
+4. 验证 `get_scene_state` 能读到页面最新楼层。
 
 ---
 
@@ -596,7 +548,8 @@ MCP `tools/call` 调用。
 4. **单会话兜底只适合联调。** 多用户必须逐请求注入 `X-Session-Id`。
 5. **`sessionId` 来源尚未打通。** 方案只规定 agent 要注入，值目前由前端
    `hello` 先声明、agent 跟随。聊天入口需要把同一个值透传给 MCP 调用。
-6. **无鉴权。** `/mcp/scene` 和 `/scene/*` 当前均无鉴权，生产部署需在网关层控制暴露面。
+6. **MCP 无应用层鉴权，靠端口隔离。** server/local 下 `/mcp/**` 都只在 `2223` 内网端口监听，
+   docker-compose 只 `expose` 不 `publish`；公网 `2222` 只开放 `/llm/**` 和 `/ws/**`。
 7. **动作词表是封闭集合。** sidecar 只下发 `SceneActions.ALL` 里的 19 个名字；
    表外动作会被拒绝。改词表要同时改 `SceneActions.java` 与 `SceneMcp.java`。
 

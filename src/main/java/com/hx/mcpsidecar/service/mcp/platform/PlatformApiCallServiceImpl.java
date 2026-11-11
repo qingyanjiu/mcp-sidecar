@@ -164,9 +164,21 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public Object doGetCallWithTokenInHeader(String url, String token) {
         ResponseEntity<Map> response = super.getWithTokenInHeader(url, token);
-        log.info("GET无登录请求[{}]成功获取到数据", url);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
-        return platformResp.getData();
+        Object data = platformResp == null ? null : platformResp.getData();
+        // url 里带 token，日志必须打码；这里把平台的真实判定（data=200 才是已登录）打出来，
+        // 否则 HTTP 200 会被误认为鉴权通过。
+        log.info("token鉴权请求[{}]返回: httpStatus={}, status={}, msg={}, data={}",
+                maskToken(url), response.getStatusCode().value(),
+                platformResp == null ? null : platformResp.getStatus(),
+                platformResp == null ? null : platformResp.getMsg(),
+                data);
+        return data;
+    }
+
+    /** 日志里隐藏 query 中的 token，避免把登录凭证写进日志文件。 */
+    private static String maskToken(String url) {
+        return url == null ? null : url.replaceAll("([?&]token=)[^&]*", "$1***");
     }
 
     @Override

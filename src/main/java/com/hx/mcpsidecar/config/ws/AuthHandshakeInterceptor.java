@@ -40,6 +40,10 @@ public class AuthHandshakeInterceptor implements HandshakeInterceptor {
         // 用户请求时param中的会话id
         String sessionId = params.getFirst("sessionId");
         String token = request.getHeaders().getFirst("Authorization");
+        if (token == null || token.isBlank()) {
+            // 浏览器原生 WebSocket 不能设置自定义 Header，回退到 query 参数
+            token = params.getFirst("token");
+        }
         // 从 query/header 提取变量
         attributes.put("token", token);
         attributes.put("userId", userId);

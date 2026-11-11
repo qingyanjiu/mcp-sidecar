@@ -75,6 +75,8 @@ springdoc:
 
 # mcp服务器配置
 mcp:
+    # /mcp/** 的内网监听端口（server/local 均生效；docker-compose 只 expose 不 publish）
+    internal-port: 2223
     servers:
         platform:
 #            mcp服务 platform平台 地址

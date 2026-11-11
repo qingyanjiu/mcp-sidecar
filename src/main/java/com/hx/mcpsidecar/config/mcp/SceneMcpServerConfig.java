@@ -52,6 +52,7 @@ public class SceneMcpServerConfig {
     @Bean
     public RouterFunction<ServerResponse> sceneMcpRouter(
             @Qualifier("sceneMcpTransport") WebMvcStreamableServerTransportProvider transport) {
+        // /mcp/** 只监听内网端口（2223），认证交给网络边界；公网 2222 不开放 MCP。
         return transport.getRouterFunction();
     }
 
