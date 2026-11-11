@@ -20,13 +20,20 @@ spring:
         producer:
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    redis:
-        # 默认不使用redis
-        enabled: false
+    # 注意：这里原本写的 spring.redis.enabled: false 是无效配置，
+    # Spring 从来没有这个属性，redis 的自动装配也没有 enabled 开关。
+    # 要"关掉 redis"请用下面的 management.health.redis.enabled。
 
 management:
     server:
         port: 9970
+    # redis 未被任何业务使用，关掉它的健康检查。
+    # 不关的话，每次访问 /actuator/health 都会去连一次 redis，失败后
+    # RedisReactiveHealthIndicator 打 WARN + 几十行堆栈，lettuce 还会持续重连刷日志。
+    # （docker healthcheck 每 30s 打一次这个端点，于是 error.log 一直在涨）
+    health:
+        redis:
+            enabled: false
     endpoint:
         health:
             show-details: always

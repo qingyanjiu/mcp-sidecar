@@ -21,7 +21,7 @@
 #   5. redis 默认不启动；要自包含就 REDIS_HOST=redis docker compose --profile redis up -d。
 #
 # 可覆盖变量（写进同目录 .env）：
-#   AGENTIC_IMAGE=qingyanjiu/langchain:1.0.3    MCP_IMAGE=qingyanjiu/mcp-sidecar:latest
+#   AGENTIC_IMAGE=qingyanjiu/langchain:slim      MCP_IMAGE=qingyanjiu/mcp-sidecar:latest
 #   AGENTIC_CODE_DIR=/Users/louisliu/dev/AI_projects/agentic-app
 #   MCP_CODE_DIR=/Users/louisliu/dev/AI_projects/mcp-sidecar
 #   MCP_PORT=2222  MONITOR_PORT=9970  APP_PORT=8001
@@ -49,7 +49,7 @@ services:
   # ---------- python 侧：不对外开端口 ----------
   agentic-app:
     <<: *common
-    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:1.0.3}
+    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:slim}
     container_name: agentic-app
     hostname: agentic-app
     working_dir: /root/agentic-app
@@ -159,7 +159,7 @@ services:
   agentic-shell:
     <<: *common
     profiles: ["debug"]
-    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:1.0.3}
+    image: ${AGENTIC_IMAGE:-qingyanjiu/langchain:slim}
     container_name: agentic-app-shell
     working_dir: /root/agentic-app
     entrypoint: ["/bin/bash", "-lc", "sleep infinity"]

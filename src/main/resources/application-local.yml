@@ -86,3 +86,11 @@ mcp:
             baseUrl: http://localhost:9380    # RAGFlow API 地址
             apiKey: ragflow-ub_TrtrKXrpTRhf7HiujsYfEYUy5KbNr8F1u4s9FDzg            # 网页"头像→API"创建
             datasetIds: "86ff0e3cb72011f1a2545930cabfc3ca"                        # 可选，逗号分隔；空=全库检索
+
+# redis 未被业务使用：关掉健康检查，否则每次访问 /actuator/health 都会去连 redis，
+# 失败后打 WARN + 几十行堆栈，lettuce 还会持续重连刷日志。
+# 注意：上面 spring.redis.* 那段在 Spring Boot 3 已失效（迁移到 spring.data.redis.*）。
+management:
+    health:
+        redis:
+            enabled: false
