@@ -29,6 +29,9 @@
 #   MCP_PORT=2222  MCP_INTERNAL_PORT=2223  APP_PORT=8001
 #   REDIS_HOST / REDIS_PORT / REDIS_PASSWORD / REDIS_DATABASE
 #   AGENT_MODE=auto                              loop=全量新链路 / legacy=全走旧逻辑
+#   LOOP_ROLLOUT_PERCENT=20  LOOP_ROLLOUT_USERS=u1,u2（仅 AGENT_MODE=auto 生效；都留空=全旧链路）
+#   LLM_TYPE=openai|ollama  LLM_BASE_URL  LLM_MODEL  LLM_API_KEY  LLM_THINKING  LLM_REASONING_EFFORT
+#   MODELS_DIR=/Users/louisliu/dev/models（可选；volumes 里默认注释）
 #   RELOAD=false  INSTALL_DEPS=0  WAIT_FOR_HOST=  WAIT_TIMEOUT=60  JAVA_TOOL_OPTIONS=
 #   TZ=Asia/Shanghai  HF_ENDPOINT=https://hf-mirror.com  RESTART_POLICY=unless-stopped
 
@@ -78,6 +81,8 @@ services:
       # 模型密钥统一只用 OPENAI_API_KEY（SILICON_API_KEY 已废弃）
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
+      # 客户端类型：openai（OpenAI 兼容接口）/ ollama（本地 Ollama），留空=openai
+      LLM_TYPE: ${LLM_TYPE:-}
       LLM_BASE_URL: ${LLM_BASE_URL:-}
       LLM_MODEL: ${LLM_MODEL:-}
       LLM_THINKING: ${LLM_THINKING:-}
@@ -85,9 +90,13 @@ services:
       # 意图模型：已从旧容器拷到项目的 agent/intent/models/BAAI_bge-small-zh-v1.5，
       # 随代码目录一起挂载，不用额外卷；想改回让 HF 自己下载就把它置空
       INTENT_MODEL_PATH: ${INTENT_MODEL_PATH:-/root/agentic-app/agent/intent/models/BAAI_bge-small-zh-v1.5}
-      # 启动级路由：loop=全量走 LOOP 新链路 / legacy=全走旧逻辑 / auto=按灰度变量
+      # 启动级路由：loop=全量新链路（等价 percent=100）/ legacy=全走旧逻辑 / auto=按灰度变量
       # 改完 docker compose up -d（或 restart）生效；日志首行会打印实际生效模式
       AGENT_MODE: ${AGENT_MODE:-auto}
+      # 灰度变量：只在 AGENT_MODE=auto 时生效。不在这里声明，.env 里写了也进不到容器
+      # 没有单独的灰度总开关：下面两项只要有一项生效就算开，都留空即全走旧链路
+      LOOP_ROLLOUT_PERCENT: ${LOOP_ROLLOUT_PERCENT:-}
+      LOOP_ROLLOUT_USERS: ${LOOP_ROLLOUT_USERS:-}
       # UE 场景控制的 MCP 端点：走内网端口 2223，公网 2222 已不开放 /mcp/**
       # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
       SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2223/mcp/scene}
