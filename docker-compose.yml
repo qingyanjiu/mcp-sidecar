@@ -32,6 +32,7 @@
 #   LOOP_ROLLOUT_PERCENT=20  LOOP_ROLLOUT_USERS=u1,u2（仅 AGENT_MODE=auto 生效；都留空=全旧链路）
 #   LLM_TYPE=openai|ollama  LLM_BASE_URL  LLM_MODEL  LLM_API_KEY  LLM_THINKING  LLM_REASONING_EFFORT
 #   MODELS_DIR=/Users/louisliu/dev/models（可选；volumes 里默认注释）
+#   MCP_BASE_URL=http://mcp-sidecar:2223/mcp（覆盖 mcp_server_config.yaml 的 mcp_base_url）
 #   RELOAD=false  INSTALL_DEPS=0  WAIT_FOR_HOST=  WAIT_TIMEOUT=60  JAVA_TOOL_OPTIONS=
 #   TZ=Asia/Shanghai  HF_ENDPOINT=https://hf-mirror.com  RESTART_POLICY=unless-stopped
 
@@ -97,6 +98,9 @@ services:
       # 没有单独的灰度总开关：下面两项只要有一项生效就算开，都留空即全走旧链路
       LOOP_ROLLOUT_PERCENT: ${LOOP_ROLLOUT_PERCENT:-}
       LOOP_ROLLOUT_USERS: ${LOOP_ROLLOUT_USERS:-}
+      # 所有 MCP 端点的 base，覆盖 mcp_server_config.yaml 里的 mcp_base_url。
+      # 容器内走服务名，部署时不用再改仓库里的 yaml
+      MCP_BASE_URL: ${MCP_BASE_URL:-http://mcp-sidecar:2223/mcp}
       # UE 场景控制的 MCP 端点：走内网端口 2223，公网 2222 已不开放 /mcp/**
       # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
       SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2223/mcp/scene}
