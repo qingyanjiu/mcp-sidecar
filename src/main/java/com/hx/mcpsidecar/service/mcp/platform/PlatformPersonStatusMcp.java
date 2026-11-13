@@ -28,14 +28,12 @@ public class PlatformPersonStatusMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelAffairs",
             description = TOOL_DESC_PREFIX + """
-                        查询今日态势。返回三个数字：
-                        - 实时在园人数（realTimeNum）
-                        - 今日进入人数（jingNum）
-                        - 今日离开人数（chuNum）
+                        查询今日人员态势。返回一句中文摘要：
+                        实时在园人数：X人；今日进入人数：Y人；今日离开人数：Z人。
                         请根据用户问题只回答相关项：
-                        - 用户问"进来了多少人/入园人数" → 只回答 jingNum（今日进入人数）
-                        - 用户问"离开了多少人/出园人数" → 只回答 chuNum（今日离开人数）
-                        - 用户问"现在在园多少人" → 只回答 realTimeNum（实时在园人数）
+                        - 用户问"进来了多少人/入园人数" → 只回答今日进入人数
+                        - 用户问"离开了多少人/出园人数" → 只回答今日离开人数
+                        - 用户问"现在在园多少人" → 只回答实时在园人数
                         - 用户没明确指定时，再返回全部三项
                         """
     )
