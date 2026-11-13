@@ -47,6 +47,9 @@ management:
 logging:
     file:
         name: logs/${spring.application.name}/info.log
+    level:
+        io.modelcontextprotocol.server.McpAsyncServer: ERROR
+
 
 mybatis-plus:
     type-handlers-package: com.hx.gd.typehandler

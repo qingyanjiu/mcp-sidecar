@@ -19,8 +19,8 @@ public class PlatformOverviewMcp {
 
     // 园区基本信息接口URL
     public static final String OVERVIEW_BASIC_INFO_URL = "/overview/basicInfo";
-    // 设备类别健康度接口URL
-    public static final String OVERVIEW_DEVICE_HEALTH_URL = "/overview/deviceHealth";
+    // 设备类别健康度接口URL(平台实际实现为 /device/categoryHealth,没有 /overview/deviceHealth)
+    public static final String OVERVIEW_DEVICE_HEALTH_URL = "/device/categoryHealth";
 
     @Autowired
     @Qualifier("platformApiCallServiceImpl")
@@ -47,7 +47,7 @@ public class PlatformOverviewMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getDeviceHealth",
             description = TOOL_DESC_PREFIX + """
-            查询各类别设备健康度,返回数组,每项包含:
+            查询各类别设备健康度,返回 allDevices 数组,每项包含:
             - name: 设备类别名称
             - score: 健康分
             - onlineRate: 在线率对象,含current(在线数)/total(总数)/percent(百分比)

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.Cipher;
@@ -149,7 +150,14 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public Object doGetCall(String url) {
         log.info("MCP调用后端接口 GET [{}]", url);
-        ResponseEntity<Map> response = super.get(url);
+        ResponseEntity<Map> response;
+        try {
+            response = super.get(url);
+        } catch (RestClientResponseException e) {
+            throw httpError("GET", url, e);
+        } catch (ResourceAccessException e) {
+            throw accessError("GET", url, e);
+        }
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         if (platformResp == null || !"1".equals(platformResp.getStatus())) {
             log.warn("MCP调用后端接口 GET [{}] 返回业务失败: status={}, msg={}", url,
@@ -184,9 +192,80 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public Object doPostCall(String url, Map<String, Object> data) {
         log.info("MCP调用后端接口 POST [{}], 参数: {}", url, data);
-        ResponseEntity<Map> response = super.post(url, data);
-        log.info("MCP调用后端接口 POST [{}] 成功", url);
+        ResponseEntity<Map> response;
+        try {
+            response = super.post(url, data);
+        } catch (RestClientResponseException e) {
+            throw httpError("POST", url, e);
+        } catch (ResourceAccessException e) {
+            throw accessError("POST", url, e);
+        }
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
+        if (platformResp == null) {
+            log.warn("MCP调用后端接口 POST [{}] 返回内容不是平台响应结构", url);
+            return null;
+        }
+        log.info("MCP调用后端接口 POST [{}] 成功", url);
         return platformResp.getData();
+    }
+
+    /**
+     * 平台返回非 2xx 时统一处理：日志里保留完整 URL、状态码和响应体片段（便于排查），
+     * 抛给 MCP 工具的错误只包含「方法 + 路径 + 状态码 + 简短原因」，
+     * 避免把 Whitelabel 之类的整页 HTML 当作查询结果透传给大模型。
+     */
+    private IllegalStateException httpError(String method, String url, RestClientResponseException e) {
+        int status = e.getStatusCode().value();
+        log.error("MCP调用后端接口 {} [{}] 返回 HTTP {}: {}", method, url, status,
+                abbreviate(e.getResponseBodyAsString(), 300));
+        return new IllegalStateException("平台接口 " + method + " " + pathOf(url)
+                + " 返回 HTTP " + status + "（" + statusHint(status) + "）");
+    }
+
+    /** 连不上平台（拒绝连接、读超时等）时给出可读原因。 */
+    private IllegalStateException accessError(String method, String url, ResourceAccessException e) {
+        Throwable cause = e.getMostSpecificCause();
+        String reason = cause == null ? e.getMessage()
+                : cause.getClass().getSimpleName() + ": " + cause.getMessage();
+        log.error("MCP调用后端接口 {} [{}] 连接平台失败: {}", method, url, reason);
+        return new IllegalStateException("无法连接平台（" + method + " " + pathOf(url) + "）：" + reason, e);
+    }
+
+    private static String statusHint(int status) {
+        if (status == 400) {
+            return "请求参数错误";
+        }
+        if (status == 401 || status == 403) {
+            return "鉴权失败";
+        }
+        if (status == 404) {
+            return "接口不存在或路径不对";
+        }
+        if (status == 429) {
+            return "请求过于频繁";
+        }
+        if (status >= 500) {
+            return "平台服务异常";
+        }
+        return "平台返回异常状态";
+    }
+
+    /** 只取路径，避免把平台内网地址带进给大模型的错误信息。 */
+    private static String pathOf(String url) {
+        try {
+            String path = URI.create(url).getPath();
+            return path == null || path.isEmpty() ? url : path;
+        } catch (IllegalArgumentException e) {
+            return url;
+        }
+    }
+
+    /** 日志单行化并截断，防止整页 HTML 刷屏。 */
+    private static String abbreviate(String text, int max) {
+        if (text == null) {
+            return "";
+        }
+        String oneLine = text.replaceAll("\\s+", " ").trim();
+        return oneLine.length() <= max ? oneLine : oneLine.substring(0, max) + "...";
     }
 }
