@@ -150,14 +150,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public Object doGetCall(String url) {
         log.info("MCP调用后端接口 GET [{}]", url);
-        ResponseEntity<Map> response;
-        try {
-            response = super.get(url);
-        } catch (RestClientResponseException e) {
-            throw httpError("GET", url, e);
-        } catch (ResourceAccessException e) {
-            throw accessError("GET", url, e);
-        }
+        ResponseEntity<Map> response = executeWithAuthRetry("GET", url, null);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         if (platformResp == null || !"1".equals(platformResp.getStatus())) {
             log.warn("MCP调用后端接口 GET [{}] 返回业务失败: status={}, msg={}", url,
@@ -192,14 +185,7 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public Object doPostCall(String url, Map<String, Object> data) {
         log.info("MCP调用后端接口 POST [{}], 参数: {}", url, data);
-        ResponseEntity<Map> response;
-        try {
-            response = super.post(url, data);
-        } catch (RestClientResponseException e) {
-            throw httpError("POST", url, e);
-        } catch (ResourceAccessException e) {
-            throw accessError("POST", url, e);
-        }
+        ResponseEntity<Map> response = executeWithAuthRetry("POST", url, data);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         if (platformResp == null) {
             log.warn("MCP调用后端接口 POST [{}] 返回内容不是平台响应结构", url);
@@ -207,6 +193,83 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
         }
         log.info("MCP调用后端接口 POST [{}] 成功", url);
         return platformResp.getData();
+    }
+
+    /**
+     * 带登录态自愈的请求：平台重启后会丢掉服务端登录会话（平台登录态存在本地 caffeine 缓存里），
+     * 本地缓存的 token 还在有效期内但平台已不认，表现为 HTTP 302/401 或业务 status=302。
+     * 检测到后清掉本地 token、重新登录并重试一次，避免必须重启 sidecar。
+     */
+    private ResponseEntity<Map> executeWithAuthRetry(String method, String url, Map<String, Object> body) {
+        ResponseEntity<Map> response;
+        try {
+            response = send(method, url, body);
+        } catch (RestClientResponseException e) {
+            if (!isAuthFailure(e.getStatusCode().value())) {
+                throw httpError(method, url, e);
+            }
+            log.warn("MCP调用后端接口 {} [{}] 返回 HTTP {}，清掉本地 token 重新登录后重试一次",
+                    method, url, e.getStatusCode().value());
+            response = null;
+        } catch (ResourceAccessException e) {
+            throw accessError(method, url, e);
+        }
+
+        if (response != null && !isAuthLost(response.getBody())) {
+            return response;
+        }
+        if (response != null) {
+            log.warn("MCP调用后端接口 {} [{}] 返回未登录状态(status={})，清掉本地 token 重新登录后重试一次",
+                    method, url, statusOf(response.getBody()));
+        }
+
+        invalidateToken();
+
+        ResponseEntity<Map> retried;
+        try {
+            retried = send(method, url, body);
+        } catch (RestClientResponseException e) {
+            throw httpError(method, url, e);
+        } catch (ResourceAccessException e) {
+            throw accessError(method, url, e);
+        }
+        if (isAuthLost(retried.getBody())) {
+            log.error("MCP调用后端接口 {} [{}] 重新登录后仍返回未登录状态(status={})",
+                    method, url, statusOf(retried.getBody()));
+            throw new IllegalStateException("平台鉴权失效，重新登录后仍被拒绝（" + method + " " + pathOf(url) + "）");
+        }
+        return retried;
+    }
+
+    private ResponseEntity<Map> send(String method, String url, Map<String, Object> body) {
+        return "POST".equals(method) ? super.post(url, body) : super.get(url);
+    }
+
+    private void invalidateToken() {
+        tokenMap.remove("token");
+        tokenMap.remove("expire");
+    }
+
+    private static boolean isAuthFailure(int status) {
+        return status == 401 || status == 403;
+    }
+
+    /** 平台未登录时返回 HTTP 302 + {"status":"302","msg":"重定向","data":".../login.html"}。 */
+    private boolean isAuthLost(Map body) {
+        String status = statusOf(body);
+        return "302".equals(status) || "401".equals(status);
+    }
+
+    private String statusOf(Map body) {
+        if (body == null) {
+            return null;
+        }
+        try {
+            PlatformResponse resp = objectMapper.convertValue(body, PlatformResponse.class);
+            return resp == null ? null : resp.getStatus();
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     /**
