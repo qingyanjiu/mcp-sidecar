@@ -77,7 +77,7 @@ public class PlatformDeviceQueryMcp {
     /** 按 类型 × 状态 交叉统计 */
     public static final String ALL_STATUS_NUM_STATISTIC_URL = "/deviceInfo/allDeviceStatusNumStatistic";
     /** 按空间位置统计(排除停用设备) */
-    public static final String SPACE_NUM_STATISTIC_URL = "/deviceInfo/spaceNumStatistic";
+//    public static final String SPACE_NUM_STATISTIC_URL = "/deviceInfo/spaceNumStatistic";
     /** 按楼层统计(无设备的楼层也返回 0) */
     public static final String FLOOR_NUM_STATISTIC_URL = "/deviceInfo/floorNumStatistic";
     /** 监控设备按子类型统计 */
@@ -350,36 +350,37 @@ public class PlatformDeviceQueryMcp {
     }
 
     // @MockData
-    @McpTool(
-            name = TOOL_NAME_PREFIX + "countBySpace",
-            description = TOOL_DESC_PREFIX + """
-            按空间位置统计设备数量。
-            返回数组,每项含 spaceId、count(数量)。deviceType 可选,限定设备类型编码。
-            两个必须知道的坑:
-            - spaceName 字段平台侧 SQL 没查,恒为 null —— 拿不到空间中文名,不要编;
-              要空间名请用 countByFloor 或 getEquipDistribution。
-            - 本接口会排除"停用"设备(status=0),统计口径和其它统计接口不一致,
-              不要拿它的数字和其它接口横向相加或对比。
-            """
-    )
-    public String countBySpace(
-            @McpToolParam(description = "设备类型编码。0门禁 1道闸 2梯控 3监控 4入侵报警 5广播 6水表 7电表", required = false) String deviceType
-    ) {
-        Object result = platformApiCallServiceImpl.doGetCall(
-                withQuery(base(SPACE_NUM_STATISTIC_URL), "deviceType", deviceType));
-        return JSON.toJSONString(result);
-    }
+//    @McpTool(
+//            name = TOOL_NAME_PREFIX + "countBySpace",
+//            description = TOOL_DESC_PREFIX + """
+//            按空间位置统计设备数量。
+//            返回数组,每项含 spaceId、count(数量)。deviceType 可选,限定设备类型编码。
+//            两个必须知道的坑:
+//            - spaceName 字段平台侧 SQL 没查,恒为 null —— 拿不到空间中文名,不要编;
+//              要空间名请用 countByFloor 或 getEquipDistribution。
+//            - 本接口会排除"停用"设备(status=0),统计口径和其它统计接口不一致,
+//              不要拿它的数字和其它接口横向相加或对比。
+//            """
+//    )
+//    public String countBySpace(
+//            @McpToolParam(description = "设备类型编码。0门禁 1道闸 2梯控 3监控 4入侵报警 5广播 6水表 7电表", required = false) String deviceType
+//    ) {
+//        Object result = platformApiCallServiceImpl.doGetCall(
+//                withQuery(base(SPACE_NUM_STATISTIC_URL), "deviceType", deviceType));
+//        return JSON.toJSONString(result);
+//    }
 
     // @MockData
     @McpTool(
             name = TOOL_NAME_PREFIX + "countByFloor",
             description = TOOL_DESC_PREFIX + """
             按楼层统计设备数量。
-            返回数组,每项含 space_name(楼层名称)、count(该楼层设备数)。
+            返回数组,每项含 spaceName(楼层名称)、count(该楼层设备数)。
             没有设备的楼层也会返回,count 为 0 —— 所以总数不能被这些 0 拉低,
             算总数时把 count 相加即可(0 不影响)。
             deviceType 可选,限定设备类型编码。
             请根据用户问题(如"每层楼有多少设备"/"哪层设备最多")从返回中提取信息回答。
+            返回的时候，请使用spaceName和count来组织返回文本，不要使用id等其他用户看不懂的字段
             """
     )
     public String countByFloor(
