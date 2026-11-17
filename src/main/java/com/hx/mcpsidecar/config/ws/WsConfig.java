@@ -20,18 +20,27 @@ public class WsConfig implements WebSocketConfigurer {
     @Autowired
     private SceneWebSocketHandler sceneWebSocketHandler;
 
+    @Autowired
+    private OriginHandshakeInterceptor originHandshakeInterceptor;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        // Spring 会无条件追加一个内置 OriginHandshakeInterceptor，且它按完整同源（含端口）判断，
+        // 会把"同 IP、不同端口"的页面挡掉。这里让内置检查放行，真正的来源校验由
+        // OriginHandshakeInterceptor 完成，必须保证它排在拦截器链首位。
         registry.addHandler(proxyWebSocketHandler, "/llm/chat")
-            .setAllowedOrigins("*")
-            .addInterceptors(authHandshakeInterceptor);
+            .setAllowedOriginPatterns("http://*:*", "https://*:*")
+            .addInterceptors(originHandshakeInterceptor, authHandshakeInterceptor);
         registry.addHandler(proxyWebSocketHandler, "/llm/gen_doc")
-            .setAllowedOrigins("*")
-            .addInterceptors(authHandshakeInterceptor);
+            .setAllowedOriginPatterns("http://*:*", "https://*:*")
+            .addInterceptors(originHandshakeInterceptor, authHandshakeInterceptor);
 
-        // 场景控制通道：与 /llm/* 不同，这条是 sidecar 自己作为服务端，
-        // 且协议规定不鉴权 —— 靠 hello 里的 sessionId 归档（方案 §2.1）。
+        // 场景控制通道：sidecar 自己作为服务端。握手先由 AuthHandshakeInterceptor
+        // 提取 token/userId（浏览器 WS 不能设 Header，走 ?token= 回退），
+        // SceneWebSocketHandler 在 hello 时调用平台校验 token 与 userId。
+        // Origin 校验仍然保留，避免任意网站页面跨站建立场景连接。
         registry.addHandler(sceneWebSocketHandler, "/ws/scene")
-            .setAllowedOrigins("*");
+            .setAllowedOriginPatterns("http://*:*", "https://*:*")
+            .addInterceptors(originHandshakeInterceptor, authHandshakeInterceptor);
     }
 }

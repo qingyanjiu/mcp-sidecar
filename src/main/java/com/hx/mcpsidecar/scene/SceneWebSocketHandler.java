@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.mcpsidecar.scene.SceneSession.PendingAction;
 import com.hx.mcpsidecar.scene.SceneSessionRegistry.BindResult;
+import com.hx.mcpsidecar.scene.SceneSessionRegistry.BindStatus;
+import com.hx.mcpsidecar.service.IAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -17,7 +19,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
  * <p>入站帧用 {@code type} 字段区分，出站帧用 {@code event}/{@code data} —— 这个不对称是协议
  * 原文如此，照抄。</p>
  *
- * <p>鉴权：无（方案 §2.1）。靠 {@code hello} 里的 {@code sessionId} 归档。</p>
+ * <p>鉴权：握手时通过 {@code Authorization} 头或 {@code ?token=} 携带平台 token，
+ * {@code hello} 时调用平台校验 token 与 userId 是否匹配；校验通过后 sessionId 归该 userId 所有。
+ * 浏览器原生 WebSocket 不能设置自定义 Header，因此 query 参数是主要方式。</p>
  */
 @Slf4j
 @Component
@@ -26,20 +30,32 @@ public class SceneWebSocketHandler extends TextWebSocketHandler {
     /** socket 属性键：这条连接认领的 sessionId。断开时靠它反查会话。 */
     private static final String ATTR_SESSION_ID = "sceneSessionId";
 
+    /** 握手拦截器写入的属性键，与 AuthHandshakeInterceptor 保持一致。 */
+    private static final String ATTR_TOKEN = "token";
+    private static final String ATTR_USER_ID = "userId";
+
     private static final String TYPE_HELLO = "hello";
     private static final String TYPE_SCENE_STATE = "scene_state";
     private static final String TYPE_ACTION_RESULT = "action_result";
     private static final String TYPE_ACTION_CONFIRM = "action_confirm";
 
+    /** RFC 6455 的 1013（Try Again Later）；Spring 的 CloseStatus 没有内置常量。 */
+    private static final CloseStatus TRY_AGAIN_LATER = new CloseStatus(1013, "session capacity exceeded");
+
+    /** sessionId 会作为 Map key 长期保留，限制长度避免超长字符串占用内存。 */
+    private static final int MAX_SESSION_ID_LENGTH = 128;
+
     private final SceneSessionRegistry registry;
     private final SceneDispatcher dispatcher;
     private final ObjectMapper objectMapper;
+    private final IAuthService authService;
 
     public SceneWebSocketHandler(SceneSessionRegistry registry, SceneDispatcher dispatcher,
-                                 ObjectMapper objectMapper) {
+                                 ObjectMapper objectMapper, IAuthService authService) {
         this.registry = registry;
         this.dispatcher = dispatcher;
         this.objectMapper = objectMapper;
+        this.authService = authService;
     }
 
     @Override
@@ -54,7 +70,9 @@ public class SceneWebSocketHandler extends TextWebSocketHandler {
         try {
             frame = objectMapper.readTree(message.getPayload());
         } catch (Exception e) {
-            log.warn("场景 WS 收到无法解析的帧: wsId={}, payload={}", socket.getId(), message.getPayload());
+            // 原始帧可能包含场景状态/业务数据，不落日志；只记录长度和异常类型。
+            log.warn("场景 WS 收到无法解析的帧: wsId={}, payloadLength={}, error={}",
+                    socket.getId(), message.getPayload().length(), e.getClass().getSimpleName());
             return;
         }
 
@@ -71,15 +89,36 @@ public class SceneWebSocketHandler extends TextWebSocketHandler {
     /** ① 连接归档。收到 hello 之前不接受任何其他帧。 */
     private void onHello(WebSocketSession socket, JsonNode frame) {
         String sessionId = textOf(frame, "sessionId");
-        String userId = textOf(frame, "userId");
+        String userId = authenticate(socket, frame);
+        if (userId == null) {
+            // authenticate 已经记录原因并关闭连接。
+            return;
+        }
 
         if (sessionId == null || sessionId.isBlank()) {
             log.warn("hello 缺少 sessionId，关闭连接: wsId={}", socket.getId());
             closeQuietly(socket, CloseStatus.POLICY_VIOLATION);
             return;
         }
+        if (sessionId.length() > MAX_SESSION_ID_LENGTH) {
+            log.warn("hello 的 sessionId 过长，关闭连接: wsId={}, length={}",
+                    socket.getId(), sessionId.length());
+            closeQuietly(socket, CloseStatus.POLICY_VIOLATION);
+            return;
+        }
 
         BindResult result = registry.bind(sessionId, userId, socket);
+        if (result.status() == BindStatus.USER_MISMATCH) {
+            log.warn("hello 的 sessionId 属于其他用户，关闭连接: wsId={}, sessionId={}", socket.getId(), sessionId);
+            closeQuietly(socket, CloseStatus.POLICY_VIOLATION);
+            return;
+        }
+        if (result.status() == BindStatus.CAPACITY_EXCEEDED) {
+            log.warn("场景会话数已达上限，关闭连接: wsId={}", socket.getId());
+            closeQuietly(socket, TRY_AGAIN_LATER);
+            return;
+        }
+
         socket.getAttributes().put(ATTR_SESSION_ID, sessionId);
 
         WebSocketSession evicted = result.evicted();
@@ -92,6 +131,69 @@ public class SceneWebSocketHandler extends TextWebSocketHandler {
 
         // 刷新页面 / 断网恢复后，把在途动作重发给新连接，否则那些工具调用只能白等到超时。
         dispatcher.redispatchPending(result.session());
+    }
+
+    /**
+     * 校验握手携带的 token，并确定本次连接的可信 userId。
+     *
+     * <p>userId 可以放在 query（{@code ?userId=}）或 hello 帧里，但两处都填时必须一致；
+     * 无论从哪来，最终都以平台返回的 token/userId 匹配结果为准。校验失败会直接关闭连接。</p>
+     *
+     * @return 校验通过的 userId；失败返回 {@code null}（连接已关闭）
+     */
+    private String authenticate(WebSocketSession socket, JsonNode frame) {
+        String token = attribute(socket, ATTR_TOKEN);
+        String handshakeUserId = attribute(socket, ATTR_USER_ID);
+        String helloUserId = textOf(frame, "userId");
+
+        if (token == null || token.isBlank()) {
+            log.warn("场景 WS 握手未携带 token，拒绝连接: wsId={}", socket.getId());
+            closeQuietly(socket, CloseStatus.NOT_ACCEPTABLE);
+            return null;
+        }
+
+        String userId;
+        if (handshakeUserId != null && !handshakeUserId.isBlank()) {
+            if (helloUserId != null && !helloUserId.isBlank()
+                    && !handshakeUserId.equals(helloUserId)) {
+                log.warn("场景 WS 的 query userId 与 hello userId 不一致，拒绝连接: wsId={}", socket.getId());
+                closeQuietly(socket, CloseStatus.POLICY_VIOLATION);
+                return null;
+            }
+            userId = handshakeUserId;
+        } else if (helloUserId != null && !helloUserId.isBlank()) {
+            userId = helloUserId;
+        } else {
+            log.warn("场景 WS 未携带 userId，拒绝连接: wsId={}", socket.getId());
+            closeQuietly(socket, CloseStatus.NOT_ACCEPTABLE);
+            return null;
+        }
+
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        if (token.isBlank()) {
+            log.warn("场景 WS 的 token 为空，拒绝连接: wsId={}", socket.getId());
+            closeQuietly(socket, CloseStatus.NOT_ACCEPTABLE);
+            return null;
+        }
+
+        try {
+            if (!authService.validateToken(token, userId)) {
+                log.warn("场景 WS token 校验未通过，拒绝连接: wsId={}, userId={}", socket.getId(), userId);
+                closeQuietly(socket, CloseStatus.NOT_ACCEPTABLE);
+                return null;
+            }
+        } catch (Exception e) {
+            // 平台不可用时不把细节回给客户端，也不让异常冒泡成 500 帧。
+            log.warn("场景 WS token 校验异常，拒绝连接: wsId={}, error={}",
+                    socket.getId(), e.getClass().getSimpleName());
+            closeQuietly(socket, CloseStatus.SERVER_ERROR);
+            return null;
+        }
+
+        socket.getAttributes().put(ATTR_USER_ID, userId);
+        return userId;
     }
 
     /** ② 场景状态快照。覆盖式缓存，不解析不校验（方案 §2.3）。 */
@@ -182,6 +284,11 @@ public class SceneWebSocketHandler extends TextWebSocketHandler {
     private static String textOf(JsonNode node, String field) {
         JsonNode value = node.get(field);
         return value == null || value.isNull() ? null : value.asText();
+    }
+
+    private static String attribute(WebSocketSession socket, String name) {
+        Object value = socket.getAttributes().get(name);
+        return value == null ? null : value.toString();
     }
 
     private static void closeQuietly(WebSocketSession socket, CloseStatus status) {

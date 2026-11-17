@@ -1,4 +1,6 @@
 spring:
+    config:
+        import: optional:file:./.env[.properties]
     application:
         name: mcp-sidecar
     profiles:
@@ -16,7 +18,7 @@ spring:
 #                endpoint: /mcp
 
     kafka:
-        bootstrap-servers: localhost:9092
+        bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:}
         producer:
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -26,6 +28,8 @@ spring:
 
 management:
     server:
+        # 管理端点只监听本机，容器内 healthcheck 走 127.0.0.1
+        address: 127.0.0.1
         port: 9970
     # redis 未被任何业务使用，关掉它的健康检查。
     # 不关的话，每次访问 /actuator/health 都会去连一次 redis，失败后
@@ -36,13 +40,24 @@ management:
             enabled: false
     endpoint:
         health:
-            show-details: always
+            enabled: true
+            # 不向未认证调用方展示组件明细
+            show-details: never
+        info:
+            enabled: true
     endpoints:
-        enabled-by-default: true
+        enabled-by-default: false
         web:
             base-path: /actuator
             exposure:
-                include: '*'
+                # 只暴露探活和版本信息，env/heapdump/loggers 等默认关闭
+                include: health,info
+
+security:
+    # 前端服务页面的 Origin 白名单，逗号分隔（如 http://10.0.0.6:8080）。
+    # 默认留空；可在 application-local.yml / application-server.yml / deploy 配置中覆盖，
+    # 也可用环境变量 SECURITY_ALLOWED_ORIGINS。留空时只允许与 sidecar 同主机的页面。
+    allowed-origins: ${SECURITY_ALLOWED_ORIGINS:http://localhost:5173}
 
 logging:
     file:
@@ -80,13 +95,29 @@ springdoc:
 mcp:
     # /mcp/** 的内网监听端口（server/local 均生效；docker-compose 只 expose 不 publish）
     internal-port: 2223
+    # 内网端口的监听地址（SEC-08）。默认只绑回环；容器内由 compose 覆盖为 0.0.0.0，
+    # 否则 agentic-app 无法通过服务名访问。
+    internal-address: ${MCP_INTERNAL_ADDRESS:127.0.0.1}
+    # /mcp/** 的应用层 API Key（SEC-08）。留空 = 所有 MCP 请求 401。
+    # 客户端通过 Authorization: Bearer <key> 或 X-MCP-API-Key: <key> 携带。
+    api-key: ${MCP_API_KEY:}
+    # 单个 MCP 请求体的字节上限（SEC-06）；正常 initialize / tools/call 远小于此值。
+    # 由 McpRequestSizeLimitFilter 在内网端口上强制执行，超限返回 413。
+    max-request-size: 1048576
     servers:
         platform:
 #            mcp服务 platform平台 地址
-            baseUrl: http://10.0.0.5:9500/platform
+            baseUrl: ${MCP_PLATFORM_BASE_URL:}
+#            平台登录凭据：真实值放 .env，不写进配置文件
+            login-username: ${PLATFORM_LOGIN_USERNAME:}
+            login-password: ${PLATFORM_LOGIN_PASSWORD:}
+            login-type: ${PLATFORM_LOGIN_TYPE:1}
+            captcha-id: ${PLATFORM_CAPTCHA_ID:}
+            captcha-code: ${PLATFORM_CAPTCHA_CODE:}
+            allow-plaintext-login: ${PLATFORM_ALLOW_PLAINTEXT_LOGIN:false}
         ragflow:
-            baseUrl: http://localhost:9380    # RAGFlow API 地址
-            apiKey: 123             # 网页"头像→API"创建
+            baseUrl: ${MCP_RAGFLOW_BASE_URL:} # RAGFlow API 地址
+            apiKey: ${MCP_RAGFLOW_API_KEY:} # 网页"头像→API"创建
             datasetIds: "531584b4b01f11f19e1465040d524065"   # 可选，逗号分隔；留空=全库检索
 #   mock数据开关:被 @MockData 标注的工具按此处的配置决定返回mock数据还是调真实接口
     mock:
@@ -112,6 +143,6 @@ llm:
         gen_doc: ws://127.0.0.1:8001/gen_doc/%s/%s
     auth:
 #        认证检查平台后端服务接口
-        url: http://10.0.0.5:9500/platform/llmChat/auth?token=%s&userId=%s
+        url: ${LLM_AUTH_URL:}
 
 ################### 大模型相关配置 ###############

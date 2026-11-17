@@ -5,11 +5,18 @@ import com.hx.mcpsidecar.model.McpServerProperties;
 import com.hx.mcpsidecar.model.PlatformResponse;
 import com.hx.mcpsidecar.service.AbstractApiCallService;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.LogSanitizer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
@@ -17,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.Cipher;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
@@ -38,6 +44,26 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Autowired
     private McpServerProperties mcpApiProperties;
 
+    /** 平台登录凭据；从 .env / 环境变量注入，禁止在代码中硬编码。 */
+    @Value("${mcp.servers.platform.login-username:}")
+    private String loginUsername;
+
+    @Value("${mcp.servers.platform.login-password:}")
+    private String loginPassword;
+
+    @Value("${mcp.servers.platform.login-type:1}")
+    private String loginType;
+
+    @Value("${mcp.servers.platform.captcha-id:}")
+    private String captchaId;
+
+    @Value("${mcp.servers.platform.captcha-code:}")
+    private String captchaCode;
+
+    /** 平台未启用 RSA 时是否允许明文登录；默认 false，生产环境不应打开。 */
+    @Value("${mcp.servers.platform.allow-plaintext-login:false}")
+    private boolean allowPlaintextLogin;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -54,13 +80,16 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     @Override
     public void login() {
         String baseUrl = getBaseUrl();
+        Assert.hasText(baseUrl, "未配置平台地址 mcp.servers.platform.baseUrl / MCP_PLATFORM_BASE_URL");
+        Assert.hasText(loginUsername, "未配置平台登录账号 mcp.servers.platform.login-username");
+        Assert.hasText(loginPassword, "未配置平台登录密码 mcp.servers.platform.login-password");
 
         Map<String, String> params = new LinkedHashMap<>();
-        params.put("username", "hexinadmin");
-        params.put("password", "Hxkj@2026");
-        params.put("login_type", "1");
-        params.put("captcha_id", "123");
-        params.put("captcha_code", "d0080921765faab7b6a4d264dcf43f01");
+        params.put("username", loginUsername);
+        params.put("password", loginPassword);
+        params.put("login_type", loginType);
+        params.put("captcha_id", captchaId);
+        params.put("captcha_code", captchaCode);
 
         // 平台 config 里 sslLogin=on 时，username/password/login_type 需要 RSA 加密后提交；
         // 验证码参数不经过 decryptLoginValue，保持明文。
@@ -71,8 +100,13 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
             params.put("login_type", rsaEncrypt(publicKey, params.get("login_type")));
         }
 
-        URI uri = URI.create(baseUrl + "/login?" + toQueryString(params));
-        ResponseEntity<PlatformResponse> responseEntity = restTemplate.postForEntity(uri, null, PlatformResponse.class);
+        // 凭据放 POST body，避免出现在 URL、网关访问日志和浏览器历史中。
+        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        params.forEach(form::add);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        ResponseEntity<PlatformResponse> responseEntity = restTemplate.postForEntity(
+                baseUrl + "/login", new HttpEntity<>(form, headers), PlatformResponse.class);
         PlatformResponse resp = responseEntity.getBody();
         Assert.isTrue(resp != null && resp.getData() != null && "1".equals(resp.getStatus()), "登录请求失败");
         String accessToken = ((Map) resp.getData()).get("token").toString();
@@ -82,8 +116,8 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
     }
 
     /**
-     * 读取平台的登录加密配置。返回 null 表示平台未开启 RSA 加密（或该接口不可用），按明文登录；
-     * 平台连不上时直接抛 IllegalStateException。
+     * 读取平台的登录加密配置。返回 null 表示允许明文登录（仅当显式开启兼容开关）；
+     * 平台未启用 RSA 时默认抛异常，避免把账号口令明文提交出去。
      */
     private String getLoginPublicKey(String baseUrl) {
         try {
@@ -91,18 +125,20 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
                     baseUrl + "/noLogin/getLoginInfo", PlatformResponse.class);
             PlatformResponse resp = responseEntity.getBody();
             if (resp == null || resp.getData() == null) {
-                return null;
+                return allowPlaintext("平台未返回登录加密配置");
             }
             Map<String, Object> data = objectMapper.convertValue(resp.getData(), Map.class);
             if (!"on".equalsIgnoreCase(String.valueOf(data.get("ssl")))) {
-                return null;
+                return allowPlaintext("平台未开启 RSA 登录加密");
             }
             if (!"rsa".equalsIgnoreCase(String.valueOf(data.get("sslType")))) {
-                log.warn("平台登录加密方式[{}]暂不支持，按明文登录", data.get("sslType"));
-                return null;
+                return allowPlaintext("平台登录加密方式[" + data.get("sslType") + "]暂不支持");
             }
             Object publicKey = data.get("publicKey");
-            return publicKey == null ? null : publicKey.toString();
+            if (publicKey == null) {
+                return allowPlaintext("平台未返回 RSA 公钥");
+            }
+            return publicKey.toString();
         } catch (ResourceAccessException e) {
             // 连不上平台（Connection refused / 超时），退回明文登录没有意义，直接把原因抛出去，
             // 否则只会看到一句“按明文登录”，真正的故障（平台没起）被掩盖。
@@ -111,10 +147,21 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
                     : cause.getClass().getSimpleName() + ": " + cause.getMessage();
             throw new IllegalStateException("无法连接平台 " + baseUrl + "（" + reason + "）", e);
         } catch (RestClientException e) {
-            // 平台可达但 getLoginInfo 返回非 2xx（老版本平台可能没有这个接口），按明文登录兼容
-            log.warn("获取平台登录公钥失败[{}]，按明文登录", e.getClass().getSimpleName());
-            return null;
+            // 平台可达但 getLoginInfo 返回非 2xx（老版本平台可能没有这个接口）
+            return allowPlaintext("获取平台登录公钥失败[" + e.getClass().getSimpleName() + "]");
         }
+    }
+
+    /**
+     * 只有显式开启 allow-plaintext-login 才允许回退明文；否则直接拒绝，避免配置缺失时静默降级。
+     */
+    private String allowPlaintext(String reason) {
+        if (!allowPlaintextLogin) {
+            throw new IllegalStateException(reason
+                    + "，已拒绝明文提交凭据；如确需兼容，设置 mcp.servers.platform.allow-plaintext-login=true");
+        }
+        log.warn("{}，按明文登录（allow-plaintext-login=true）", reason);
+        return null;
     }
 
     /**
@@ -132,19 +179,6 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException("登录参数RSA加密失败: " + e.getClass().getSimpleName());
         }
-    }
-
-    private static String toQueryString(Map<String, String> params) {
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (sb.length() > 0) {
-                sb.append('&');
-            }
-            sb.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8))
-                    .append('=')
-                    .append(URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8));
-        }
-        return sb.toString();
     }
 
     @Override
@@ -170,21 +204,18 @@ public class PlatformApiCallServiceImpl extends AbstractApiCallService implement
         // url 里带 token，日志必须打码；这里把平台的真实判定（data=200 才是已登录）打出来，
         // 否则 HTTP 200 会被误认为鉴权通过。
         log.info("token鉴权请求[{}]返回: httpStatus={}, status={}, msg={}, data={}",
-                maskToken(url), response.getStatusCode().value(),
+                LogSanitizer.maskUri(url), response.getStatusCode().value(),
                 platformResp == null ? null : platformResp.getStatus(),
                 platformResp == null ? null : platformResp.getMsg(),
                 data);
         return data;
     }
 
-    /** 日志里隐藏 query 中的 token，避免把登录凭证写进日志文件。 */
-    private static String maskToken(String url) {
-        return url == null ? null : url.replaceAll("([?&]token=)[^&]*", "$1***");
-    }
-
     @Override
     public Object doPostCall(String url, Map<String, Object> data) {
-        log.info("MCP调用后端接口 POST [{}], 参数: {}", url, data);
+        // 业务参数可能含设备、人员、场景等敏感信息，只记录字段名和数量，不落值。
+        log.info("MCP调用后端接口 POST [{}], 参数键: {}, 参数个数: {}",
+                url, data == null ? "[]" : data.keySet(), data == null ? 0 : data.size());
         ResponseEntity<Map> response = executeWithAuthRetry("POST", url, data);
         PlatformResponse platformResp = objectMapper.convertValue(response.getBody(), PlatformResponse.class);
         if (platformResp == null) {

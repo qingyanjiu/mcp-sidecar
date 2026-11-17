@@ -22,6 +22,17 @@ import java.util.logging.LogManager;
 @Slf4j
 public class McpSidecarBootstrap extends LogManager {
 
+	static {
+		// MCP SDK 0.18.x 默认按规范校验工具名（仅允许字母、数字、下划线、中划线和点）。
+		// 本服务的工具名沿用历史前缀 device: / device_query: 等，严格校验会在建链时直接抛错。
+		// 工具名完全由服务端代码定义、不来自用户输入，这里降级为告警以保持兼容；
+		// 后续批量重命名工具并同步 agentic-app 的 MCP 配置后即可删除本段。
+		// 允许通过 -Dio.modelcontextprotocol.strictToolNameValidation=true 显式恢复严格校验。
+		if (System.getProperty("io.modelcontextprotocol.strictToolNameValidation") == null) {
+			System.setProperty("io.modelcontextprotocol.strictToolNameValidation", "false");
+		}
+	}
+
 	private static String[] args;
 	private static ConfigurableApplicationContext context;
 

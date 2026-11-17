@@ -1,7 +1,8 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,10 +84,8 @@ public class PlatformInspectionMcp {
     public String getStatistics(
             @McpToolParam(description = "统计范围:1=近一月,2=近三月,3=近一年,可不传默认近一月") String type
     ) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + INSPECTION_STATISTICS_URL;
-        if (type != null && !type.isEmpty()) {
-            url += "?type=" + type;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + INSPECTION_STATISTICS_URL, "type", type);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

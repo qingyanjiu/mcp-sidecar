@@ -8,13 +8,13 @@ spring:
     # REDIS数据库配置
     redis:
         # [必须修改] Redis服务器IP, REDIS安装在本机的,使用127.0.0.1
-        host: localhost
+        host: ${REDIS_HOST:}
         # [必须修改] 端口号
         port: 6379
         # [可选] 数据库 DB
         database: 10
         # [可选] 访问密码,若你的redis服务器没有设置密码，就不需要用密码去连接
-        password: hxkj2022
+        password: ${REDIS_PASSWORD:}
         # [可选] 超时时间
         timeout: 10000
         # [可选] 一个pool最多可分配多少个jedis实例
@@ -27,9 +27,9 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://192.168.100.85:5432/dify
-        username: postgres
-        password: difyai123456
+        url: ${DB_URL:}
+        username: ${DB_USERNAME:}
+        password: ${DB_PASSWORD:}
         druid:
             initialSize: 10                       # 连接池初始化连接数
             maxActive: 200                        # 连接池最大连接数
@@ -49,12 +49,6 @@ spring:
             connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=1000
             #stat-view-servlet.url-pattern: /admin/druid/*
 
-            stat-view-servlet:
-                enabled: true
-                url-pattern: /druid/*
-                login-username: admin
-                login-password: secret
-
 server:
     port: 2222
     tomcat:
@@ -68,11 +62,17 @@ server:
         # [可选] 是否开启HTTPS访问
         enabled: false
         # [可选] 证书文件路径，放置在resource/目录下即可，修改xxx为文件名
-        key-store: classpath:xxx.jks
+        key-store: ${SSL_KEY_STORE:}
         # [可选] 证书密码
-        key-password: password
+        key-password: ${SSL_KEY_PASSWORD:}
         # [可选] 证书类型， 默认为jks，根据实际修改
         key-store-type: JKS
+
+security:
+    # 前端服务页面的 Origin 白名单，逗号分隔（如 http://10.0.0.6:8080）。
+    # 默认留空；可在 application-local.yml / application-server.yml / deploy 配置中覆盖，
+    # 也可用环境变量 SECURITY_ALLOWED_ORIGINS。留空时只允许与 sidecar 同主机的页面。
+    allowed-origins: ${LOCAL_SECURITY_ALLOWED_ORIGINS:${SECURITY_ALLOWED_ORIGINS:}}
 
 # [可选] 日志配置, 一般不需要改
 logging:
@@ -81,17 +81,17 @@ logging:
 mcp:
     servers:
         platform:
-           baseUrl: http://localhost:9500/platform
+           baseUrl: ${LOCAL_MCP_PLATFORM_BASE_URL:${MCP_PLATFORM_BASE_URL:}}
         ragflow:
-            baseUrl: http://localhost:9380    # RAGFlow API 地址
-            apiKey: ragflow-ub_TrtrKXrpTRhf7HiujsYfEYUy5KbNr8F1u4s9FDzg            # 网页"头像→API"创建
+            baseUrl: ${LOCAL_MCP_RAGFLOW_BASE_URL:${MCP_RAGFLOW_BASE_URL:}} # RAGFlow API 地址
+            apiKey: ${LOCAL_MCP_RAGFLOW_API_KEY:${MCP_RAGFLOW_API_KEY:}} # 网页"头像→API"创建
             datasetIds: "86ff0e3cb72011f1a2545930cabfc3ca"                        # 可选，逗号分隔；空=全库检索
 
 # 大模型对话流量限制
 llm:
     auth:
         #        认证检查平台后端服务接口
-        url: http://127.0.0.1:9500/platform/llmChat/auth?token=%s&userId=%s
+        url: ${LOCAL_LLM_AUTH_URL:${LLM_AUTH_URL:}}
 
 
 # redis 未被业务使用：关掉健康检查，否则每次访问 /actuator/health 都会去连 redis，

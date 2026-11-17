@@ -1,6 +1,6 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import org.springaicommunity.mcp.annotation.McpTool;
@@ -356,7 +356,7 @@ public class PlatformDeviceQueryMcp {
 //            按空间位置统计设备数量。
 //            返回数组,每项含 spaceId、count(数量)。deviceType 可选,限定设备类型编码。
 //            两个必须知道的坑:
-//            - spaceName 字段平台侧 SQL 没查,恒为 null —— 拿不到空间中文名,不要编;
+//            - spaceName 字段平台侧 SQL 没查,恒为 null —— 拿不到空间中文名,不要编
 //              要空间名请用 countByFloor 或 getEquipDistribution。
 //            - 本接口会排除"停用"设备(status=0),统计口径和其它统计接口不一致,
 //              不要拿它的数字和其它接口横向相加或对比。

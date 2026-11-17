@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.3</version>
+		<version>3.5.15</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -52,13 +52,21 @@
 		<javax.activation.version>1.2.0</javax.activation.version>
 		<jaxb.api.version>2.3.1</jaxb.api.version>
 		<java.version>17</java.version>
-		<spring.boot.version>3.2.3</spring.boot.version>
-		<spring.ai.version>1.1.2</spring.ai.version>
+		<spring.ai.version>1.1.8</spring.ai.version>
+		<mcp.sdk.version>0.18.4</mcp.sdk.version>
 	</properties>
 
-	<!-- Spring Boot BOM + Spring AI BOM -->
+	<!-- Spring Boot BOM + Spring AI BOM + MCP SDK BOM -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- MCP SDK BOM first: override Spring AI 1.1.2's transitive 0.17.0 -->
+			<dependency>
+				<groupId>io.modelcontextprotocol.sdk</groupId>
+				<artifactId>mcp-bom</artifactId>
+				<version>${mcp.sdk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<!-- Spring AI BOM for MCP Starter versions -->
 			<dependency>
 				<groupId>org.springframework.ai</groupId>
@@ -72,9 +80,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.83</version>
+			<groupId>com.alibaba.fastjson2</groupId>
+			<artifactId>fastjson2</artifactId>
+			<version>2.0.66</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>

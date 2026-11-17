@@ -1,7 +1,8 @@
 package com.hx.mcpsidecar.service.mcp.ragflow;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.mcpsidecar.model.McpServerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,9 @@ public class RagflowApiClient {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private McpServerProperties mcpApiProperties;
@@ -139,13 +143,22 @@ public class RagflowApiClient {
     private JSONObject exchangeJson(HttpMethod method, String url, Map<String, Object> body) {
         String fullUrl = getBaseUrl() + url;
         try {
-            log.info("RAGFlow调用 [{}] {}, 参数: {}", method, fullUrl, body);
+            // 检索问题等内容可能包含业务敏感信息，只记录字段名和数量。
+            log.info("RAGFlow调用 [{}] {}, 参数键: {}, 参数个数: {}", method, fullUrl,
+                    body == null ? "[]" : body.keySet(), body == null ? 0 : body.size());
             HttpHeaders headers = buildHeaders();
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
             ResponseEntity<String> response =
                     restTemplate.exchange(fullUrl, method, request, String.class);
-            // 用 String 接收再手动解析，避免 RAGFlow 偶发的 Content-Type 问题导致转换失败
-            JSONObject resp = JSON.parseObject(response.getBody());
+            // 用 String 接收再手动解析，避免 RAGFlow 偶发的 Content-Type 问题导致转换失败。
+            // 外部响应统一用 Jackson 反序列化为 Map，不启用多态类型，避免 fastjson AutoType 风险
+            String responseBody = response.getBody();
+            if (!StringUtils.hasText(responseBody)) {
+                throw new IllegalStateException("RAGFlow返回空响应");
+            }
+            Map<String, Object> parsed = objectMapper.readValue(
+                    responseBody, new TypeReference<Map<String, Object>>() {});
+            JSONObject resp = new JSONObject(parsed);
             log.info("RAGFlow调用 [{}] {} 成功, code={}", method, fullUrl, resp.getInteger("code"));
             return resp;
         } catch (Exception e) {

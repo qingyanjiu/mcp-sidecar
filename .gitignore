@@ -33,6 +33,12 @@ runs/
 # macOS Finder metadata
 .DS_Store
 
-# 运行时目录 deploy/：jar 与日志不进版本库（配置 application-server.yml 仍跟踪）
+# 运行时目录 deploy/：jar、日志和本地配置不进版本库
 deploy/*.jar
 deploy/logs/
+
+# 本地凭证：只存在于部署机/开发机，不提交
+.env
+.env.*
+!.env.example
+deploy/application-server.yml

@@ -131,7 +131,6 @@ public class SceneMcp {
         @McpToolParam(description = "应用标识，原样透传给前端", required = false) String app,
         @McpToolParam(description = "视频流标识，原样透传给前端", required = false) String stream,
         @McpToolParam(description = "视频窗标题，不传则由前端决定", required = false) String name,
-        @McpToolParam(description = "视频源地址，原样透传给前端", required = false) String source_url,
         McpSyncRequestContext context) {
 
         return call(context, SceneActions.SHOW_CAMERA, new Params()
@@ -139,8 +138,7 @@ public class SceneMcp {
             .put(SceneActions.PARAM_FLOOR, floor)
             .put("app", app)
             .put("stream", stream)
-            .put("name", name)
-            .put("source_url", source_url));
+            .put("name", name));
     }
 
     @McpTool(name = TOOL_NAME_PREFIX + "show_inspection", description = """

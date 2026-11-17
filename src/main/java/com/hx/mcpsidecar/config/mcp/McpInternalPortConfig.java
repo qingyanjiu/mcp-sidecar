@@ -16,6 +16,10 @@ import org.springframework.context.annotation.Profile;
  *
  * <p>{@code server} 和 {@code local} 都启用，保证本地与线上端口分工一致：
  * MCP 一律走 2223，公网口 2222 只留 {@code /llm/**}、{@code /ws/**}。</p>
+ *
+ * <p>监听地址必须显式指定（SEC-08）：默认 {@code 127.0.0.1}，本地非容器运行时
+ * 2223 不会出现在 {@code lsof} 的 {@code *} 上；容器内由 compose 注入
+ * {@code MCP_INTERNAL_ADDRESS=0.0.0.0}，否则服务名无法访问。</p>
  */
 @Configuration
 @Profile({"server", "local"})
@@ -23,13 +27,17 @@ public class McpInternalPortConfig {
 
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> mcpInternalConnector(
-            @Value("${mcp.internal-port:2223}") int internalPort) {
-        return factory -> factory.addAdditionalTomcatConnectors(createConnector(internalPort));
+            @Value("${mcp.internal-port:2223}") int internalPort,
+            @Value("${mcp.internal-address:127.0.0.1}") String internalAddress) {
+        return factory -> factory.addAdditionalTomcatConnectors(
+                createConnector(internalPort, internalAddress));
     }
 
-    private static Connector createConnector(int port) {
+    private static Connector createConnector(int port, String address) {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setPort(port);
+        // Connector 没有 setAddress，Tomcat 通过 property 设置监听地址。
+        connector.setProperty("address", address);
         return connector;
     }
 }

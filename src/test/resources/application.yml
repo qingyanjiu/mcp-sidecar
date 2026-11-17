@@ -8,32 +8,36 @@ spring:
         admin:
             client:
                 #spa的地址
-                url: http://${monitorIp:127.0.0.1}:8000
+                url: http://127.0.0.1:8080
                 instance:
                     #自己的地址
-                    service-url: http://${selfIp:127.0.0.1}:9970
+                    service-url: http://127.0.0.1:9980
                     prefer-ip: true
-                username: admin
-                password: hxkj2022
+                username: test-admin
+                password: test-admin-password
 
     kafka:
-        bootstrap-servers: localhost:9092
+        bootstrap-servers: 127.0.0.1:9092
         producer:
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 management:
     server:
+        address: 127.0.0.1
         port: 9970
     endpoint:
         health:
-            show-details: always
+            enabled: true
+            show-details: never
+        info:
+            enabled: true
     endpoints:
-        enabled-by-default: true
+        enabled-by-default: false
         web:
             base-path: /actuator
             exposure:
-                include: '*'
+                include: health,info
 
 logging:
     file:
@@ -73,4 +77,3 @@ monitor:
     gpu:
         cmd:
             rocm: rocm-smi
-

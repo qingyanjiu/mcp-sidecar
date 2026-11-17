@@ -1,8 +1,8 @@
 package com.hx.mcpsidecar.service.mcp.ragflow;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,8 +106,9 @@ public class RagflowKnowledgeMcp {
             }
             return sb.toString().trim();
         } catch (Exception e) {
-            // 兜底：任何异常都转成模型可读的文案，并记录完整日志供排查
-            log.error("知识库检索工具执行失败, question={}", question, e);
+            // 兜底：任何异常都转成模型可读的文案；问题原文可能敏感，只记长度供定位
+            log.error("知识库检索工具执行失败, questionLength={}",
+                    question == null ? 0 : question.length(), e);
             return "知识库服务暂时不可用，请稍后重试。错误信息: " + e.getMessage();
         }
     }

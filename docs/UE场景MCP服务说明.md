@@ -17,8 +17,8 @@
 | MCP server 名称 | `mcp-scene`（`serverInfo.version = 1.0.0`） |
 | 传输方式 | **MCP Streamable HTTP**（Spring WebMvc 实现） |
 | 端点 | `POST /mcp/scene` |
-| 端口 | **`2223`**（内网端口，仅容器网络可达；本地调试用 `127.0.0.1:2223`） |
-| 鉴权 | **无**（靠端口隔离：公网 `2222` 只开放 `/llm/**` 和 `/ws/**`，不开放 `/mcp/**`） |
+| 端口 | **`2223`**（内网端口，仅容器网络可达；本地调试用 `127.0.0.1:2223`；容器内监听 `0.0.0.0`） |
+| 鉴权 | **API Key + 端口隔离**：每个请求带 `Authorization: Bearer <MCP_API_KEY>` 或 `X-MCP-API-Key`；`MCP_API_KEY` 未配置时全部 401。公网 `2222` 不开放 `/mcp/**` |
 | 工具数量 | **20**：19 个动作工具 + 1 个查询工具 |
 | 动作帧出口 | WebSocket `/ws/scene`（由前端页面连接，不是 MCP 客户端） |
 | 动作超时 | `scene.action-timeout-ms`，默认 **15000ms** |
@@ -33,8 +33,9 @@ MCP server 只负责“让 LLM 能调”。真正的动作帧通过 `/ws/scene` 
 | `src/main/java/com/hx/mcpsidecar/service/mcp/scene/SceneMcp.java` | 20 个 MCP 工具的定义 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneActions.java` | 动作词表、参数名、楼层语义、中文枚举 |
 | `src/main/java/com/hx/mcpsidecar/config/mcp/SceneMcpServerConfig.java` | `/mcp/scene` 端点与 `X-Session-Id` 注入 |
-| `src/main/java/com/hx/mcpsidecar/config/mcp/McpInternalPortConfig.java` | `/mcp/**` 的内网端口（2223） |
-| `src/main/java/com/hx/mcpsidecar/config/EndpointPortGuardFilter.java` | 公网/内网端口的路径隔离 |
+| `src/main/java/com/hx/mcpsidecar/config/mcp/McpInternalPortConfig.java` | `/mcp/**` 的内网端口（2223）与监听地址 |
+| `src/main/java/com/hx/mcpsidecar/config/McpApiKeyFilter.java` | `/mcp/**` 应用层 API Key 校验 |
+| `src/main/java/com/hx/mcpsidecar/config/EndpointPortGuardFilter.java` | 公网/内网/管理端口的路径隔离（无 profile 限制，未知端口默认拒绝） |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneDispatcher.java` | 下发、等待回执、超时 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneSessionRegistry.java` | 会话路由与单会话兜底 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneWebSocketHandler.java` | `/ws/scene` 前端通道 |
@@ -53,9 +54,15 @@ POST http://mcp-sidecar:2223/mcp/scene
 # 本地调试：
 # POST http://127.0.0.1:2223/mcp/scene
 
+Authorization: Bearer <MCP_API_KEY>
+# 或 X-MCP-API-Key: <MCP_API_KEY>
 Content-Type: application/json
 Accept: application/json, text/event-stream
 ```
+
+> `/mcp/**` 的每个请求（initialize、tools/list、tools/call、SSE GET）都必须带 API Key，
+> 缺失或不匹配返回 `401`。值来自 sidecar 的 `MCP_API_KEY`，Python 侧 MCP client
+> 需要把它注入到请求头里。
 
 **① initialize**
 
@@ -157,7 +164,7 @@ sidecar 下发动作后会等待页面回执，上限 `scene.action-timeout-ms`�
 
 | 端点 | 方法 | 使用者 | 说明 |
 |---|---|---|---|
-| `/mcp/scene` | POST | agent / LLM | MCP Streamable HTTP，20 个工具；**内网端口 2223** |
+| `/mcp/scene` | POST | agent / LLM | MCP Streamable HTTP，20 个工具；**内网端口 2223**；需 API Key |
 | `/ws/scene` | WebSocket | 前端场景页面 | 接收 `hello` / `scene_state` / `action_result`，接收动作帧；**公网端口 2222** |
 | `/actuator/health` | GET | 运维 | 健康检查，管理端口 **9970**（仅容器内，不发布） |
 
@@ -166,13 +173,23 @@ sidecar 下发动作后会等待页面回执，上限 `scene.action-timeout-ms`�
 
 ### 3.1 `/ws/scene`（前端通道）
 
-页面连上后必须先发：
+页面连接时必须携带平台登录 token（浏览器原生 WebSocket 不能设置自定义 Header，
+所以用 query 参数；非浏览器客户端也可以用 `Authorization: Bearer <token>`）：
+
+```text
+ws://<host>:2222/ws/scene?token=<平台token>&userId=<userId>
+```
+
+连上后必须先发：
 
 ```json
 { "type": "hello", "sessionId": "dev-1", "userId": "u-42" }
 ```
 
-`sessionId` 为空会被直接断开；同一 `sessionId` 重连会顶掉旧连接。
+服务端在 `hello` 时调用平台校验 token 与 userId 是否匹配，校验失败或未带 token
+会以 `1003 NOT_ACCEPTABLE` 关闭连接。`sessionId` 为空会被直接断开；同一用户用同一
+`sessionId` 重连会顶掉旧连接，**不同 userId 不能顶替别人的 sessionId**。
+连接数有全局上限（`scene.max-sessions`，默认 1000）。
 MCP 客户端**不要连这个端点**，它是给场景页面用的。
 
 ---
@@ -187,7 +204,7 @@ MCP 客户端**不要连这个端点**，它是给场景页面用的。
 | 4 | `scene_close_detail` | 楼层/视角 | — | — | 否 |
 | 5 | `scene_reset_all` | 楼层/视角 | — | — | 否 |
 | 6 | `scene_show_visitor_track` | 组合动作 | — | `floor` | 否 |
-| 7 | `scene_show_camera` | 组合动作 | `tag` | `floor`, `app`, `stream`, `name`, `source_url` | 否 |
+| 7 | `scene_show_camera` | 组合动作 | `tag` | `floor`, `app`, `stream`, `name` | 否 |
 | 8 | `scene_show_inspection` | 组合动作 | — | `floor` | 否 |
 | 9 | `scene_show_meeting_rooms` | 组合动作 | — | `floor` | 否 |
 | 10 | `scene_show_dining` | 组合动作 | — | `floor` | 否 |
@@ -295,7 +312,6 @@ MCP 客户端**不要连这个端点**，它是给场景页面用的。
 | `app` | string | ⬜ | 应用标识，原样透传给前端 |
 | `stream` | string | ⬜ | 视频流标识，原样透传给前端 |
 | `name` | string | ⬜ | 视频窗标题，不传由前端决定 |
-| `source_url` | string | ⬜ | 视频源地址，原样透传给前端 |
 
 ---
 
@@ -521,11 +537,13 @@ MCP `tools/call` 调用。
    ```
    POST http://mcp-sidecar:2223/mcp/scene      # 容器网络（内网）
    POST http://127.0.0.1:2223/mcp/scene        # 本地调试
+   Authorization: Bearer <MCP_API_KEY>
    ```
    确认 20 个工具都在。
 3. **带 `X-Session-Id` 调 `tools/call`**：
    ```
    curl -X POST http://mcp-sidecar:2223/mcp/scene \
+     -H 'Authorization: Bearer <MCP_API_KEY>' \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json, text/event-stream' \
      -H 'Mcp-Session-Id: <initialize 返回的值>' \
@@ -548,8 +566,11 @@ MCP `tools/call` 调用。
 4. **单会话兜底只适合联调。** 多用户必须逐请求注入 `X-Session-Id`。
 5. **`sessionId` 来源尚未打通。** 方案只规定 agent 要注入，值目前由前端
    `hello` 先声明、agent 跟随。聊天入口需要把同一个值透传给 MCP 调用。
-6. **MCP 无应用层鉴权，靠端口隔离。** server/local 下 `/mcp/**` 都只在 `2223` 内网端口监听，
-   docker-compose 只 `expose` 不 `publish`；公网 `2222` 只开放 `/llm/**` 和 `/ws/**`。
+6. **`/mcp/**` 需要应用层 API Key，场景 WS 需要平台 token。** 所有 MCP 请求必须带
+   `Authorization: Bearer <MCP_API_KEY>` 或 `X-MCP-API-Key: <MCP_API_KEY>`；
+   端口隔离仍然生效（`2223` 只 expose 不 publish，公网 `2222` 只开放 `/llm/**`、`/ws/**`）。
+   `MCP_API_KEY` 未配置时默认拒绝所有 MCP 请求。`/ws/scene` 在握手时校验平台 token，
+   并在 `hello` 时校验 token 与 userId 的绑定关系。
 7. **动作词表是封闭集合。** sidecar 只下发 `SceneActions.ALL` 里的 19 个名字；
    表外动作会被拒绝。改词表要同时改 `SceneActions.java` 与 `SceneMcp.java`。
 

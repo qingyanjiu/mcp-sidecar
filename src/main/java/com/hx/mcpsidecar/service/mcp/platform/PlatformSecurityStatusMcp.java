@@ -1,8 +1,9 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,10 +173,8 @@ public class PlatformSecurityStatusMcp {
     public String getInspectionTrend(
             @McpToolParam(description = "查询日期,格式yyyy-MM-dd,可不传默认当天") String date
     ) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + INSPECTION_TREND_URL;
-        if (date != null && !date.isEmpty()) {
-            url += "?date=" + date;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + INSPECTION_TREND_URL, "date", date);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

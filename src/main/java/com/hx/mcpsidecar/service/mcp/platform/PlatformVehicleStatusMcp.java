@@ -1,8 +1,9 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -139,10 +140,8 @@ public class PlatformVehicleStatusMcp {
             """
     )
     public String getVehiclePassRecord(String code) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + VEHICLE_PASS_RECORD_URL;
-        if (code != null && !code.trim().isEmpty()) {
-            url = url + "?code=" + code;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + VEHICLE_PASS_RECORD_URL, "code", code);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

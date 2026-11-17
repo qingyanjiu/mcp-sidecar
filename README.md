@@ -4,15 +4,15 @@ Spring AI MCP Sidecar Service - 一个支持多服务端接入的MCP服务器和
 
 ## 项目概述
 
-本项目是一个基于Spring Boot 3.2.3和Spring AI 1.1.2构建的微服务侧车，主要包含两大核心模块：
+本项目是一个基于Spring Boot 3.5.15和Spring AI 1.1.8构建的微服务侧车，主要包含两大核心模块：
 
 1. **MCP服务器模块** - 支持接入多服务端能力的Model Context Protocol服务
 2. **大模型聊天网关模块** - 提供WebSocket转发、应用鉴权和流量控制功能的聊天网关
 
 ## 技术栈
 
-- **框架**: Spring Boot 3.2.3
-- **AI框架**: Spring AI 1.1.2
+- **框架**: Spring Boot 3.5.15
+- **AI框架**: Spring AI 1.1.8（MCP Java SDK 0.18.4）
 - **协议**: MCP (Model Context Protocol)
 - **通信**: WebSocket, HTTP
 - **数据库**: MySQL + MyBatis Plus（预留了配置）
@@ -93,13 +93,32 @@ spring:
         version: 1.0.0
 ```
 
+#### 凭据配置
+
+真实凭据统一放在项目根目录的 `.env`，该文件已被 `.gitignore` 忽略，不要提交：
+
+```bash
+cp .env.example .env
+# 编辑 .env，填入平台账号、RAGFlow、Redis、数据库、SSL、MCP_API_KEY 等值
+chmod 600 .env
+```
+
+- 本地启动：`application.yml` 中的 `spring.config.import: optional:file:./.env[.properties]` 会读取根目录 `.env`（工作目录需为项目根目录，IDE 运行配置里的 Working directory 要确认）；
+- Docker 启动：Compose 自动读取同目录 `.env`，并通过 `mcp-sidecar.environment` 注入容器；
+- 配置文件中只保留 `${ENV_VAR:}` 占位符，不写明文；
+- 平台登录默认拒绝明文提交，联调确需回退时在 `.env` 设置 `PLATFORM_ALLOW_PLAINTEXT_LOGIN=true`，验证 RSA 后应改回 `false`。
+
 #### MCP服务器配置
 ```yaml
 mcp:
   internal-port: 2223            # /mcp/** 专用内网端口（server/local 均生效）
+  internal-address: ${MCP_INTERNAL_ADDRESS:127.0.0.1}  # 容器内由 compose 覆盖为 0.0.0.0
+  api-key: ${MCP_API_KEY:}       # /mcp/** 应用层鉴权；留空=拒绝所有 MCP 请求
   servers:
     platform:
-      baseUrl: http://<platform-host>:9500/platform
+      baseUrl: ${MCP_PLATFORM_BASE_URL:}
+      login-username: ${PLATFORM_LOGIN_USERNAME:}
+      login-password: ${PLATFORM_LOGIN_PASSWORD:}
 ```
 
 #### 大模型聊天配置
@@ -131,11 +150,15 @@ java -jar mcp-sidecar.jar
 |---|---|---|---|
 | 2222（公网） | `/llm/chat` | WebSocket | 智能体聊天，需 token + userId |
 | 2222（公网） | `/llm/gen_doc` | WebSocket | 文档生成，需 token + userId |
-| 2222（公网） | `/ws/scene` | WebSocket | UE 场景页面，`hello` 归档会话 |
-| 2223（内网） | `/mcp/**` | MCP Streamable HTTP | 17 个 MCP 服务端，供 Python agent 调用 |
+| 2222（公网） | `/ws/scene` | WebSocket | UE 场景页面，需 token + userId，`hello` 归档会话 |
+| 2223（内网） | `/mcp/**` | MCP Streamable HTTP | 17 个 MCP 服务端，供 Python agent 调用；需 API Key |
 | 9970（容器内） | `/actuator/health` | HTTP | 健康检查 |
 
 聊天 WebSocket 参数：`userId`、`sessionId`；token 可通过 `Authorization: Bearer <token>` 或 query `token` 传入。
+场景 WebSocket `/ws/scene` 同样需要平台 token + userId（浏览器用 query：`?token=<token>&userId=<userId>`），
+在 `hello` 时校验 token 与 userId 的绑定关系。
+MCP 端点 `/mcp/**` 需要应用层 API Key：`Authorization: Bearer <MCP_API_KEY>` 或
+`X-MCP-API-Key: <MCP_API_KEY>`；服务端未配置 `MCP_API_KEY` 时默认拒绝所有 MCP 请求。
 
 ### 健康检查
 
@@ -154,7 +177,7 @@ java -jar mcp-sidecar.jar
   ┌────────────────────────────────────────┐                          ┌──────────────────────────────────┐
   │ mcp-sidecar                            │  ──── WS 代理 ─────────▶ │ agentic-app :8001                │
   │ 2222 公网：/llm/**、/ws/**             │                          │ FastAPI + LangGraph              │
-  │ 2223 内网：/mcp/**                     │  ◀─── MCP tools/call ─── │ MCP Client                       │
+  │ 2223 内网：/mcp/**（需 API Key）       │  ◀─── MCP tools/call ─── │ MCP Client                       │
   └────────────────────────────────────────┘                          └──────────────────────────────────┘
                         │                                                              │
                         ▼   HTTP                                                       ▼   HTTPS
@@ -165,7 +188,7 @@ java -jar mcp-sidecar.jar
 ```
 
 - **聊天链路**：浏览器 → 2222 `/llm/chat` → 鉴权 + 限流 → agent `:8001` → 流式返回。
-- **MCP 查询链路**：agent → 2223 `/mcp/*` → sidecar 工具 → Platform / RAGFlow。
+- **MCP 查询链路**：agent → 2223 `/mcp/*`（带 `Authorization: Bearer <MCP_API_KEY>`）→ sidecar 工具 → Platform / RAGFlow。
 - **场景动作链路**：LLM 决定动作 → agent 调 `/mcp/scene` → sidecar 通过 `/ws/scene` 推给 UE 页面 → 页面回执 `action_result`。
 
 完整的端口矩阵、组件职责、MCP 端点清单和四条链路的时序图见 [docs/系统架构说明.md](docs/系统架构说明.md)。
@@ -192,6 +215,8 @@ llm:
 ```yaml
 mcp:
   internal-port: 2223   # /mcp/** 内网端口（docker 只 expose 不 publish）
+  internal-address: ${MCP_INTERNAL_ADDRESS:127.0.0.1}  # 容器内需设为 0.0.0.0
+  api-key: ${MCP_API_KEY:}  # 留空 = 拒绝所有 MCP 请求
   servers:
     platform:
       baseUrl: http://<platform-host>:9500/platform
@@ -260,7 +285,15 @@ docker exec mcp-sidecar curl -fsS http://127.0.0.1:9970/actuator/health
 docker build -t mcp-sidecar .
 
 # 运行容器：只发布公网口 2222；2223（/mcp/** 内网口）和 9970（actuator）不发布
-docker run -p 2222:2222 mcp-sidecar
+docker run -p 2222:2222 \
+  -e MCP_API_KEY=<与 agent 一致的 key> \
+  mcp-sidecar
+
+# 若 agent 在宿主机或另一个容器里，需要把 2223 放通（仍建议只绑回环/内网地址）：
+# docker run -p 2222:2222 -p 127.0.0.1:2223:2223 \
+#   -e MCP_API_KEY=<key> -e MCP_INTERNAL_ADDRESS=0.0.0.0 \
+#   mcp-sidecar
+# 注意：不配置 MCP_API_KEY 时，所有 /mcp/** 请求都会被 401 拒绝。
 ```
 
 ### Docker Compose部署

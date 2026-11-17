@@ -1,13 +1,16 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import com.alibaba.fastjson.JSONObject;
+
+import java.util.Collections;
+import java.util.Map;
 /**
  * 人员态势mcp工具集 - 来自platform平台
  */
@@ -41,11 +44,11 @@ public class PlatformPersonStatusMcp {
         String url = platformApiCallServiceImpl.getBaseUrl() + TODAY_PERSONNEL_AFFAIRS_URL;
         Object result = platformApiCallServiceImpl.doGetCall(url);
 
-        // 解析后端返回的 JSON
-        JSONObject json = JSON.parseObject(JSON.toJSONString(result));
-        Integer realTimeNum = json.getInteger("realTimeNum");
-        Integer jingNum = json.getInteger("jingNum");
-        Integer chuNum = json.getInteger("chuNum");
+        // 平台响应已由 RestTemplate/Jackson 解析为 Map，这里直接取值，避免再次反序列化
+        Map<?, ?> data = result instanceof Map<?, ?> map ? map : Collections.emptyMap();
+        Integer realTimeNum = toInteger(data.get("realTimeNum"));
+        Integer jingNum = toInteger(data.get("jingNum"));
+        Integer chuNum = toInteger(data.get("chuNum"));
 
         // 默认值处理
         if (realTimeNum == null) realTimeNum = 0;
@@ -56,6 +59,21 @@ public class PlatformPersonStatusMcp {
                 "实时在园人数：%d人；今日进入人数：%d人；今日离开人数：%d人。",
                 realTimeNum, jingNum, chuNum
         );
+    }
+
+    /** 平台字段可能是 Number 或字符串，统一转成 Integer；缺失/非法时返回 null。 */
+    private static Integer toInteger(Object value) {
+        if (value instanceof Number number) {
+            return number.intValue();
+        }
+        if (value == null) {
+            return null;
+        }
+        try {
+            return Integer.valueOf(value.toString());
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
     // 人员态势人员流动 URL
     public static final String  PERSONNEL_FLOW_URL = "/personnel/personFlow";
@@ -68,7 +86,9 @@ public class PlatformPersonStatusMcp {
     """
     )
     public String getPersonnelFlow(String type) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + PERSONNEL_FLOW_URL + "?type=" + (type == null ? "day" : type);
+        String flowType = (type == null || type.isBlank()) ? "day" : type;
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + PERSONNEL_FLOW_URL, "type", flowType);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

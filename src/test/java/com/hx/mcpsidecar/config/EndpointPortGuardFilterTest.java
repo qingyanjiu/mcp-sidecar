@@ -15,9 +15,10 @@ class EndpointPortGuardFilterTest {
 
     private static final int PUBLIC_PORT = 2222;
     private static final int INTERNAL_PORT = 2223;
+    private static final int MANAGEMENT_PORT = 9970;
 
     private final EndpointPortGuardFilter filter =
-            new EndpointPortGuardFilter(PUBLIC_PORT, INTERNAL_PORT);
+            new EndpointPortGuardFilter(PUBLIC_PORT, INTERNAL_PORT, MANAGEMENT_PORT);
 
     @Test
     @DisplayName("公网口放行 /llm/** 和 /ws/**")
@@ -49,9 +50,19 @@ class EndpointPortGuardFilterTest {
     }
 
     @Test
-    @DisplayName("actuator 等其它端口不受影响")
-    void otherPort_passesThrough() throws Exception {
-        assertAllowed(9970, "/actuator/health");
+    @DisplayName("管理端口只放行 /actuator/**")
+    void managementPort_allowsActuatorOnly() throws Exception {
+        assertAllowed(MANAGEMENT_PORT, "/actuator/health");
+        assertAllowed(MANAGEMENT_PORT, "/actuator/info");
+        assertBlocked(MANAGEMENT_PORT, "/llm/chat");
+        assertBlocked(MANAGEMENT_PORT, "/mcp/scene");
+    }
+
+    @Test
+    @DisplayName("未登记的端口默认拒绝")
+    void unknownPort_rejected() throws Exception {
+        assertBlocked(8080, "/actuator/health");
+        assertBlocked(8080, "/llm/chat");
     }
 
     private void assertAllowed(int port, String path) throws Exception {

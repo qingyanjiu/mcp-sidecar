@@ -4,7 +4,6 @@ ENV SPRING_PROFILES_ACTIVE=server
 ENV TZ=Asia/Shanghai
 
 EXPOSE 2222/tcp
-EXPOSE 9970/tcp
 
 RUN apt-get update && \
      apt-get install -y --no-install-recommends openjdk-17-jre vim wget curl net-tools language-pack-zh-hans tzdata && \

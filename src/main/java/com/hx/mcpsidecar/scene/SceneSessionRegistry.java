@@ -7,6 +7,8 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * {@code sessionId → SceneSession} 映射。
@@ -20,6 +22,9 @@ public class SceneSessionRegistry {
 
     private final Map<String, SceneSession> sessions = new ConcurrentHashMap<>();
 
+    /** 精确的会话数，避免并发 bind 时 size() 近似值同时通过上限检查。 */
+    private final AtomicInteger sessionCount = new AtomicInteger();
+
     private final SceneProperties properties;
 
     public SceneSessionRegistry(SceneProperties properties) {
@@ -29,18 +34,44 @@ public class SceneSessionRegistry {
     /**
      * 归档一条 {@code hello}。
      *
-     * @return {@link BindResult#session()} 是复用的会话对象；
-     *         {@link BindResult#evicted()} 是被顶替的旧 socket，调用方负责关闭它
+     * <p>同一 sessionId 的重连会复用会话并顶掉旧 socket；但只有同一个 userId 才能重连，
+     * 否则返回 {@link BindStatus#USER_MISMATCH}，避免知道 sessionId 的其他登录用户顶替连接。
+     * 新建 sessionId 时还受 {@link SceneProperties#getMaxSessions()} 限制。</p>
+     *
+     * @return 绑定结果；调用方负责关闭 {@link BindResult#evicted()}（如果有）
      */
     public BindResult bind(String sessionId, String userId, WebSocketSession socket) {
-        SceneSession session = sessions.computeIfAbsent(sessionId, SceneSession::new);
-        WebSocketSession old = session.bind(userId, socket);
-        if (old != null) {
-            log.info("场景会话重连，顶替旧连接: ws-session-id={}, user-id={}", sessionId, userId);
-        } else {
-            log.info("场景会话接入: ws-session-id={}, user-id={}", sessionId, userId);
-        }
-        return new BindResult(session, old);
+        AtomicReference<BindResult> result = new AtomicReference<>();
+        // compute 对同一个 key 串行执行，把“查归属 + 判上限 + 绑定”合并成一次原子操作。
+        sessions.compute(sessionId, (id, existing) -> {
+            SceneSession session = existing;
+            if (session == null) {
+                if (sessionCount.incrementAndGet() > properties.getMaxSessions()) {
+                    sessionCount.decrementAndGet();
+                    log.warn("场景会话数达到上限，拒绝新会话: max={}", properties.getMaxSessions());
+                    result.set(new BindResult(null, null, BindStatus.CAPACITY_EXCEEDED));
+                    return null;
+                }
+                session = new SceneSession(id);
+            }
+
+            if (session.isOwnedByDifferentUser(userId)) {
+                log.warn("sessionId 已被其他用户占用，拒绝绑定: sessionId={}, owner={}, requester={}",
+                        sessionId, session.getUserId(), userId);
+                result.set(new BindResult(session, null, BindStatus.USER_MISMATCH));
+                return session;
+            }
+
+            WebSocketSession old = session.bind(userId, socket);
+            if (old != null) {
+                log.info("场景会话重连，顶替旧连接: ws-session-id={}, user-id={}", sessionId, userId);
+            } else {
+                log.info("场景会话接入: ws-session-id={}, user-id={}", sessionId, userId);
+            }
+            result.set(new BindResult(session, old, BindStatus.BOUND));
+            return session;
+        });
+        return result.get();
     }
 
     /**
@@ -119,6 +150,7 @@ public class SceneSessionRegistry {
                 return false;
             }
             log.info("回收空闲场景会话: sessionId={}", session.getSessionId());
+            sessionCount.decrementAndGet();
             return true;
         });
     }
@@ -139,6 +171,12 @@ public class SceneSessionRegistry {
         return count;
     }
 
-    public record BindResult(SceneSession session, WebSocketSession evicted) {
+    public record BindResult(SceneSession session, WebSocketSession evicted, BindStatus status) {
+    }
+
+    public enum BindStatus {
+        BOUND,
+        USER_MISMATCH,
+        CAPACITY_EXCEEDED
     }
 }

@@ -1,8 +1,9 @@
 package com.hx.mcpsidecar.service.mcp.platform;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,10 +103,8 @@ public class PlatformDeviceMcp {
     public String getMonthMaintenance(
             @McpToolParam(description = "查询月份,格式yyyy-MM,可不传默认当月") String date
     ) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + DEVICE_MONTH_MAINTENANCE_URL;
-        if (date != null && !date.isEmpty()) {
-            url += "?date=" + date;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + DEVICE_MONTH_MAINTENANCE_URL, "date", date);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }
@@ -124,10 +123,8 @@ public class PlatformDeviceMcp {
     public String getMonthRepair(
             @McpToolParam(description = "查询月份,格式yyyy-MM,可不传默认当月") String date
     ) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + DEVICE_MONTH_REPAIR_URL;
-        if (date != null && !date.isEmpty()) {
-            url += "?date=" + date;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + DEVICE_MONTH_REPAIR_URL, "date", date);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }
@@ -147,10 +144,8 @@ public class PlatformDeviceMcp {
     public String getStatisRegion(
             @McpToolParam(description = "设备类型编码,可不传统计全部类型") String deviceType
     ) {
-        String url = platformApiCallServiceImpl.getBaseUrl() + MONITOR_STATIS_REGION_URL;
-        if (deviceType != null && !deviceType.isEmpty()) {
-            url += "?deviceType=" + deviceType;
-        }
+        String url = UrlUtils.appendQueryParam(
+                platformApiCallServiceImpl.getBaseUrl() + MONITOR_STATIS_REGION_URL, "deviceType", deviceType);
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

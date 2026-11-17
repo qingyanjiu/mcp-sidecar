@@ -106,6 +106,9 @@ services:
       # UE 场景控制的 MCP 端点：走内网端口 2223，公网 2222 已不开放 /mcp/**
       # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
       SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2223/mcp/scene}
+      # /mcp/** 应用层鉴权 key（SEC-08）：必须与 mcp-sidecar 的 MCP_API_KEY 一致。
+      # agent 的 MCP client 需放进 Authorization: Bearer <key> 或 X-MCP-API-Key 头。
+      MCP_API_KEY: ${MCP_API_KEY:-}
       PREWARM_ON_STARTUP: ${PREWARM_ON_STARTUP:-}
       # 知识库检索：KB_BASE_URL + KB_API_KEY 都填就走平台接口直连（不经 sidecar）；
       # 都留空则回落到 sidecar 的 /mcp/knowledge。定义见 agentic-app/.env.example
@@ -171,6 +174,11 @@ services:
       MCP_PLATFORM_BASE_URL: ${MCP_PLATFORM_BASE_URL:-}
       MCP_RAGFLOW_BASE_URL: ${MCP_RAGFLOW_BASE_URL:-}
       MCP_RAGFLOW_API_KEY: ${MCP_RAGFLOW_API_KEY:-}
+      # 内网 MCP 监听地址：容器内必须是 0.0.0.0 才能被 agentic-app 通过服务名访问；
+      # 2223 不发布到宿主机，边界由容器网络保证（SEC-08）
+      MCP_INTERNAL_ADDRESS: ${MCP_INTERNAL_ADDRESS:-0.0.0.0}
+      # /mcp/** 应用层鉴权 key（SEC-08）；留空时所有 MCP 请求返回 401
+      MCP_API_KEY: ${MCP_API_KEY:-}
       LLM_AUTH_URL: ${LLM_AUTH_URL:-}
       PLATFORM_LOGIN_USERNAME: ${PLATFORM_LOGIN_USERNAME:-}
       PLATFORM_LOGIN_PASSWORD: ${PLATFORM_LOGIN_PASSWORD:-}

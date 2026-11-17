@@ -2,6 +2,8 @@ package com.hx.mcpsidecar.config.ws;
 
 import com.hx.mcpsidecar.service.IAuthService;
 import com.hx.mcpsidecar.service.LLMChatLimiter;
+import com.hx.mcpsidecar.utils.LogSanitizer;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +35,8 @@ public class ProxyWebSocketHandler implements WebSocketHandler {
         // 先判空再处理 token，否则未带 Authorization 头的握手会在这里 NPE，
         // 客户端也收不到下面的 UNAUTHORIZED 提示。
         if (token == null || token.isBlank()) {
-            log.warn("ws握手未携带token(Authorization头和query参数均为空)，系统拦截此对话请求, uri={}", client.getUri());
+            log.warn("ws握手未携带token(Authorization头和query参数均为空)，系统拦截此对话请求, uri={}",
+                    LogSanitizer.maskUri(client.getUri()));
             client.sendMessage(new TextMessage(
                 "{\"error\":\"UNAUTHORIZED\",\"message\":\"未检测到token或者userId信息!\"}"
             ));
@@ -41,7 +44,8 @@ public class ProxyWebSocketHandler implements WebSocketHandler {
             return;
         }
         if (userId == null || userId.isBlank()) {
-            log.warn("ws握手未携带userId(query参数为空)，系统拦截此对话请求, uri={}", client.getUri());
+            log.warn("ws握手未携带userId(query参数为空)，系统拦截此对话请求, uri={}",
+                    LogSanitizer.maskUri(client.getUri()));
             client.sendMessage(new TextMessage(
                 "{\"error\":\"UNAUTHORIZED\",\"message\":\"未检测到token或者userId信息!\"}"
             ));
@@ -82,7 +86,11 @@ public class ProxyWebSocketHandler implements WebSocketHandler {
         } else if (path.startsWith("/llm/gen_doc")) {
             wsUrl = llmConfiguration.getWsPath().get("gen_doc");
         }
-        wsUrl = String.format(wsUrl, userId, sessionId);
+        // sessionId 来自客户端 query，作为后端 WS 的路径段必须编码，
+        // 防止 ../ 或 / 改变代理目标路径。
+        wsUrl = String.format(wsUrl,
+                UrlUtils.encodePathSegment(userId),
+                UrlUtils.encodePathSegment(String.valueOf(sessionId)));
         URI uri = URI.create(wsUrl);
 
         // 连接到后端 Python WS

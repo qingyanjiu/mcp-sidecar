@@ -1,7 +1,7 @@
 package com.hx.mcpsidecar.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.hx.mcpsidecar.config.RestConfig;
 import com.hx.mcpsidecar.model.McpServerProperties;
 import com.hx.mcpsidecar.service.mcp.platform.PlatformApiCallServiceImpl;
@@ -94,9 +94,25 @@ class McpTest {
         assumeTrue(isTcpReachable(LOCAL_PLATFORM_HOST, LOCAL_PLATFORM_PORT),
             "localhost:9500 未启动，跳过集成测试");
 
+        // 凭据来自环境变量（本地可用 set -a; source .env; set +a 后运行），测试代码不保存真实账号。
+        String username = System.getenv("PLATFORM_LOGIN_USERNAME");
+        String password = System.getenv("PLATFORM_LOGIN_PASSWORD");
+        assumeTrue(username != null && !username.isBlank() && password != null && !password.isBlank(),
+            "未设置 PLATFORM_LOGIN_USERNAME / PLATFORM_LOGIN_PASSWORD，跳过集成测试");
+
         PlatformApiCallServiceImpl realApi = new PlatformApiCallServiceImpl();
         ReflectionTestUtils.setField(realApi, "restTemplate", new RestConfig().restTemplate());
         ReflectionTestUtils.setField(realApi, "mcpApiProperties", localPlatformProperties());
+        ReflectionTestUtils.setField(realApi, "loginUsername", username);
+        ReflectionTestUtils.setField(realApi, "loginPassword", password);
+        ReflectionTestUtils.setField(realApi, "loginType",
+            System.getenv().getOrDefault("PLATFORM_LOGIN_TYPE", "1"));
+        ReflectionTestUtils.setField(realApi, "captchaId",
+            System.getenv().getOrDefault("PLATFORM_CAPTCHA_ID", ""));
+        ReflectionTestUtils.setField(realApi, "captchaCode",
+            System.getenv().getOrDefault("PLATFORM_CAPTCHA_CODE", ""));
+        ReflectionTestUtils.setField(realApi, "allowPlaintextLogin",
+            Boolean.parseBoolean(System.getenv().getOrDefault("PLATFORM_ALLOW_PLAINTEXT_LOGIN", "false")));
 
         PlatformDeviceQueryMcp realMcp = new PlatformDeviceQueryMcp();
         ReflectionTestUtils.setField(realMcp, "platformApiCallServiceImpl", realApi);

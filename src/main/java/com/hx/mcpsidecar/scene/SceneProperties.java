@@ -50,4 +50,11 @@ public class SceneProperties {
 
     /** 既没有连接、也没有在途挂起项的空壳会话保留时长（毫秒），到期回收。 */
     private long idleEvictMs = 30 * 60_000L;
+
+    /**
+     * 全局会话数上限。每个 sessionId 都会在内存里保留一个会话对象（含场景快照与在途动作），
+     * 不设上限时，持有合法 token 的客户端可以不断换 sessionId 建会话，造成内存 DoS。
+     * 达到上限后新 sessionId 一律拒绝，已有 sessionId 的重连不受影响。
+     */
+    private int maxSessions = 1_000;
 }

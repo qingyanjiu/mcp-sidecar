@@ -1,6 +1,7 @@
 package com.hx.mcpsidecar.service;
 
 import com.hx.mcpsidecar.config.ws.LLMConfiguration;
+import com.hx.mcpsidecar.utils.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,10 @@ public class AuthServiceImpl implements IAuthService {
      */
     @Override
     public boolean validateToken(String token, String uerId) {
-        String requestUrl = String.format(llmConfiguration.getAuth().get("url"), token, uerId);
+        // token / userId 来自 WebSocket query，必须编码后再拼进认证 URL，
+        // 否则其中的 & 或 # 会改变参数结构。
+        String requestUrl = String.format(llmConfiguration.getAuth().get("url"),
+                UrlUtils.encodeQueryParam(token), UrlUtils.encodeQueryParam(uerId));
         Object respCode = platformApiCallServiceImpl.doGetCallWithTokenInHeader(requestUrl, token);
         // 平台约定：data=200 代表 token 与 userId 匹配且登录态有效；401 是未登录/userId 不匹配。
         boolean valid = respCode != null && Integer.toString(HttpStatus.OK.value()).equals(respCode.toString());

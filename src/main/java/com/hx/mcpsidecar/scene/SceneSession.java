@@ -54,6 +54,15 @@ public class SceneSession {
         return userId;
     }
 
+    /**
+     * 该 sessionId 是否已经被另一个用户占用。sessionId 由前端生成，
+     * 不能只凭“知道 sessionId”就顶掉别人的连接；鉴权通过后还要校验归属。
+     */
+    public boolean isOwnedByDifferentUser(String userId) {
+        String current = this.userId;
+        return current != null && !current.equals(userId);
+    }
+
     public boolean isConnected() {
         WebSocketSession current = socket;
         return current != null && current.isOpen();

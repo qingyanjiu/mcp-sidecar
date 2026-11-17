@@ -3,13 +3,15 @@
     <!--定义日志文件的存储地址 -->
     <springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue=""/>
     <property name="LOG_HOME" value="logs/${spring.application.name}" />
+    <!-- 全局脱敏：即使框架/第三方组件打印完整 URI，也不把 token、密码、API Key 写进日志 -->
+    <property name="SAFE_MSG" value="%replace(%msg){'(?i)([?&amp;](token|access_token|refresh_token|password|api[_-]?key)=)[^&amp;\s]*', '$1***'}" />
 
     <!--<property name="COLOR_PATTERN" value="%black(%contextName-) %red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta( %replace(%caller{1}){'\t|Caller.{1}0|\r\n', ''})- %gray(%msg%xEx%n)" />-->
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - ${SAFE_MSG}%n</pattern>
         </encoder>
     </appender>
 
@@ -26,7 +28,7 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - ${SAFE_MSG}%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <!--与ThresholdFilter的区别,允许onmatch-->
@@ -47,7 +49,7 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - ${SAFE_MSG}%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <!--设置日志级别,过滤掉info日志,只输入error日志-->
@@ -68,7 +70,7 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - ${SAFE_MSG}%n</pattern>
         </encoder>
     </appender>
 
