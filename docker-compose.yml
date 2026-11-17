@@ -3,7 +3,9 @@
 # 用法：
 #   docker load -i agentic-app.tar     # 导入你自己导出的两个镜像
 #   docker load -i mcp-sidecar.tar
-#   cp env.docker.example .env         # 按需填镜像 tag / 密钥（.env 已被 .gitignore 忽略）
+#   # 根目录只保留一个 .env，Compose 会自动读取。
+#   # 首次：cp .env.example .env，再把 env.docker.example 里的 IMAGE/PORT/AGENTIC_* 等合并进去；
+#   # 不要用后一个 cp 覆盖前一个。
 #   docker compose up -d               # 起整个栈（app 先起，sidecar 依赖它）
 #   docker compose logs -f
 #   docker compose ps
@@ -105,6 +107,24 @@ services:
       # 置空则回落到 mcp_client/mcp_server_config.yaml 里的 scene.url
       SCENE_MCP_URL: ${SCENE_MCP_URL:-http://mcp-sidecar:2223/mcp/scene}
       PREWARM_ON_STARTUP: ${PREWARM_ON_STARTUP:-}
+      # 知识库检索：KB_BASE_URL + KB_API_KEY 都填就走平台接口直连（不经 sidecar）；
+      # 都留空则回落到 sidecar 的 /mcp/knowledge。定义见 agentic-app/.env.example
+      KB_BASE_URL: ${KB_BASE_URL:-}
+      KB_API_KEY: ${KB_API_KEY:-}
+      KB_RETRIEVAL_PATH: ${KB_RETRIEVAL_PATH:-/v1/api_key/datasets/draft}
+      KB_DATASET_IDS: ${KB_DATASET_IDS:-}
+      KB_TOP_K: ${KB_TOP_K:-5}
+      KB_SCORE_THRESHOLD: ${KB_SCORE_THRESHOLD:-}
+      KB_RERANK_ENABLE: ${KB_RERANK_ENABLE:-1}
+      KB_RERANK_PROVIDER: ${KB_RERANK_PROVIDER:-tong_yi}
+      KB_RERANK_MODEL: ${KB_RERANK_MODEL:-gte-rerank}
+      KB_TIMEOUT: ${KB_TIMEOUT:-20}
+      KB_SEGMENT_MAX_CHARS: ${KB_SEGMENT_MAX_CHARS:-800}
+      # 会话记忆空闲有效期 / 设备台账缓存（不在这里声明，.env 里写了也进不到容器）
+      SESSION_TTL_SECONDS: ${SESSION_TTL_SECONDS:-1800}
+      DEVICE_CACHE_TTL: ${DEVICE_CACHE_TTL:-}
+      # 0 = 关闭 MCP 工具动态发现（只用显式工具）
+      LOOP_DISCOVER: ${LOOP_DISCOVER:-1}
     volumes:
       # 代码：宿主机为准
       - ${AGENTIC_CODE_DIR:-/Users/louisliu/dev/AI_projects/agentic-app}:/root/agentic-app
@@ -147,6 +167,26 @@ services:
       SPRING_DATA_REDIS_PORT: ${REDIS_PORT:-6379}
       SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:-}
       SPRING_DATA_REDIS_DATABASE: ${REDIS_DATABASE:-10}
+      # 平台 / RAGFlow / 登录凭据：真实值放 .env（本文件不写明文）
+      MCP_PLATFORM_BASE_URL: ${MCP_PLATFORM_BASE_URL:-}
+      MCP_RAGFLOW_BASE_URL: ${MCP_RAGFLOW_BASE_URL:-}
+      MCP_RAGFLOW_API_KEY: ${MCP_RAGFLOW_API_KEY:-}
+      LLM_AUTH_URL: ${LLM_AUTH_URL:-}
+      PLATFORM_LOGIN_USERNAME: ${PLATFORM_LOGIN_USERNAME:-}
+      PLATFORM_LOGIN_PASSWORD: ${PLATFORM_LOGIN_PASSWORD:-}
+      PLATFORM_LOGIN_TYPE: ${PLATFORM_LOGIN_TYPE:-1}
+      PLATFORM_CAPTCHA_ID: ${PLATFORM_CAPTCHA_ID:-}
+      PLATFORM_CAPTCHA_CODE: ${PLATFORM_CAPTCHA_CODE:-}
+      PLATFORM_ALLOW_PLAINTEXT_LOGIN: ${PLATFORM_ALLOW_PLAINTEXT_LOGIN:-false}
+      # 数据库 / SSL / Kafka
+      SPRING_DATASOURCE_URL: ${DB_URL:-}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME:-}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-}
+      SSL_KEY_STORE: ${SSL_KEY_STORE:-}
+      SSL_KEY_PASSWORD: ${SSL_KEY_PASSWORD:-}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-}
+      # 前端页面 Origin 白名单（SEC-10）
+      SECURITY_ALLOWED_ORIGINS: ${SECURITY_ALLOWED_ORIGINS:-}
       # 上游 python 服务地址：镜像里默认 ws://127.0.0.1:8001，改成同网络服务名
       SPRING_APPLICATION_JSON: >-
         {"mcp":{"internal-port":${MCP_INTERNAL_PORT:-2223}},"llm":{"wsPath":{"chat":"ws://agentic-app:${APP_PORT:-8001}/chat/%s/%s","gen_doc":"ws://agentic-app:${APP_PORT:-8001}/gen_doc/%s/%s"}}}
