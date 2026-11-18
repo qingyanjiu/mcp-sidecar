@@ -109,6 +109,10 @@ services:
       # /mcp/** 应用层鉴权 key（SEC-08）：必须与 mcp-sidecar 的 MCP_API_KEY 一致。
       # agent 的 MCP client 需放进 Authorization: Bearer <key> 或 X-MCP-API-Key 头。
       MCP_API_KEY: ${MCP_API_KEY:-}
+      # MCP 调用超时（秒）：单次调用 15s，外层 17s；超时不再重试
+      MCP_CALL_TIMEOUT: ${MCP_CALL_TIMEOUT:-15}
+      MCP_CONNECT_TIMEOUT: ${MCP_CONNECT_TIMEOUT:-10}
+      LOOP_TOOL_TIMEOUT: ${LOOP_TOOL_TIMEOUT:-17}
       PREWARM_ON_STARTUP: ${PREWARM_ON_STARTUP:-}
       # 知识库检索：KB_BASE_URL + KB_API_KEY 都填就走平台接口直连（不经 sidecar）；
       # 都留空则回落到 sidecar 的 /mcp/knowledge。定义见 agentic-app/.env.example
@@ -123,6 +127,11 @@ services:
       KB_RERANK_MODEL: ${KB_RERANK_MODEL:-gte-rerank}
       KB_TIMEOUT: ${KB_TIMEOUT:-20}
       KB_SEGMENT_MAX_CHARS: ${KB_SEGMENT_MAX_CHARS:-800}
+      # 混合检索权重（平台界面 Hybrid Search 的「SEMANTIC x / KEYWORD y」）。
+      # 这两行不声明的话，.env 里写了也进不到容器，KB 检索会退回纯向量（1.0/0.0），
+      # 实测纯向量对《员工手册》只能命中目录页，命不中正文。
+      KB_VECTOR_WEIGHT: ${KB_VECTOR_WEIGHT:-1.0}
+      KB_KEYWORD_WEIGHT: ${KB_KEYWORD_WEIGHT:-0.0}
       # 会话记忆空闲有效期 / 设备台账缓存（不在这里声明，.env 里写了也进不到容器）
       SESSION_TTL_SECONDS: ${SESSION_TTL_SECONDS:-1800}
       DEVICE_CACHE_TTL: ${DEVICE_CACHE_TTL:-}
@@ -155,8 +164,9 @@ services:
     command: ["sh", "docker-start.sh"]
     stop_grace_period: 30s
     ports:
-      # 公网入口：只开放 /llm/** 和 /ws/**
-      - "${MCP_PORT:-2222}:2222"
+      # 只绑宿主机回环：由同机 Nginx 反代到 2222，不对局域网/公网直接开放。
+      # 没有 Nginx 的纯内网联调可改成 "2222:2222"，但不要在生产这样做。
+      - "127.0.0.1:${MCP_PORT:-2222}:2222"
     expose:
       # 内网 MCP 端口：/mcp/** 专用，不发布到宿主机
       - "${MCP_INTERNAL_PORT:-2223}"
