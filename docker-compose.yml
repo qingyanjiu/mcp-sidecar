@@ -3,9 +3,10 @@
 # 用法：
 #   docker load -i agentic-app.tar     # 导入你自己导出的两个镜像
 #   docker load -i mcp-sidecar.tar
-#   # 根目录只保留一个 .env，Compose 会自动读取。
-#   # 首次：cp .env.example .env，再把 env.docker.example 里的 IMAGE/PORT/AGENTIC_* 等合并进去；
-#   # 不要用后一个 cp 覆盖前一个。
+#   # 根目录只保留一个 .env（与本文件同目录），Compose 会自动读取。
+#   # 首次：把非敏感部分 env.docker.example 和敏感部分 .env.example 组合成 .env：
+#   #   cat env.docker.example .env.example > .env
+#   # 再填入真实值；不要只 cp 其中一个模板。
 #   docker compose up -d               # 起整个栈（app 先起，sidecar 依赖它）
 #   docker compose logs -f
 #   docker compose ps

@@ -95,13 +95,26 @@ spring:
 
 #### 凭据配置
 
-真实凭据统一放在项目根目录的 `.env`，该文件已被 `.gitignore` 忽略，不要提交：
+真实凭据统一放在项目根目录的 `.env`（与 `docker-compose.yml` 同目录），该文件已被
+`.gitignore` 忽略，不要提交。`.env` 由两部分组合而成：
+
+- `env.docker.example` → 非敏感配置（镜像、目录、端口、运行参数、路由、检索参数等）；
+- `.env.example` → 敏感信息（平台/RAGFlow 凭据、登录、数据库/Redis/SSL/Kafka、`MCP_API_KEY` 等）。
+
+部署时把两份模板写入 `.env`：
 
 ```bash
-cp .env.example .env
-# 编辑 .env，填入平台账号、RAGFlow、Redis、数据库、SSL、MCP_API_KEY 等值
+{
+  cat env.docker.example
+  echo
+  echo "# 以下是敏感信息，仅部署使用，请勿提交到代码仓库或者外传。"
+  cat .env.example
+} > .env
 chmod 600 .env
+# 再编辑 .env，把占位值换成真实值
 ```
+
+同名键（`REDIS_*`、`KB_*`）以后出现的为准，所以敏感部分会覆盖非敏感部分。
 
 - 本地启动：`application.yml` 中的 `spring.config.import: optional:file:./.env[.properties]` 会读取根目录 `.env`（工作目录需为项目根目录，IDE 运行配置里的 Working directory 要确认）；
 - Docker 启动：Compose 自动读取同目录 `.env`，并通过 `mcp-sidecar.environment` 注入容器；
@@ -277,26 +290,29 @@ docker exec mcp-sidecar curl -fsS http://127.0.0.1:9970/actuator/health
 
 ## 部署说明
 
-### Docker部署
+完整的部署步骤、Nginx 参考配置和排障说明见 [deploy/部署说明.md](deploy/部署说明.md)。
 
 ```bash
-# 构建镜像
-docker build -t mcp-sidecar .
+# 1. 打包并放入运行时目录（没有独立 mvn 时用 IntelliJ 的 Maven 面板）
+mvn clean package
+cp target/mcp-sidecar.jar deploy/
 
-# 运行容器：2222 只绑宿主机回环（交给 Nginx 反代）；2223、9970 不发布
-docker run -p 127.0.0.1:2222:2222 \
-  -e MCP_API_KEY=<与 agent 一致的 key> \
-  mcp-sidecar
+# 2. 组合 .env（放在 docker-compose.yml 同目录）
+{
+  cat env.docker.example
+  echo
+  echo "# 以下是敏感信息，仅部署使用，请勿提交到代码仓库或者外传。"
+  cat .env.example
+} > .env
+chmod 600 .env
+# 再填入 MCP_API_KEY、平台/RAGFlow 凭据、OPENAI_API_KEY 等真实值
 
-# 若 agent 在宿主机或另一个容器里，需要把 2223 放通（仍建议只绑回环/内网地址）：
-# docker run -p 127.0.0.1:2222:2222 -p 127.0.0.1:2223:2223 \
-#   -e MCP_API_KEY=<key> -e MCP_INTERNAL_ADDRESS=0.0.0.0 \
-#   mcp-sidecar
-# 注意：不配置 MCP_API_KEY 时，所有 /mcp/** 请求都会被 401 拒绝。
+# 3. 启动整栈
+docker compose up -d
+docker compose ps
 ```
 
-### Docker Compose部署
-
-```bash
-docker-compose up -d
-```
+- 2222 只绑宿主机回环，由同机 Nginx 按 [`deploy/nginx.conf`](deploy/nginx.conf) 反代对外；
+- 2223（`/mcp/**`）只在容器网络内，必须配置 `MCP_API_KEY`，否则全部 401；
+- `.env` = `env.docker.example`（非敏感）+ `.env.example`（敏感），放在 `docker-compose.yml` 同目录；
+- 改完 `.env` 用 `docker compose up -d` 重建容器，`restart` 不会重读。
