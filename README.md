@@ -39,7 +39,7 @@ Spring AI MCP Sidecar Service - 一个支持多服务端接入的MCP服务器和
 - **本地工具（3 个）**：时间计算、天气（天气当前为占位实现）
 - **场景控制工具（20 个）**：19 个 UE 场景动作 + 1 个场景状态查询
 
-完整端点与工具数见 [系统架构说明](docs/系统架构说明.md#3-mcp-端点清单)。
+完整端点与工具数见 [系统架构说明](docs/系统架构说明.md#5-mcp-端点清单)。
 
 #### 扩展能力
 - 支持动态添加新的MCP服务端
@@ -148,9 +148,9 @@ java -jar mcp-sidecar.jar
 
 | 端口 | 路径 | 协议 | 说明 |
 |---|---|---|---|
-| 2222（公网） | `/llm/chat` | WebSocket | 智能体聊天，需 token + userId |
-| 2222（公网） | `/llm/gen_doc` | WebSocket | 文档生成，需 token + userId |
-| 2222（公网） | `/ws/scene` | WebSocket | UE 场景页面，需 token + userId，`hello` 归档会话 |
+| 2222（宿主机回环，Nginx 反代） | `/llm/chat` | WebSocket | 智能体聊天，需 token + userId |
+| 2222（宿主机回环，Nginx 反代） | `/llm/gen_doc` | WebSocket | 文档生成，需 token + userId |
+| 2222（宿主机回环，Nginx 反代） | `/ws/scene` | WebSocket | UE 场景页面，需 token + userId，`hello` 归档会话 |
 | 2223（内网） | `/mcp/**` | MCP Streamable HTTP | 17 个 MCP 服务端，供 Python agent 调用；需 API Key |
 | 9970（容器内） | `/actuator/health` | HTTP | 健康检查 |
 
@@ -170,13 +170,12 @@ MCP 端点 `/mcp/**` 需要应用层 API Key：`Authorization: Bearer <MCP_API_K
 系统由 `mcp-sidecar`（Java）和 `agentic-app`（Python）两个部署单元组成，外部依赖 Platform 平台、RAGFlow 和 LLM 服务。
 
 ```text
-          浏览器聊天前端 / UE 场景页面
-           WS 2222（/llm/**、/ws/**）
+      Nginx（可选）── 127.0.0.1:2222（/llm/**、/ws/**，不对局域网/公网开放）
                         │
                         ▼
   ┌────────────────────────────────────────┐                          ┌──────────────────────────────────┐
   │ mcp-sidecar                            │  ──── WS 代理 ─────────▶ │ agentic-app :8001                │
-  │ 2222 公网：/llm/**、/ws/**             │                          │ FastAPI + LangGraph              │
+  │ 2222 回环：/llm/**、/ws/**             │                          │ FastAPI + Loop Agent / LangGraph │
   │ 2223 内网：/mcp/**（需 API Key）       │  ◀─── MCP tools/call ─── │ MCP Client                       │
   └────────────────────────────────────────┘                          └──────────────────────────────────┘
                         │                                                              │
@@ -187,7 +186,7 @@ MCP 端点 `/mcp/**` 需要应用层 API Key：`Authorization: Bearer <MCP_API_K
   └────────────────────────────────────────┘
 ```
 
-- **聊天链路**：浏览器 → 2222 `/llm/chat` → 鉴权 + 限流 → agent `:8001` → 流式返回。
+- **聊天链路**：浏览器 → Nginx → 127.0.0.1:2222 `/llm/chat` → 鉴权 + 限流 → agent `:8001` → 流式返回。
 - **MCP 查询链路**：agent → 2223 `/mcp/*`（带 `Authorization: Bearer <MCP_API_KEY>`）→ sidecar 工具 → Platform / RAGFlow。
 - **场景动作链路**：LLM 决定动作 → agent 调 `/mcp/scene` → sidecar 通过 `/ws/scene` 推给 UE 页面 → 页面回执 `action_result`。
 
@@ -284,13 +283,13 @@ docker exec mcp-sidecar curl -fsS http://127.0.0.1:9970/actuator/health
 # 构建镜像
 docker build -t mcp-sidecar .
 
-# 运行容器：只发布公网口 2222；2223（/mcp/** 内网口）和 9970（actuator）不发布
-docker run -p 2222:2222 \
+# 运行容器：2222 只绑宿主机回环（交给 Nginx 反代）；2223、9970 不发布
+docker run -p 127.0.0.1:2222:2222 \
   -e MCP_API_KEY=<与 agent 一致的 key> \
   mcp-sidecar
 
 # 若 agent 在宿主机或另一个容器里，需要把 2223 放通（仍建议只绑回环/内网地址）：
-# docker run -p 2222:2222 -p 127.0.0.1:2223:2223 \
+# docker run -p 127.0.0.1:2222:2222 -p 127.0.0.1:2223:2223 \
 #   -e MCP_API_KEY=<key> -e MCP_INTERNAL_ADDRESS=0.0.0.0 \
 #   mcp-sidecar
 # 注意：不配置 MCP_API_KEY 时，所有 /mcp/** 请求都会被 401 拒绝。

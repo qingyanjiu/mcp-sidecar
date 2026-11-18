@@ -18,7 +18,7 @@
 | 传输方式 | **MCP Streamable HTTP**（Spring WebMvc 实现） |
 | 端点 | `POST /mcp/scene` |
 | 端口 | **`2223`**（内网端口，仅容器网络可达；本地调试用 `127.0.0.1:2223`；容器内监听 `0.0.0.0`） |
-| 鉴权 | **API Key + 端口隔离**：每个请求带 `Authorization: Bearer <MCP_API_KEY>` 或 `X-MCP-API-Key`；`MCP_API_KEY` 未配置时全部 401。公网 `2222` 不开放 `/mcp/**` |
+| 鉴权 | **API Key + 端口隔离**：每个请求带 `Authorization: Bearer <MCP_API_KEY>` 或 `X-MCP-API-Key`；`MCP_API_KEY` 未配置时全部 401。2222 只绑宿主机回环，不开放 `/mcp/**` |
 | 工具数量 | **20**：19 个动作工具 + 1 个查询工具 |
 | 动作帧出口 | WebSocket `/ws/scene`（由前端页面连接，不是 MCP 客户端） |
 | 动作超时 | `scene.action-timeout-ms`，默认 **15000ms** |
@@ -35,7 +35,7 @@ MCP server 只负责“让 LLM 能调”。真正的动作帧通过 `/ws/scene` 
 | `src/main/java/com/hx/mcpsidecar/config/mcp/SceneMcpServerConfig.java` | `/mcp/scene` 端点与 `X-Session-Id` 注入 |
 | `src/main/java/com/hx/mcpsidecar/config/mcp/McpInternalPortConfig.java` | `/mcp/**` 的内网端口（2223）与监听地址 |
 | `src/main/java/com/hx/mcpsidecar/config/McpApiKeyFilter.java` | `/mcp/**` 应用层 API Key 校验 |
-| `src/main/java/com/hx/mcpsidecar/config/EndpointPortGuardFilter.java` | 公网/内网/管理端口的路径隔离（无 profile 限制，未知端口默认拒绝） |
+| `src/main/java/com/hx/mcpsidecar/config/EndpointPortGuardFilter.java` | 外部/内网/管理端口的路径隔离（无 profile 限制，未知端口默认拒绝） |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneDispatcher.java` | 下发、等待回执、超时 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneSessionRegistry.java` | 会话路由与单会话兜底 |
 | `src/main/java/com/hx/mcpsidecar/scene/SceneWebSocketHandler.java` | `/ws/scene` 前端通道 |
@@ -165,7 +165,7 @@ sidecar 下发动作后会等待页面回执，上限 `scene.action-timeout-ms`�
 | 端点 | 方法 | 使用者 | 说明 |
 |---|---|---|---|
 | `/mcp/scene` | POST | agent / LLM | MCP Streamable HTTP，20 个工具；**内网端口 2223**；需 API Key |
-| `/ws/scene` | WebSocket | 前端场景页面 | 接收 `hello` / `scene_state` / `action_result`，接收动作帧；**公网端口 2222** |
+| `/ws/scene` | WebSocket | 前端场景页面 | 接收 `hello` / `scene_state` / `action_result`，接收动作帧；**2222 宿主机回环，Nginx 反代** |
 | `/actuator/health` | GET | 运维 | 健康检查，管理端口 **9970**（仅容器内，不发布） |
 
 > 原 `/scene/*` 联调接口（dispatch / sessions / actions）已删除。
@@ -568,7 +568,7 @@ MCP `tools/call` 调用。
    `hello` 先声明、agent 跟随。聊天入口需要把同一个值透传给 MCP 调用。
 6. **`/mcp/**` 需要应用层 API Key，场景 WS 需要平台 token。** 所有 MCP 请求必须带
    `Authorization: Bearer <MCP_API_KEY>` 或 `X-MCP-API-Key: <MCP_API_KEY>`；
-   端口隔离仍然生效（`2223` 只 expose 不 publish，公网 `2222` 只开放 `/llm/**`、`/ws/**`）。
+   端口隔离仍然生效（`2223` 只 expose 不 publish，2222 只绑宿主机回环、经 Nginx 反代，不直接对外开放）。
    `MCP_API_KEY` 未配置时默认拒绝所有 MCP 请求。`/ws/scene` 在握手时校验平台 token，
    并在 `hello` 时校验 token 与 userId 的绑定关系。
 7. **动作词表是封闭集合。** sidecar 只下发 `SceneActions.ALL` 里的 19 个名字；
