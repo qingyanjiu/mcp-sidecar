@@ -76,7 +76,7 @@
 | `GET /meeting/highFrequencyMeetingRooms` | 查询高频会议室前 5 名。 |
 | `GET /meeting/meetingRoomOverview` | 查询会议室一览及各会议室使用情况。 |
 | `GET /meeting/numberOfMeetings` | 查询会议数量。 |
-| `GET /meeting/meetingRoomStatus` | 查询会议室实时状态。 |
+| `GET /overview/todayMeet` | 查询今日会议统计，包括会议室总数、当前在用/空闲会议室数、今日预约数（平台无 `/meeting/meetingRoomStatus`，会议室实时状态复用该接口）。 |
 | `POST /meetBook/getRoomMeetListByDay` | 查询指定日期的会议安排。 |
 
 ## 食堂
@@ -116,7 +116,7 @@
 | `POST /calldevice/gb/deviceStatusStatistic` | 查询广播设备状态统计。 |
 | `POST /calldevice/xxfb/getProgramCount` | 查询节目数量趋势。 |
 | `POST /calldevice/gb/getDeviceMainInfoList` | 查询近七天的广播设备明细。 |
-| `POST /information/taskTrend` | 查询信息发布任务执行趋势。 |
+| `POST /calldevice/xxfb/getProgramCount` | 查询节目数量趋势（大屏“任务执行趋势”实际复用该接口；平台无 `/information/taskTrend`）。 |
 
 ## 设备态势
 

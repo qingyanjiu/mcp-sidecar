@@ -77,7 +77,7 @@ public class PlatformVehicleStatusMcp {
             name = TOOL_NAME_PREFIX + "getParkingStructure",
             description = TOOL_DESC_PREFIX + """
             查询停车结构,返回停车类型/时长结构占比数组,每项含:
-            - value: 数量或占比
+            - value: 数量
             - name: 类型名称
             - itemStyle: 图表样式(如 color)
             请根据用户问题(如"停车结构分布")从返回中提取对应信息回答。

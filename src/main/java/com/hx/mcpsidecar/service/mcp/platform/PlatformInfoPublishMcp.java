@@ -28,8 +28,8 @@ public class PlatformInfoPublishMcp {
     public static final String INFO_STATISTIC_URL = "/calldevice/xxfb/deviceAndMaterialStatistic";
     // 广播一览接口(广播方 itc/V1.0)
     public static final String BROADCAST_STATISTIC_URL = "/calldevice/gb/deviceStatusStatistic";
-    // 任务执行趋势接口
-    public static final String TASK_TREND_URL = "/information/taskTrend";
+    // 任务执行趋势接口(平台没有 /information/taskTrend,大屏"任务执行趋势"实际取月度节目发布数量)
+    public static final String TASK_TREND_URL = "/calldevice/xxfb/getProgramCount";
     // 节目数量趋势接口(信息发布方 hx/V4.8.5)
     public static final String PROGRAM_COUNT_URL = "/calldevice/xxfb/getProgramCount";
     // 广播设备接口(广播方 itc/V1.0)
@@ -90,8 +90,8 @@ public class PlatformInfoPublishMcp {
             name = TOOL_NAME_PREFIX + "getTaskTrend",
             description = TOOL_DESC_PREFIX + """
             查询发布任务执行趋势,返回:
-            - xData: 时间轴分类数组(按天为小时/按周为星期/按月为日期)
-            - data.oneData / data.twoData: 两组任务执行量数组(通常为不同任务类型的执行量)
+            - xData: 月份数组
+            - count: 与 xData 对应的节目发布数量数组
             请根据用户问题(如"发布任务执行趋势"/"任务执行量变化")从返回中提取对应信息回答。
             """
     )
@@ -100,16 +100,8 @@ public class PlatformInfoPublishMcp {
             @McpToolParam(description = "查询结束时间,格式 yyyy-MM-dd,可不传") String endTime
     ) {
         String url = platformApiCallServiceImpl.getBaseUrl() + TASK_TREND_URL;
-        // 平台按 day/week/month 返回不同粒度的趋势,默认 day;带时间范围则把起止时间一并传给平台
-        Map<String, Object> body = new HashMap<>();
-        body.put("type", "day");
-        if (startTime != null && !startTime.isEmpty()) {
-            body.put("startTime", startTime);
-        }
-        if (endTime != null && !endTime.isEmpty()) {
-            body.put("endTime", endTime);
-        }
-        Object result = platformApiCallServiceImpl.doPostCall(url, body);
+        // 该数据源固定返回近几个月统计,不接受时间范围参数
+        Object result = platformApiCallServiceImpl.doPostCall(url, buildInfoBody());
         return JSON.toJSONString(result);
     }
 

@@ -5,6 +5,7 @@ import com.hx.mcpsidecar.mock.MockData;
 import com.hx.mcpsidecar.service.IApiCallService;
 import com.hx.mcpsidecar.utils.UrlUtils;
 import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -82,10 +83,21 @@ public class PlatformPersonStatusMcp {
     @McpTool(
             name = TOOL_NAME_PREFIX + "getTodayPersonnelFlow",
             description = TOOL_DESC_PREFIX + """
-    查询人员流动数据,返回值包含X轴分类标签以及进入/离开人数序列;type参数可选day/week/month,默认day
+    查询人员流动数据,返回:
+    - category: X轴时间标签
+    - data.oneData: 进入(入园)人数序列,与 category 一一对应
+    - data.twoData: 离开(出园)人数序列,与 category 一一对应
+    时间粒度由 type 决定:
+    - day(默认): 今日 00:00~23:00 按小时, category 为 24 个小时标签
+    - week: 近 7 天按天, category 为 7 个日期
+    - month: 近 30 天按天, category 为 30 个日期
+    回答时必须明确说明哪组是进入人数、哪组是离开人数,禁止用"第一组/第二组"之类用户看不懂的代称。
+    请根据用户问题(如"今天人员进出情况"/"本周进入人数趋势")从返回中提取对应信息回答。
     """
     )
-    public String getPersonnelFlow(String type) {
+    public String getPersonnelFlow(
+            @McpToolParam(description = "时间粒度:day=今日按小时,week=近7天按天,month=近30天按天,默认day") String type
+    ) {
         String flowType = (type == null || type.isBlank()) ? "day" : type;
         String url = UrlUtils.appendQueryParam(
                 platformApiCallServiceImpl.getBaseUrl() + PERSONNEL_FLOW_URL, "type", flowType);

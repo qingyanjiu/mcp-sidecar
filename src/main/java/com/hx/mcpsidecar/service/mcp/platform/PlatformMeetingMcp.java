@@ -29,8 +29,8 @@ public class PlatformMeetingMcp {
     public static final String MEETING_ROOM_OVERVIEW_URL = "/meeting/meetingRoomOverview";
     // 会议数量接口URL
     public static final String NUMBER_OF_MEETINGS_URL = "/meeting/numberOfMeetings";
-    // 会议室状态接口URL
-    public static final String MEETING_ROOM_STATUS_URL = "/meeting/meetingRoomStatus";
+    // 会议室当前状态接口URL(平台没有 /meeting/meetingRoomStatus,复用综合态势的今日会议统计)
+    public static final String TODAY_MEET_URL = "/overview/todayMeet";
     // 当日会议接口URL
     public static final String ROOM_MEET_LIST_BY_DAY_URL = "/meetBook/getRoomMeetListByDay";
 
@@ -116,13 +116,15 @@ public class PlatformMeetingMcp {
             name = TOOL_NAME_PREFIX + "getMeetingRoomStatus",
             description = TOOL_DESC_PREFIX + """
             查询会议室状态,返回:
-            - pieData: 会议室状态占比,每项含 value/name/color
-            - list: 各会议室使用/空闲明细,每项含 name/used/free
-            请根据用户问题(如"会议室空闲情况"/"哪些会议室在用")从返回中提取对应信息回答。
+            - meetingRoomCount: 会议室总数
+            - usedCount: 当前在用会议室数
+            - freeCount: 空闲会议室数
+            - meetingRoomReservationCount: 今日预约会议数
+            请根据用户问题(如"会议室空闲情况"/"现在有多少会议室在开会")从返回中提取对应信息回答。
             """
     )
     public String getMeetingRoomStatus() {
-        String url = platformApiCallServiceImpl.getBaseUrl() + MEETING_ROOM_STATUS_URL;
+        String url = platformApiCallServiceImpl.getBaseUrl() + TODAY_MEET_URL;
         Object result = platformApiCallServiceImpl.doGetCall(url);
         return JSON.toJSONString(result);
     }

@@ -128,50 +128,10 @@
     ]
   },
   "getMeetingRoomStatus": {
-    "pieData": [
-      {
-        "value": 4,
-        "name": "使用中",
-        "color": "#FF7A45"
-      },
-      {
-        "value": 2,
-        "name": "空闲",
-        "color": "#52C41A"
-      }
-    ],
-    "list": [
-      {
-        "name": "A栋301会议室",
-        "used": 14,
-        "free": 6
-      },
-      {
-        "name": "A栋302会议室",
-        "used": 9,
-        "free": 3
-      },
-      {
-        "name": "B栋201会议室",
-        "used": 11,
-        "free": 5
-      },
-      {
-        "name": "B栋202会议室",
-        "used": 8,
-        "free": 8
-      },
-      {
-        "name": "C栋501多功能厅",
-        "used": 42,
-        "free": 18
-      },
-      {
-        "name": "会议中心大会议室",
-        "used": 56,
-        "free": 24
-      }
-    ]
+    "meetingRoomCount": 6,
+    "meetingRoomReservationCount": 23,
+    "freeCount": 2,
+    "usedCount": 4
   },
   "getRoomMeetListByDay": [
     {
